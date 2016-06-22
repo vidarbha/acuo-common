@@ -16,6 +16,8 @@ public interface JaxbContextFactory {
 
 	JAXBContext getContext();
 
+	JAXBContext newInstance(Class<?>... types) throws JAXBException;
+
 	default Marshaller marshaller() {
 		try {
 			Marshaller marshaller = getContext().createMarshaller();
@@ -27,9 +29,30 @@ public interface JaxbContextFactory {
 		}
 	}
 
+	default Marshaller marshaller(Class<?>... types) {
+		try {
+			Marshaller marshaller = newInstance(types).createMarshaller();
+			marshaller.setEventHandler(new MarshallingEventHandler());
+			marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
+			return marshaller;
+		} catch (JAXBException e) {
+			throw new JAXBRuntimeException("Error creating JAXB Marshaller: " + e.getMessage(), e);
+		}
+	}
+
 	default Unmarshaller unmarshaller() {
 		try {
 			Unmarshaller unmarshaller = getContext().createUnmarshaller();
+			unmarshaller.setEventHandler(new MarshallingEventHandler());
+			return unmarshaller;
+		} catch (JAXBException e) {
+			throw new JAXBRuntimeException("Error creating JAXB Unmarshaller: " + e.getMessage(), e);
+		}
+	}
+
+	default Unmarshaller unmarshaller(Class<?>... types) {
+		try {
+			Unmarshaller unmarshaller = newInstance(types).createUnmarshaller();
 			unmarshaller.setEventHandler(new MarshallingEventHandler());
 			return unmarshaller;
 		} catch (JAXBException e) {

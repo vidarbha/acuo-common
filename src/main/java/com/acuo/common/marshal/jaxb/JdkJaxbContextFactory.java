@@ -27,4 +27,9 @@ public class JdkJaxbContextFactory implements JaxbContextFactory {
 		return context;
 	}
 
+	@Override
+	public JAXBContext newInstance(Class<?>... types) throws JAXBException {
+		return context.newInstance(types);
+	}
+
 }

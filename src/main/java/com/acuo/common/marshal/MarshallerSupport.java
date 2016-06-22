@@ -36,6 +36,24 @@ public abstract class MarshallerSupport implements Marshaller {
 	protected abstract String doMarshal(Object body) throws Exception;
 
 	@Override
+	public <T> T unmarshal(final String marshaled) throws Exception {
+		ArgChecker.notNull(marshaled, "marshaled");
+
+		log.trace("Unmarshalling {}", marshaled);
+
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+		try {
+			T value = doUnmarshal(marshaled);
+			log.trace("Value: {}", value);
+
+			return value;
+		} finally {
+			Thread.currentThread().setContextClassLoader(cl);
+		}
+	}
+
+	@Override
 	public <T> T unmarshal(final String marshaled, final Class<T> type) throws Exception {
 		ArgChecker.notNull(marshaled, "marshaled");
 		ArgChecker.notNull(type, "type");
@@ -61,5 +79,6 @@ public abstract class MarshallerSupport implements Marshaller {
 		return (T) unmarshal(marshaled, type.getRawType());
 	}
 
+	protected abstract <T> T doUnmarshal(String marshaled) throws Exception;
 	protected abstract <T> T doUnmarshal(String marshaled, Class<T> type) throws Exception;
 }

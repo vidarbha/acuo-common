@@ -38,10 +38,22 @@ public class JaxbMarshaller extends MarshallerSupport {
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	protected <T> T doUnmarshal(final String marshaled, final Class<T> type) {
+	protected <T> T doUnmarshal(final String marshaled) {
 		StringReader buff = new StringReader(marshaled);
 		try {
 			return (T) factory.unmarshaller().unmarshal(new InputSource(buff));
+		} catch (JAXBException e) {
+			throw new JAXBRuntimeException(
+					"Error un-marshaling [" + marshaled + "] :" + e.getMessage(), e);
+		}
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	protected <T> T doUnmarshal(final String marshaled, final Class<T> type) {
+		StringReader buff = new StringReader(marshaled);
+		try {
+			return (T) factory.unmarshaller(type).unmarshal(new InputSource(buff));
 		} catch (JAXBException e) {
 			throw new JAXBRuntimeException(
 					"Error unmarshalling [" + marshaled + "] against [" + type + "] :" + e.getMessage(), e);

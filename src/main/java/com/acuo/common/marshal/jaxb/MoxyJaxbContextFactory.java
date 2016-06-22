@@ -1,6 +1,7 @@
 package com.acuo.common.marshal.jaxb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +32,12 @@ public class MoxyJaxbContextFactory implements JaxbContextFactory {
 	@Override
 	public JAXBContext getContext() {
 		return context;
+	}
+
+	@Override
+	public JAXBContext newInstance(Class<?>... types) throws JAXBException {
+		List<Class<?>> classes = addMoxyClasses(Arrays.asList(types));
+		return JAXBContextFactory.createContext(toArray(classes), Collections.EMPTY_MAP);
 	}
 
 	private List<Class<?>> addMoxyClasses(List<Class<?>> types) {
