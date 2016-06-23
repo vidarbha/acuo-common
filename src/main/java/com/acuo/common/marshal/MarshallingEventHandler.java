@@ -1,4 +1,4 @@
-package com.acuo.common.marshal.jaxb;
+package com.acuo.common.marshal;
 
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;

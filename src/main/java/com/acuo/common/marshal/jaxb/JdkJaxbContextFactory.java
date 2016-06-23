@@ -1,5 +1,8 @@
 package com.acuo.common.marshal.jaxb;
 
+import com.acuo.common.marshal.MarshallerRuntimeException;
+import com.acuo.common.marshal.MarshallerTypes;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,11 +17,11 @@ public class JdkJaxbContextFactory implements JaxbContextFactory {
 	private final JAXBContext context;
 
 	@Inject
-	JdkJaxbContextFactory(@JaxbTypes List<Class<?>> types) {
+	JdkJaxbContextFactory(@MarshallerTypes List<Class<?>> types) {
 		try {
 			this.context = JAXBContext.newInstance(types.toArray(new Class<?>[types.size()]));
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating JAXB Context: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating JAXB Context: " + e.getMessage(), e);
 		}
 	}
 

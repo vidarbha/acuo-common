@@ -1,4 +1,4 @@
-package com.acuo.common.marshal.jaxb;
+package com.acuo.common.marshal;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

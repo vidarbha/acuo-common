@@ -1,4 +1,4 @@
-package com.acuo.common.marshal.jaxb;
+package com.acuo.common.marshal;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -16,5 +16,5 @@ import com.google.inject.BindingAnnotation;
 @BindingAnnotation
 @Target({ FIELD, PARAMETER, METHOD })
 @Retention(RUNTIME)
-public @interface JaxbTypes {
+public @interface MarshallerTypes {
 }

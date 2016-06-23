@@ -1,9 +1,12 @@
 package com.acuo.common.marshal.jaxb;
 
+import com.acuo.common.marshal.ContextFactory;
+import com.acuo.common.marshal.MarshallerRuntimeException;
+import com.acuo.common.marshal.MarshallingEventHandler;
+
 import static java.lang.Boolean.TRUE;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -12,11 +15,7 @@ import javax.xml.bind.Unmarshaller;
  * Provides access to JAXB {@link Marshaller} and {@link Unmarshaller}
  * instances.
  */
-public interface JaxbContextFactory {
-
-	JAXBContext getContext();
-
-	JAXBContext newInstance(Class<?>... types) throws JAXBException;
+public interface JaxbContextFactory extends ContextFactory {
 
 	default Marshaller marshaller() {
 		try {
@@ -25,7 +24,7 @@ public interface JaxbContextFactory {
 			marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
 			return marshaller;
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating JAXB Marshaller: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating JAXB Marshaller: " + e.getMessage(), e);
 		}
 	}
 
@@ -36,7 +35,7 @@ public interface JaxbContextFactory {
 			marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
 			return marshaller;
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating JAXB Marshaller: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating JAXB Marshaller: " + e.getMessage(), e);
 		}
 	}
 
@@ -46,7 +45,7 @@ public interface JaxbContextFactory {
 			unmarshaller.setEventHandler(new MarshallingEventHandler());
 			return unmarshaller;
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating JAXB Unmarshaller: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating JAXB Unmarshaller: " + e.getMessage(), e);
 		}
 	}
 
@@ -56,7 +55,7 @@ public interface JaxbContextFactory {
 			unmarshaller.setEventHandler(new MarshallingEventHandler());
 			return unmarshaller;
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating JAXB Unmarshaller: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating JAXB Unmarshaller: " + e.getMessage(), e);
 		}
 	}
 }

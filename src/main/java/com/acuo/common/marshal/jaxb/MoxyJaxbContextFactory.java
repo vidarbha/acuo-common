@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import com.acuo.common.marshal.MarshallerRuntimeException;
+import com.acuo.common.marshal.MarshallerTypes;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.xmlmodel.ObjectFactory;
 
@@ -19,13 +21,13 @@ public class MoxyJaxbContextFactory implements JaxbContextFactory {
 	private final JAXBContext context;
 
 	@Inject
-	MoxyJaxbContextFactory(@JaxbTypes List<Class<?>> types) {
+	MoxyJaxbContextFactory(@MarshallerTypes List<Class<?>> types) {
 		ArgChecker.notEmpty(types, "types");
 		try {
 			List<Class<?>> classes = addMoxyClasses(types);
 			this.context = JAXBContextFactory.createContext(toArray(classes), Collections.EMPTY_MAP);
 		} catch (JAXBException e) {
-			throw new JAXBRuntimeException("Error creating Moxy/JAXB Context: " + e.getMessage(), e);
+			throw new MarshallerRuntimeException("Error creating Moxy/JAXB Context: " + e.getMessage(), e);
 		}
 	}
 

@@ -1,10 +1,11 @@
-package com.acuo.common.marshal.jaxb;
+package com.acuo.common.marshal;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.acuo.common.marshal.DecimalAdapter;
 import org.junit.Test;
 
 public class DecimalAdapterTest {
