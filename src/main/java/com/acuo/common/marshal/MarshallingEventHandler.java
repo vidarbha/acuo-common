@@ -1,10 +1,10 @@
 package com.acuo.common.marshal;
 
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.bind.ValidationEvent;
+import javax.xml.bind.ValidationEventHandler;
 
 public class MarshallingEventHandler implements ValidationEventHandler {
 
@@ -14,10 +14,8 @@ public class MarshallingEventHandler implements ValidationEventHandler {
 	public boolean handleEvent(ValidationEvent event) {
 		LOG.warn("{}", event);
 
-		if (event.getLinkedException() instanceof NumberFormatException)
-			return false;
+		return !(event.getLinkedException() instanceof NumberFormatException);
 
-		return true;
 	}
 
 }

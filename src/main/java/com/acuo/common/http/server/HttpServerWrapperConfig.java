@@ -4,20 +4,19 @@
 
 package com.acuo.common.http.server;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newHashMap;
-
-import java.util.List;
-import java.util.Map;
+import org.eclipse.jetty.server.handler.ContextHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.inject.Provider;
 import javax.servlet.ServletContextListener;
+import java.util.List;
+import java.util.Map;
 
-import org.eclipse.jetty.server.handler.ContextHandler;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 
 /**
  * Config info for {@link HttpServerWrapper}.

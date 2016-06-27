@@ -1,11 +1,11 @@
 package com.acuo.common.util;
 
+import com.google.common.math.DoubleMath;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
-
-import com.google.common.math.DoubleMath;
 
 /**
  * Contains utility methods for checking inputs to methods.
@@ -342,7 +342,7 @@ public final class ArgChecker {
 	public static String matches(Pattern pattern, String argument, String name) {
 		notNull(pattern, "pattern");
 		notNull(argument, name);
-		if (pattern.matcher(argument).matches() == false) {
+		if (!pattern.matcher(argument).matches()) {
 			throw new IllegalArgumentException(matchesMsg(pattern, name));
 		}
 		return argument;

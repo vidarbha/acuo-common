@@ -1,18 +1,17 @@
 package com.acuo.common.app;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.joda.convert.FromString;
-
 import com.acuo.common.type.TypedString;
 import com.acuo.common.util.ArgChecker;
+import org.joda.convert.FromString;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Environment extends TypedString<Environment> {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Map<String, Environment> lookup = new HashMap<>();
+	private final static Map<String, Environment> lookup = new HashMap<>();
 
 	public static final Environment DEVELOPMENT = Environment.of("dev");
 	public static final Environment DOCKER = Environment.of("docker");
@@ -20,15 +19,14 @@ public class Environment extends TypedString<Environment> {
 	public static final Environment INTEGRATION = Environment.of("int");
 	public static final Environment PRODUCTION = Environment.of("prod");
 
-	protected Environment(String name) {
+	private Environment(String name) {
 		super(name);
 	}
 
 	@FromString
 	private static Environment of(String name) {
 		ArgChecker.notNull(name, "name");
-		Environment environment = getOrCreate(name);
-		return environment;
+		return getOrCreate(name);
 	}
 
 	private static Environment getOrCreate(String name) {

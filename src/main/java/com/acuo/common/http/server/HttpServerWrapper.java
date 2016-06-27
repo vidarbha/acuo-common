@@ -4,14 +4,10 @@
 
 package com.acuo.common.http.server;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.concurrent.ThreadSafe;
-import javax.inject.Inject;
-import javax.servlet.DispatcherType;
-
+import ch.qos.logback.access.jetty.RequestLogImpl;
+import com.google.common.collect.Lists;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -27,11 +23,12 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Lists;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.servlet.GuiceFilter;
-
-import ch.qos.logback.access.jetty.RequestLogImpl;
+import javax.annotation.concurrent.ThreadSafe;
+import javax.inject.Inject;
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Runs an embedded jetty server. Sets up the guice servlet filter and request

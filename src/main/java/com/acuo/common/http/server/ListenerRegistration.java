@@ -1,14 +1,12 @@
 package com.acuo.common.http.server;
 
-import java.util.EventListener;
+import com.google.common.base.Preconditions;
+import org.eclipse.jetty.server.handler.ContextHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
-
-import org.eclipse.jetty.server.handler.ContextHandler;
-
-import com.google.common.base.Preconditions;
+import java.util.EventListener;
 
 /**
  * Handles adding an event listener instance or class
@@ -50,6 +48,8 @@ final class ListenerRegistration {
 			return;
 		}
 
-		handler.addEventListener(listenerProvider.get());
+		if (listenerProvider != null) {
+			handler.addEventListener(listenerProvider.get());
+		}
 	}
 }

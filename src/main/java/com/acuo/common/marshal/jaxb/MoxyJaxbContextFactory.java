@@ -1,20 +1,18 @@
 package com.acuo.common.marshal.jaxb;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.acuo.common.marshal.MarshallerRuntimeException;
+import com.acuo.common.marshal.MarshallerTypes;
+import com.acuo.common.util.ArgChecker;
+import org.eclipse.persistence.jaxb.JAXBContextFactory;
+import org.eclipse.persistence.jaxb.xmlmodel.ObjectFactory;
 
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-
-import com.acuo.common.marshal.MarshallerRuntimeException;
-import com.acuo.common.marshal.MarshallerTypes;
-import org.eclipse.persistence.jaxb.JAXBContextFactory;
-import org.eclipse.persistence.jaxb.xmlmodel.ObjectFactory;
-
-import com.acuo.common.util.ArgChecker;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MoxyJaxbContextFactory implements JaxbContextFactory {
 

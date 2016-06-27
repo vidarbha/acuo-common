@@ -1,8 +1,7 @@
 package com.acuo.common.marshal;
 
-import java.math.BigDecimal;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.math.BigDecimal;
 
 public class DecimalAdapter extends XmlAdapter<String, Double> {
 

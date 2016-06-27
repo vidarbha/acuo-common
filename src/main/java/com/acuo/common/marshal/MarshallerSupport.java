@@ -1,10 +1,9 @@
 package com.acuo.common.marshal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.acuo.common.util.ArgChecker;
 import com.google.inject.TypeLiteral;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Support for {@link Marshaller} implementations.

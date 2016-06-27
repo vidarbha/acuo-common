@@ -1,27 +1,21 @@
 package com.acuo.common.app;
 
-import java.util.Collection;
-import java.util.logging.LogManager;
-
-import javax.servlet.ServletContextListener;
-
-import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
-import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 import com.acuo.common.http.server.HttpServerWrapperFactory;
 import com.acuo.common.http.server.HttpServerWrapperModule;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.Scopes;
-import com.google.inject.Singleton;
-import com.google.inject.servlet.ServletModule;
+import com.acuo.common.metrics.HealthCheckServletContextListener;
+import com.acuo.common.metrics.MetricsModule;
+import com.acuo.common.metrics.MetricsServletContextListener;
+import com.google.inject.*;
+import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
+import javax.servlet.ServletContextListener;
+import java.util.Collection;
+import java.util.logging.LogManager;
 
 public abstract class ResteasyMain {
 
@@ -38,7 +32,8 @@ public abstract class ResteasyMain {
 
 		ResteasyConfig instance = injector.getInstance(ResteasyConfig.class);
 		HttpServerWrapperConfig config = instance.getConfig();
-
+		config.addServletContextListener(injector.getInstance(HealthCheckServletContextListener.class));
+		config.addServletContextListener(injector.getInstance(MetricsServletContextListener.class));
 		config.addServletContextListenerProvider(listenerProvider);
 
 		try {
@@ -83,13 +78,8 @@ public abstract class ResteasyMain {
 
 			bind(ResteasyConfig.class).to(config).in(Singleton.class);
 
-			install(new ServletModule() {
-				@Override
-				protected void configureServlets() {
-					serve("/*").with(HttpServletDispatcher.class);
-					bind(HttpServletDispatcher.class).in(Scopes.SINGLETON);
-				}
-			});
+			install(new MetricsModule());
+			install(new ResteasyServletModule());
 
 			listenerProvider.saveProvider(binder());
 		}

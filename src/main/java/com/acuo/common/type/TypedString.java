@@ -1,11 +1,10 @@
 package com.acuo.common.type;
 
-import java.io.Serializable;
-import java.util.regex.Pattern;
-
+import com.acuo.common.util.ArgChecker;
 import org.joda.convert.ToString;
 
-import com.acuo.common.util.ArgChecker;
+import java.io.Serializable;
+import java.util.regex.Pattern;
 
 /**
  * An abstract class designed to enable typed strings.
@@ -67,7 +66,7 @@ public abstract class TypedString<T extends TypedString<T>>
     ArgChecker.notEmpty(name, "name");
     ArgChecker.notNull(pattern, "pattern");
     ArgChecker.notEmpty(msg, "msg");
-    if (pattern.matcher(name).matches() == false) {
+    if (!pattern.matcher(name).matches()) {
       throw new IllegalArgumentException(msg);
     }
     this.name = name;

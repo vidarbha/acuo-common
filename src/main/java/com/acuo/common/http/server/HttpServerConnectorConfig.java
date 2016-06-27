@@ -1,15 +1,14 @@
 package com.acuo.common.http.server;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Lists.newArrayList;
-
-import java.security.KeyStore;
-import java.util.List;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
+import java.security.KeyStore;
+import java.util.List;
 
-import org.eclipse.jetty.util.ssl.SslContextFactory;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * Config for an individual connector that will be used in a {@link HttpServerWrapper}. Defaults, where provided, are

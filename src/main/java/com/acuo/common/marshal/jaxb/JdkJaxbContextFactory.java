@@ -3,11 +3,10 @@ package com.acuo.common.marshal.jaxb;
 import com.acuo.common.marshal.MarshallerRuntimeException;
 import com.acuo.common.marshal.MarshallerTypes;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import java.util.List;
 
 /**
  * Default {@link JaxbContextFactory} implementation.

@@ -1,11 +1,11 @@
 package com.acuo.common.http.server;
 
+import com.google.inject.Binder;
+import com.google.inject.Key;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Provider;
-
-import com.google.inject.Binder;
-import com.google.inject.Key;
 
 /**
  * Captures a provider from a binder for later use. This allows you to create a

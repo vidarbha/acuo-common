@@ -4,12 +4,12 @@ import com.acuo.common.marshal.ContextFactory;
 import com.acuo.common.marshal.MarshallerRuntimeException;
 import com.acuo.common.marshal.MarshallingEventHandler;
 
-import static java.lang.Boolean.TRUE;
-import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import static java.lang.Boolean.TRUE;
+import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
 /**
  * Provides access to JAXB {@link Marshaller} and {@link Unmarshaller}
