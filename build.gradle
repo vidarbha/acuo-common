@@ -1,13 +1,31 @@
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.6'
+}
+
 apply from: "$rootDir/gradle/java-plugins.gradle"
 apply from: "$rootDir/gradle/dependencies.gradle"
+apply from: "$rootDir/gradle/deployment.gradle"
 
 repositories {
     jcenter()
     mavenLocal()
     mavenCentral()
+    maven {
+        url "http://192.168.1.70:8081/repository/maven-public/"
+    }
 }
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
+
 group = 'com.acuo.collateral'
-version = '1.0.0-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 ext.versions += [
         eclipselink: '2.6.3',
@@ -34,7 +52,8 @@ dependencies {
             "io.dropwizard.metrics:metrics-jvm:${versions.metrics}",
             "io.dropwizard.metrics:metrics-servlets:${versions.metrics}",
             "com.palominolabs.metrics:metrics-guice:${versions.metricsguice}",
-            "org.jasypt:jasypt:1.9.2"
+            "org.jasypt:jasypt:1.9.2",
+            "com.opengamma.strata:strata-basics:1.0.0"
     )
 
     testCompile(
