@@ -1,15 +1,13 @@
 package com.acuo.common.model;
 
 import com.opengamma.strata.basics.currency.Currency;
-import com.opengamma.strata.basics.date.BusinessDayConvention;
-import com.opengamma.strata.basics.date.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendarId;
 import com.opengamma.strata.basics.schedule.Frequency;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 @Data
@@ -39,7 +37,7 @@ public class IrSwap extends BaseTrade {
         private Double spread;
         private Double rate;
         private String type;
-        private DayCount daycount;
+        private DayCountProxy daycount;
         private Double notional;
         private String notionalxg;
         private IrSwapLegPayDates paydates;
@@ -62,7 +60,8 @@ public class IrSwap extends BaseTrade {
         private LocalDate startDate;
         private Frequency frequency;
         private LocalDate enddate;
-        private BusinessDayConvention businessDayConvention;
+        private BusinessDayConventionProxy businessDayConvention;
+        private Set<HolidayCalendarId> holidayCalendarIds;
         private boolean adjust;
         private boolean eom;
     }
