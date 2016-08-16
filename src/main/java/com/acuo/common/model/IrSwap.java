@@ -16,7 +16,7 @@ import java.util.TreeSet;
 @EqualsAndHashCode(callSuper = false)
 public class IrSwap extends BaseTrade {
 
-    private Set<IrSwapLeg> legs = new TreeSet<>();
+    private final Set<IrSwapLeg> legs = new TreeSet<>();
 
     public Set<IrSwapLeg> getLegs() {
         return this.legs;
