@@ -14,6 +14,14 @@ public class DayCountProxy implements DayCount {
         this.delegate = toProxy;
     }
 
+    public static DayCountProxy of(DayCount toProxy) {
+        return new DayCountProxy(toProxy);
+    }
+
+    public static DayCountProxy of(String name) {
+        return new DayCountProxy(DayCount.of(name));
+    }
+
     @Override
     public double yearFraction(LocalDate firstDate, LocalDate secondDate, ScheduleInfo scheduleInfo) {
         return delegate.yearFraction(firstDate, secondDate, scheduleInfo);

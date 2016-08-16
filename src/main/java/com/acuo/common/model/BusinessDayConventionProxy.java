@@ -13,6 +13,14 @@ public class BusinessDayConventionProxy implements BusinessDayConvention {
         this.delegate = delegate;
     }
 
+    public static BusinessDayConventionProxy of(BusinessDayConvention toProxy) {
+        return new BusinessDayConventionProxy(toProxy);
+    }
+
+    public static BusinessDayConventionProxy of(String name) {
+        return new BusinessDayConventionProxy(BusinessDayConvention.of(name));
+    }
+
     @Override
     public LocalDate adjust(LocalDate date, HolidayCalendar calendar) {
         return delegate.adjust(date, calendar);

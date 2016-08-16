@@ -13,6 +13,14 @@ public class RollConventionProxy implements RollConvention {
         this.delegate = delegate;
     }
 
+    public static RollConventionProxy of(RollConvention toProxy) {
+        return new RollConventionProxy(toProxy);
+    }
+
+    public static RollConventionProxy of(String name) {
+        return new RollConventionProxy(RollConvention.of(name));
+    }
+
     @Override
     public LocalDate adjust(LocalDate date) {
         return delegate.adjust(date);
