@@ -1,4 +1,4 @@
-package com.acuo.common.model;
+package com.acuo.common.model.proxy;
 
 import com.acuo.common.util.ArgChecker;
 import com.opengamma.strata.basics.date.DayCount;

@@ -1,4 +1,4 @@
-package com.acuo.common.model;
+package com.acuo.common.model.proxy;
 
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;

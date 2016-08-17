@@ -53,7 +53,8 @@ dependencies {
             "io.dropwizard.metrics:metrics-servlets:${versions.metrics}",
             "com.palominolabs.metrics:metrics-guice:${versions.metricsguice}",
             "org.jasypt:jasypt:1.9.2",
-            "com.opengamma.strata:strata-basics:1.0.0"
+            "com.opengamma.strata:strata-basics:1.0.0",
+            "com.opengamma.strata:strata-product:1.0.0"
     )
 
     testCompile(

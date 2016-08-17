@@ -1,7 +1,6 @@
 package com.acuo.common.marshal;
 
-import com.acuo.common.model.DayCountProxy;
-import com.opengamma.strata.basics.date.DayCount;
+import com.acuo.common.model.proxy.DayCountProxy;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

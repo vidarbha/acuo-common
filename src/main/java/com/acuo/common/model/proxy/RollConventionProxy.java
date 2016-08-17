@@ -1,4 +1,4 @@
-package com.acuo.common.model;
+package com.acuo.common.model.proxy;
 
 import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.basics.schedule.RollConvention;

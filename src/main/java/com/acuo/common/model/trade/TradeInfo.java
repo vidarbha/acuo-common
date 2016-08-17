@@ -1,20 +1,16 @@
-package com.acuo.common.model;
+package com.acuo.common.model.trade;
 
-import com.opengamma.strata.basics.currency.Currency;
+
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public abstract class BaseTrade implements Trade {
-
+public class TradeInfo {
     private String tradeId;
     private LocalDate tradeDate;
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
     private String book;
-    private Currency currency;
-    private ProductType productType;
     private TradeStatus tradeStatus;
-
 }
