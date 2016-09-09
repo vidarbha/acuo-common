@@ -6,6 +6,10 @@ apply plugin:'project-report'
 apply plugin:'maven-publish'
 apply plugin:'jacoco'
 
+compileJava {
+	options.compilerArgs << '-parameters'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 

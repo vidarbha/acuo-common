@@ -9,31 +9,52 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static com.acuo.common.model.margin.Types.*;
+
 @Data
 public class MarginCall {
 
-    private String callAmpId;
-    private Currency currency;
+    private String ampId;
+    private BusinessState businessState;
+
+    private int[] cancelReasonCodes;
+
     private double collateralValue;
+    private Currency currency;
+
     private LocalDate callDate;
+    private boolean callDateCalculated;
+
     private double deliverAmount;
+
+    private int[] disputeReasonCodes;
+
     private double exposure;
-    private double minimumTransferAmount;
     private double pendingCollateral;
     private double returnAmount;
+
     private double roundingAmount;
-    private LocalDate settlementDate;
+    private double threshold;
+
     private double totalCallAmount;
     private CallType callType;
+
     private LocalDate valuationDate;
+
+    private int version;
+    private boolean child;
+
+    private double minimumTransferAmount;
+
+    private LocalDate settlementDate;
+    private String externalReference;
+    private String marginAgreementAmpId;
+    private String marginAgreementShortName;
     private String externalUsername;
     private PledgeFxRates pledgeFxRates;
-    private String localCounterpartyLabel;
-    private String marginAgreementShortName;
-    private AgreementType marginAgreementType;
 
-    private int cancelReasonCode;
-    private int disputeReasonCode;
+    private String localCounterpartyLabel;
+    private AgreementType marginAgreementType;
 
     private double agreedAmount;
 
@@ -45,6 +66,11 @@ public class MarginCall {
 
     @Data
     public static class PledgeFxRates {
+
+    }
+
+    @Data
+    public static class Counterparty {
 
     }
 }

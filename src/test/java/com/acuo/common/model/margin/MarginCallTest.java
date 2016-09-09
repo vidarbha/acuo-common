@@ -15,11 +15,12 @@ public class MarginCallTest {
     private MarginCall marginCall;
     private String agreement = "F 1000";
     private double million = 1_000_000_000;
-    private LocalDate now = LocalDate.now();
+    private LocalDate now;
 
     @Before
     public void setUp() {
         marginCall = new MarginCall();
+        now = LocalDate.now();
     }
 
     @Test
@@ -39,37 +40,37 @@ public class MarginCallTest {
 
     @Test
     public void testCancel() {
-        marginCall.setCallAmpId("abc");
-        marginCall.setCancelReasonCode(9001);
+        marginCall.setAmpId("abc");
+        marginCall.setCancelReasonCodes(new int[] {9001});
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getCancelReasonCode()).isEqualTo(9001);
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getCancelReasonCodes()).isEqualTo(new int[] {9001});
     }
 
     @Test
     public void testAgree() {
-        marginCall.setCallAmpId("abc");
+        marginCall.setAmpId("abc");
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
     }
 
     @Test
     public void testDisputeFull() {
-        marginCall.setCallAmpId("abc");
-        marginCall.setDisputeReasonCode(9001);
+        marginCall.setAmpId("abc");
+        marginCall.setDisputeReasonCodes(new int[] {9001});
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCode()).isEqualTo(9001);
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
     }
 
     @Test
     public void testDisputePartial() {
-        marginCall.setCallAmpId("abc");
-        marginCall.setDisputeReasonCode(9001);
+        marginCall.setAmpId("abc");
+        marginCall.setDisputeReasonCodes(new int[] {9001});
         marginCall.setAgreedAmount(1);
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCode()).isEqualTo(9001);
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
         assertThat(marginCall.getAgreedAmount()).isEqualTo(1);
 
     }
@@ -79,9 +80,9 @@ public class MarginCallTest {
         Pledge pledge = createPledge();
         marginCall.addPledge(pledge);
         marginCall.addPledge(pledge);
-        marginCall.setCallAmpId("abc");
+        marginCall.setAmpId("abc");
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
         assertThat(marginCall.getPledges()).hasSize(1).contains(createPledge());
     }
 
@@ -90,9 +91,9 @@ public class MarginCallTest {
         Pledge pledge = createPledge();
         pledge.setRejectReasonCode(9002);
         marginCall.addPledge(pledge);
-        marginCall.setCallAmpId("abc");
+        marginCall.setAmpId("abc");
 
-        assertThat(marginCall.getCallAmpId()).isEqualTo("abc");
+        assertThat(marginCall.getAmpId()).isEqualTo("abc");
         assertThat(marginCall.getPledges()).hasSize(1).doesNotContain(createPledge());
         Optional<Pledge> first = marginCall.getPledges().stream().findFirst();
         Pledge p = createPledge();
@@ -105,13 +106,13 @@ public class MarginCallTest {
         Pledge pledge = new Pledge();
         //pledge.set[Anything] ( *);
         marginCall.addPledge(pledge);
-        marginCall.setCallAmpId("abc");
+        marginCall.setAmpId("abc");
     }
 
 
     @Test
     public void testPledgeAccept() {
-        marginCall.setCallAmpId("abc");
+        marginCall.setAmpId("abc");
     }
 
     private Pledge createPledge() {

@@ -7,7 +7,7 @@ import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
 public interface Types {
 
     enum CallType {
-        Initial, Variation;
+        Netted, Initial, Variation;
     }
 
     enum ImRole {
@@ -15,27 +15,47 @@ public interface Types {
     }
 
     enum AgreementType {
+        Group, CSA, Regulatory_CSA;
+    }
 
-        GROUP("GROUP"), CSA("CSA"), REG_CSA("Regulatory CSA");
-
-        private final String name;
-
-        AgreementType(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
+    enum DeliveryType {
+        Deliver, Return;
     }
 
     enum SecurityIdType {
         CASH, CUSIP, ISIN, RIC, SEDOL;
+    }
 
+    enum BusinessState {
+        Pending_New,
+        Received,
+        Agreed,
+        Agree_Cancelled,
+        Cancelled,
+        Disputed,
+        Dispute_Cancelled,
+        Partial,
+        Partial_Agreed,
+        Partial_Disputed,
+        Pledged,
+        Pledge_Accepted,
+        Pledge_Amended,
+        Pledge_Cancelled,
+        Pledge_Rejected,
+        Rejected;
     }
 
     enum ReasonCodeType {
-        Generic, Security, WebService, Database, XML, MarginCall, Pledge, RecallItem, InterestStatement, Other;
+        Generic,
+        Security,
+        WebService,
+        Database,
+        XML,
+        MarginCall,
+        Pledge,
+        RecallItem,
+        InterestStatement,
+        Other;
     }
 
     enum ReasonCode {
