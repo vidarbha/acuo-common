@@ -3,19 +3,18 @@ package com.acuo.common.model.product;
 import com.acuo.common.model.AdjustableDate;
 import com.acuo.common.model.AdjustableSchedule;
 import com.acuo.common.model.BusinessDayAdjustment;
-import com.acuo.common.model.PayReceive;
-import com.acuo.common.model.proxy.BusinessDayConventionProxy;
-import com.acuo.common.model.proxy.DayCountProxy;
 import com.acuo.common.model.trade.ProductType;
 import com.acuo.common.model.trade.SwapTrade;
 import com.acuo.common.model.trade.TradeInfo;
 import com.acuo.common.model.trade.TradeStatus;
-import com.google.common.collect.ImmutableSet;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.DayCounts;
-import com.opengamma.strata.basics.date.HolidayCalendarIds;
+import com.opengamma.strata.basics.date.Tenor;
+import com.opengamma.strata.basics.index.FloatingRateName;
 import com.opengamma.strata.basics.schedule.Frequency;
+import com.opengamma.strata.product.common.PayReceive;
+import com.opengamma.strata.product.swap.FixingRelativeTo;
 import com.opengamma.strata.product.swap.SwapLegType;
 
 import java.time.LocalDate;
@@ -51,11 +50,11 @@ public class SwapHelper {
         switch (type) {
             case FIXED:
                 swapLeg.setType("FIXED");
-                swapLeg.setDaycount(DayCountProxy.of(DayCounts.THIRTY_360_ISDA));
+                swapLeg.setDaycount(DayCounts.THIRTY_360_ISDA);
                 break;
             case IBOR:
                 swapLeg.setType("FLOAT");
-                swapLeg.setDaycount(DayCountProxy.of(DayCounts.ACT_360));
+                swapLeg.setDaycount(DayCounts.ACT_360);
                 Swap.SwapLegFixing fixing = createSwapLegFixing();
                 swapLeg.setFixing(fixing);
                 break;
@@ -87,16 +86,16 @@ public class SwapHelper {
 
     private static BusinessDayAdjustment createBusinessDayAdjustment() {
         BusinessDayAdjustment adjustment = new BusinessDayAdjustment();
-        adjustment.setBusinessDayConvention(BusinessDayConventionProxy.of(BusinessDayConventions.MODIFIED_FOLLOWING));
+        adjustment.setBusinessDayConvention(BusinessDayConventions.MODIFIED_FOLLOWING);
         //adjustment.setHolidays(ImmutableSet.of(HolidayCalendarIds.USNY, HolidayCalendarIds.GBLO));
         return adjustment;
     }
 
     private static Swap.SwapLegFixing createSwapLegFixing() {
         Swap.SwapLegFixing fixing = new Swap.SwapLegFixing();
-        fixing.setArrears(false);
-        fixing.setName("LIBOR");
-        fixing.setTerm("3M");
+        fixing.setFloatingRateName(FloatingRateName.of("USD-LIBOR"));
+        fixing.setTenor(Tenor.TENOR_3M);
+        fixing.setFixingRelativeTo(FixingRelativeTo.PERIOD_START);
         return fixing;
     }
 

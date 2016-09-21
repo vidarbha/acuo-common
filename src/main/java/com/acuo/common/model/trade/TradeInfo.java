@@ -15,11 +15,11 @@ public class TradeInfo {
     private LocalDate clearedTradeDate;
     private String book;
     private TradeStatus tradeStatus;
-    private Set<Attribute> attributes;
+    /*private Set<Attribute> attributes;
 
     @Data
     public static class Attribute {
         private TradeAttributeType<?> type;
         private String value;
-    }
+    }*/
 }

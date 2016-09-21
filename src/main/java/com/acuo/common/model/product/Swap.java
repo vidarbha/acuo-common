@@ -2,18 +2,17 @@ package com.acuo.common.model.product;
 
 import com.acuo.common.model.AdjustableDate;
 import com.acuo.common.model.AdjustableSchedule;
-import com.acuo.common.model.PayReceive;
-import com.acuo.common.model.proxy.BusinessDayConventionProxy;
-import com.acuo.common.model.proxy.DayCountProxy;
-import com.acuo.common.model.proxy.RollConventionProxy;
 import com.opengamma.strata.basics.currency.Currency;
-import com.opengamma.strata.basics.date.HolidayCalendarId;
+import com.opengamma.strata.basics.date.DayCount;
+import com.opengamma.strata.basics.date.Tenor;
+import com.opengamma.strata.basics.index.FloatingRateName;
 import com.opengamma.strata.basics.schedule.Frequency;
-
+import com.opengamma.strata.basics.schedule.RollConvention;
+import com.opengamma.strata.product.common.PayReceive;
+import com.opengamma.strata.product.swap.FixingRelativeTo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -45,14 +44,14 @@ public class Swap implements Product {
         private Double spread;
         private Double rate;
         private String type;
-        private DayCountProxy daycount;
+        private DayCount daycount;
         private Double notional;
         private String notionalxg;
         private AdjustableDate startDate;
         private AdjustableDate maturityDate;
         private AdjustableSchedule paymentSchedule;
         private AdjustableSchedule calculationSchedule;
-        private RollConventionProxy rollConvention;
+        private RollConvention rollConvention;
 
         @Override
         public int compareTo(SwapLeg other) {
@@ -62,8 +61,8 @@ public class Swap implements Product {
 
     @Data
     public static class SwapLegFixing {
-        private String name;
-        private String term;
-        private boolean arrears;
+        private FloatingRateName floatingRateName;
+        private Tenor tenor;
+        private FixingRelativeTo fixingRelativeTo;
     }
 }
