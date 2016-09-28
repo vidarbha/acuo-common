@@ -18,11 +18,16 @@ public class OkHttpClient<T extends EndPointConfig> implements ClientEndPoint<T>
     public OkHttpClient(okhttp3.OkHttpClient httpClient, T config) {
         this.config = config;
         log.debug("OkHttpClient default connection timeout in ms:" + httpClient.connectTimeoutMillis());
+        log.debug("OkHttpClient default read timeout in ms:" + httpClient.readTimeoutMillis());
+        log.debug("OkHttpClient default write timeout in ms:" + httpClient.writeTimeoutMillis());
         this.httpClient = httpClient.newBuilder()
                 .connectTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
                 .readTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
                 .writeTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
                 .build();
+        log.debug("OkHttpClient newly set connection timeout in ms:" + this.httpClient.connectTimeoutMillis());
+        log.debug("OkHttpClient newly set read timeout in ms:" + this.httpClient.readTimeoutMillis());
+        log.debug("OkHttpClient newly set write timeout in ms:" + this.httpClient.writeTimeoutMillis());
         log.info("Create Markit Http Client with {}", config.toString());
     }
 

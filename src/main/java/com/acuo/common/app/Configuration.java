@@ -4,10 +4,12 @@ public class Configuration {
 
 	private final AppId appId;
 	private final Environment environment;
+	private final SecurityKey securityKey;
 
 	private Configuration(Builder builder) {
 		this.appId = builder.appId;
 		this.environment = builder.environment;
+		this.securityKey = builder.securityKey;
 	}
 
 	public static Builder builder(AppId appId) {
@@ -22,10 +24,15 @@ public class Configuration {
 		return environment;
 	}
 
+	public SecurityKey getSecurityKey() {
+		return securityKey;
+	}
+
 	public static class Builder {
 
 		private final AppId appId;
 		private Environment environment = Environment.TEST;
+		private SecurityKey securityKey = null;
 
 		public Builder(AppId appId) {
 			this.appId = appId;
@@ -33,6 +40,11 @@ public class Configuration {
 
 		public Builder with(Environment environment) {
 			this.environment = environment;
+			return this;
+		}
+
+		public Builder with(SecurityKey securityKey) {
+			this.securityKey = securityKey;
 			return this;
 		}
 
