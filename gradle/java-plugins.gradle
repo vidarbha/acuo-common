@@ -8,6 +8,12 @@ apply plugin:'jacoco'
 
 compileJava {
 	options.compilerArgs << '-parameters'
+    //options.compilerArgs << '-Xlint:unchecked'
+}
+
+compileTestJava {
+	options.compilerArgs << '-parameters'
+	//options.compilerArgs << '-Xlint:unchecked'
 }
 
 sourceCompatibility = 1.8
