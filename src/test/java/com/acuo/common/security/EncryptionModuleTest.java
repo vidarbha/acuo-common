@@ -2,6 +2,9 @@ package com.acuo.common.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.acuo.common.app.AppId;
+import com.acuo.common.app.Configuration;
+import com.acuo.common.app.SecurityKey;
 import com.acuo.common.util.GuiceJUnitRunner;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -18,7 +21,9 @@ public class EncryptionModuleTest {
     public static class SystemPropertyModule extends AbstractModule {
         @Override
         protected void configure() {
-            bindConstant().annotatedWith(Names.named("acuo.security.key")).to("mysecuritykey");
+            bind(Configuration.class).toInstance(Configuration.builder(AppId.of("common"))
+                                                              .with(SecurityKey.of("mysecuritykey"))
+                                                              .build());
         }
     }
 
