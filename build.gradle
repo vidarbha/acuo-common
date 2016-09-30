@@ -7,12 +7,12 @@ apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/deployment.gradle"
 
 repositories {
-    jcenter()
     mavenLocal()
-    mavenCentral()
     maven {
         url "${nexusUrl}/repository/maven-public/"
     }
+    jcenter()
+    mavenCentral()
 }
 
 configurations.all {
@@ -65,4 +65,24 @@ dependencies {
             "org.easymock:easymock:3.3",
             "com.squareup.okhttp3:mockwebserver:${versions.okhttp}",
     )
+}
+
+task testReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allTests")
+    // Include the results from the `test` task in all subprojects
+    reportOn test
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco"
+    }
+}
+
+task build {
+    dependsOn tasks.jacocoTestReport
+    dependsOn tasks.testReport
 }
