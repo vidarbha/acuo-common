@@ -1,10 +1,9 @@
-apply plugin: 'java'
+apply plugin:'java'
 apply plugin:'groovy'
 apply plugin:'eclipse'
 apply plugin:'idea'
 apply plugin:'project-report'
 apply plugin:'maven-publish'
-apply plugin:'jacoco'
 
 compileJava {
 	options.compilerArgs << '-parameters'
