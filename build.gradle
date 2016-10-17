@@ -1,31 +1,16 @@
 plugins {
     id 'io.franzbecker.gradle-lombok' version '1.6'
-    //id "org.sonarqube" version "2.0.1"
 }
 
-apply from: "$rootDir/gradle/java-plugins.gradle"
-apply from: "$rootDir/gradle/dependencies.gradle"
-apply from: "$rootDir/gradle/deployment.gradle"
-apply from: "$rootDir/gradle/sonarqube.gradle"
-apply from: "$rootDir/gradle/test-reports.gradle"
+apply from: "$rootDir/gradle/root/gradle-wrapper.gradle"
+apply from: "$rootDir/gradle/root/idea-provided.gradle"
+apply from: "$rootDir/gradle/root/test-reports.gradle"
 
-repositories {
-    mavenLocal()
-    maven {
-        url "${nexusUrl}/repository/maven-public/"
-    }
-    jcenter()
-    mavenCentral()
-}
-
-configurations.all {
-    // check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.1'
-}
+apply from: "$rootDir/gradle/projects/java-plugins.gradle"
+apply from: "$rootDir/gradle/projects/dependencies.gradle"
+apply from: "$rootDir/gradle/projects/integration-test.gradle"
+apply from: "$rootDir/gradle/projects/deployment.gradle"
+apply from: "$rootDir/gradle/projects/sonarqube.gradle"
 
 group = 'com.acuo.collateral'
 version = '0.0.1-SNAPSHOT'

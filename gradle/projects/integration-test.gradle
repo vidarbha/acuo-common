@@ -12,7 +12,6 @@ sourceSets {
     }
 }
 
-
 plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
     idea {
         module {
