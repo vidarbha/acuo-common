@@ -4,6 +4,7 @@ import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.servlets.*;
 import com.google.inject.Provides;
+import com.google.inject.multibindings.Multibinder;
 import com.google.inject.servlet.ServletModule;
 
 import javax.inject.Inject;
@@ -30,6 +31,9 @@ public class HelthChecksInstrumentationServletModule extends ServletModule {
 		serve("/admin/ping").with(PingServlet.class);
 		serve("/admin/threads").with(ThreadDumpServlet.class);
 		serve("/admin/healthcheck").with(HealthCheckServlet.class);
+
+		// Ensure that the binding exists, even if it is empty.
+		Multibinder.newSetBinder(binder(), HealthCheck.class);
 	}
 
 	@Provides

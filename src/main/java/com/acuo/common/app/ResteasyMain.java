@@ -1,25 +1,33 @@
 package com.acuo.common.app;
 
 import com.acuo.common.http.server.BinderProviderCapture;
+import com.acuo.common.http.server.HttpServerWrapper;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 import com.acuo.common.http.server.HttpServerWrapperFactory;
-import com.acuo.common.http.server.HttpServerWrapperModule;
 import com.acuo.common.metrics.HealthCheckServletContextListener;
-import com.acuo.common.metrics.MetricsModule;
 import com.acuo.common.metrics.MetricsServletContextListener;
-import com.google.inject.*;
+import com.google.common.util.concurrent.AbstractService;
+import com.google.common.util.concurrent.Service;
+import com.google.common.util.concurrent.ServiceManager;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.servlet.ServletContextListener;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.LogManager;
 
-public abstract class ResteasyMain {
+@Slf4j
+public abstract class ResteasyMain extends AbstractService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ResteasyMain.class);
+	private final ServiceManager serviceManager;
+	private final HttpServerWrapper httpServerWrapper;
 
 	public ResteasyMain() {
 		LogManager.getLogManager().reset();
@@ -36,11 +44,28 @@ public abstract class ResteasyMain {
 		config.addServletContextListener(injector.getInstance(MetricsServletContextListener.class));
 		config.addServletContextListenerProvider(listenerProvider);
 
-		try {
-			injector.getInstance(HttpServerWrapperFactory.class).getHttpServerWrapper(config).start();
-		} catch (Exception e) {
-			LOG.error("Error initializing Resteasy application", e);
-		}
+		serviceManager = injector.getInstance(ServiceManager.class);
+		final ServiceManager.Listener listener = new ServiceManager.Listener() {
+			@Override
+			public void healthy() {
+				notifyStarted();
+			}
+
+			@Override
+			public void stopped() {
+				notifyStopped();
+			}
+
+			@Override
+			public void failure(@NotNull final Service service) {
+				notifyFailed(service.failureCause());
+			}
+		};
+		serviceManager.addListener(listener);
+		ServiceManagerHealthCheck serviceManagerHealthCheck = injector.getInstance(ServiceManagerHealthCheck.class);
+		serviceManager.addListener(serviceManagerHealthCheck.serviceManagerListener());
+
+		httpServerWrapper = injector.getInstance(HttpServerWrapperFactory.class).getHttpServerWrapper(config);
 	}
 
 	public abstract Class<? extends ResteasyConfig> config();
@@ -49,39 +74,28 @@ public abstract class ResteasyMain {
 
 	public abstract Collection<Module> modules();
 
-	private static class ServiceModule extends AbstractModule {
+	@Override
+	protected void doStart() {
 
-		private final BinderProviderCapture<?> listenerProvider;
-		private final Collection<Class<?>> providers;
-		private final Collection<Module> modules;
-		private final Class<? extends ResteasyConfig> config;
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> doStop(), "GracefulShutdownThread"));
 
-		public ServiceModule(BinderProviderCapture<?> listenerProvider, Collection<Class<?>> providers,
-				Collection<Module> modules, Class<? extends ResteasyConfig> config) {
-			this.listenerProvider = listenerProvider;
-			this.providers = providers;
-			this.modules = modules;
-			this.config = config;
+		serviceManager.startAsync();
+
+		try {
+			httpServerWrapper.start();
+		} catch (Exception e) {
+			log.error("Error initializing Resteasy application", e);
 		}
+	}
 
-		@Override
-		protected void configure() {
-			binder().requireExplicitBindings();
-
-			providers.stream().forEach(this::bind);
-
-			install(new HttpServerWrapperModule());
-
-			modules.stream().forEach(this::install);
-
-			bind(GuiceResteasyBootstrapServletContextListener.class);
-
-			bind(ResteasyConfig.class).to(config).in(Singleton.class);
-
-			install(new MetricsModule());
-			install(new ResteasyServletModule());
-
-			listenerProvider.saveProvider(binder());
+	@Override
+	protected void doStop() {
+		try {
+			// We have some shutdown logic to ensure that files are cleaned up so give it a chance to
+			// run
+			serviceManager.stopAsync().awaitStopped(10, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			log.warn("Timeout waiting for shutdown to complete", e);
 		}
 	}
 }
