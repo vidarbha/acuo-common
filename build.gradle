@@ -1,5 +1,6 @@
 plugins {
     id 'io.franzbecker.gradle-lombok' version '1.6'
+    id 'net.nemerosa.versioning' version '2.5.0'
 }
 
 apply from: "$rootDir/gradle/root/gradle-wrapper.gradle"
@@ -13,7 +14,10 @@ apply from: "$rootDir/gradle/projects/deployment.gradle"
 apply from: "$rootDir/gradle/projects/sonarqube.gradle"
 
 group = 'com.acuo.collateral'
-version = '0.0.1-SNAPSHOT'
+
+allprojects {
+    version = versioning.info.full
+}
 
 ext.versions += [
     eclipselink  : '2.6.3',
