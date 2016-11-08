@@ -21,7 +21,7 @@ allprojects {
 
 ext.versions += [
     eclipselink  : '2.6.3',
-    resteasy     : '3.0.16.Final',
+    resteasy     : '3.0.19.Final',
     guice        : '4.0',
     metrics      : '3.1.2',
     metricsguice : '3.1.3',
