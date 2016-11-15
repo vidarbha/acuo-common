@@ -5,26 +5,19 @@
  */
 package com.acuo.common.util;
 
-import static com.acuo.common.TestHelper.assertUtilityClass;
-import static com.acuo.common.TestHelper.matchesRegex;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.regex.Pattern;
-
+import com.google.common.collect.ImmutableSortedMap;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.google.common.collect.ImmutableSortedMap;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.regex.Pattern;
+
+import static com.acuo.common.TestHelper.assertUtilityClass;
+import static com.acuo.common.TestHelper.matchesRegex;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test ArgChecker.

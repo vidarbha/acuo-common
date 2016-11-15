@@ -5,9 +5,9 @@
  */
 package com.acuo.common.type;
 
-import java.util.regex.Pattern;
-
 import org.joda.convert.FromString;
+
+import java.util.regex.Pattern;
 
 /**
  * The sample type.
