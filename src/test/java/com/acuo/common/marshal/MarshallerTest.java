@@ -1,27 +1,23 @@
 package com.acuo.common.marshal;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.acuo.common.marshal.jaxb.JaxbContextFactory;
 import com.acuo.common.marshal.jaxb.MoxyJaxbContextFactory;
 import com.acuo.common.marshal.json.JsonContextFactory;
 import com.acuo.common.marshal.json.MoxyJsonContextFactory;
+import com.acuo.common.util.ResourceFile;
 import com.google.inject.*;
 import com.google.inject.name.Names;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import com.acuo.common.util.ResourceFile;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Arrays;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 public class MarshallerTest {
 

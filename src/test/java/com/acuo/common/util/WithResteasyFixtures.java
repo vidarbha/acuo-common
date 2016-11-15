@@ -1,11 +1,11 @@
 package com.acuo.common.util;
 
-import java.util.stream.Stream;
-
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
+
+import java.util.stream.Stream;
 
 public interface WithResteasyFixtures {
 

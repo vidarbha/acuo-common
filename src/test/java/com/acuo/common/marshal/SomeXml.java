@@ -1,14 +1,13 @@
 package com.acuo.common.marshal;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.eclipse.persistence.oxm.annotations.XmlPath;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.eclipse.persistence.oxm.annotations.XmlPath;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @XmlRootElement(name = "SomeXml")
 public class SomeXml {
