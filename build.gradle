@@ -3,7 +3,7 @@ plugins {
 }
 
 apply from: "$rootDir/gradle/root/gradle-wrapper.gradle"
-apply from: "$rootDir/gradle/root/idea-provided.gradle"
+//apply from: "$rootDir/gradle/root/idea-provided.gradle"
 apply from: "$rootDir/gradle/root/test-reports.gradle"
 
 apply from: "$rootDir/gradle/projects/java-plugins.gradle"
