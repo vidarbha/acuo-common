@@ -5,17 +5,16 @@
  */
 package com.acuo.common.util;
 
-import static com.acuo.common.TestHelper.assertUtilityClass;
-import static org.junit.Assert.assertEquals;
-
-import java.util.Objects;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.Objects;
+
+import static com.acuo.common.TestHelper.assertUtilityClass;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test Messages.

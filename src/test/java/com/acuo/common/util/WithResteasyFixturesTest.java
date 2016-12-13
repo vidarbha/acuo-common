@@ -1,14 +1,14 @@
 package com.acuo.common.util;
 
-import static com.acuo.common.TestHelper.matchesRegex;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import javax.ws.rs.ext.Provider;
-
 import org.jboss.resteasy.core.Dispatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import javax.ws.rs.ext.Provider;
+
+import static com.acuo.common.TestHelper.matchesRegex;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WithResteasyFixturesTest implements WithResteasyFixtures {
 
