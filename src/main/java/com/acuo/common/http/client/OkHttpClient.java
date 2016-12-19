@@ -6,11 +6,14 @@ import okhttp3.Response;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.function.Predicate;
 
 @Slf4j
 public class OkHttpClient<T extends EndPointConfig> implements ClientEndPoint<T> {
 
+    private static final Proxy PROXY = new Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("127.0.0.1", 8123));
     private final T config;
     private final okhttp3.OkHttpClient httpClient;
 
@@ -20,11 +23,13 @@ public class OkHttpClient<T extends EndPointConfig> implements ClientEndPoint<T>
         log.debug("OkHttpClient default connection timeout in ms:" + httpClient.connectTimeoutMillis());
         log.debug("OkHttpClient default read timeout in ms:" + httpClient.readTimeoutMillis());
         log.debug("OkHttpClient default write timeout in ms:" + httpClient.writeTimeoutMillis());
-        this.httpClient = httpClient.newBuilder()
+
+        okhttp3.OkHttpClient.Builder builder = httpClient.newBuilder()
                 .connectTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
                 .readTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
-                .writeTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit())
-                .build();
+                .writeTimeout(config.connectionTimeOut(), config.connectionTimeOutUnit());
+        if (config.useLocalSocksProxy()) builder.proxy(PROXY);
+        this.httpClient = builder.build();
         log.debug("OkHttpClient newly set connection timeout in ms:" + this.httpClient.connectTimeoutMillis());
         log.debug("OkHttpClient newly set read timeout in ms:" + this.httpClient.readTimeoutMillis());
         log.debug("OkHttpClient newly set write timeout in ms:" + this.httpClient.writeTimeoutMillis());
