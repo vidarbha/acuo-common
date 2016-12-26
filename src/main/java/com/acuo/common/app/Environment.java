@@ -14,6 +14,7 @@ public class Environment extends TypedString<Environment> {
 	private final static Map<String, Environment> lookup = new HashMap<>();
 
 	public static final Environment DEVELOPMENT = Environment.of("dev");
+	public static final Environment LOCAL = Environment.of("local");
 	public static final Environment DOCKER = Environment.of("docker");
 	public static final Environment TEST = Environment.of("test");
 	public static final Environment INTEGRATION = Environment.of("int");
