@@ -1,6 +1,7 @@
 package com.acuo.common.json;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ValueFormatter {
@@ -20,5 +21,12 @@ public class ValueFormatter {
             return "";
         DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
         return formatter.format(date);
+    }
+
+    public static String format(LocalDateTime dateTime) {
+        if (dateTime == null)
+            return "";
+        DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+        return formatter.format(dateTime);
     }
 }
