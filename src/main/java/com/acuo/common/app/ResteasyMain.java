@@ -13,11 +13,13 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.server.Server;
 import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.servlet.ServletContextListener;
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -97,5 +99,10 @@ public abstract class ResteasyMain extends AbstractService {
 		} catch (TimeoutException e) {
 			log.warn("Timeout waiting for shutdown to complete", e);
 		}
+	}
+
+	public URI getURI() {
+		Server server = httpServerWrapper.getServer();
+		return server != null ? server.getURI() : null;
 	}
 }
