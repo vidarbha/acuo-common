@@ -27,11 +27,13 @@ public class MarginCallTest {
     public void testCreate() {
 
         marginCall.setMarginAgreementShortName(agreement);
+        marginCall.setMarginAgreementAmpId(agreement);
         marginCall.setValuationDate(now);
         marginCall.setCurrency(Currency.USD);
         marginCall.setTotalCallAmount(million);
 
         assertThat(marginCall.getMarginAgreementShortName()).isEqualTo(agreement);
+        assertThat(marginCall.getMarginAgreementAmpId()).isEqualTo(agreement);
         assertThat(marginCall.getValuationDate()).isEqualTo(now);
         assertThat(marginCall.getCurrency()).isEqualTo(Currency.USD);
         assertThat(marginCall.getTotalCallAmount()).isEqualTo(million);
