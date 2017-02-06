@@ -1,4 +1,4 @@
-package com.acuo.common.model.margin.result;
+package com.acuo.common.model.results;
 
 import lombok.Data;
 
