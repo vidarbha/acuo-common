@@ -1,5 +1,6 @@
 package com.acuo.common.security;
 
+import com.acuo.common.app.AppId;
 import com.acuo.common.app.Configuration;
 import com.acuo.common.app.SecurityKey;
 import com.google.inject.AbstractModule;
@@ -15,6 +16,8 @@ import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Scanner;
 
 @Slf4j
 public class EncryptionModule extends AbstractModule {
@@ -78,4 +81,20 @@ public class EncryptionModule extends AbstractModule {
         return dummyEncryptor;
     }
 
+    public static void main(String[] args) {
+        Scanner scanIn = new Scanner(System.in);
+        System.out.print("Enter the encryption key: ");
+        String key = scanIn.next();
+        System.out.print("Enter the text to encrupt: ");
+        String password = scanIn.next();
+
+        EncryptionModule module = new EncryptionModule();
+        Configuration config = Configuration.builder(AppId.of("common"))
+                                            .with(SecurityKey.of(key))
+                                            .build();
+        PBEStringEncryptor encryptor = module.provideStringEncryptor(config);
+        String encrypted = encryptor.encrypt(password);
+
+        System.out.println("The encrypted test [" + encrypted +"]");
+    }
 }

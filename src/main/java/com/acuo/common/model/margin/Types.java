@@ -6,8 +6,12 @@ import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
 
 public interface Types {
 
+    enum MarginType {
+        Initial, Variation;
+    }
+
     enum CallType {
-        Netted, Initial, Variation;
+        Initial, Variation, Netted, Consolidated, Credit;
     }
 
     enum ImRole {
