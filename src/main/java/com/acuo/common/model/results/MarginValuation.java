@@ -9,4 +9,5 @@ public class MarginValuation {
     private Double account;
     private Double change;
     private Double margin;
+    private String marginType;
 }
