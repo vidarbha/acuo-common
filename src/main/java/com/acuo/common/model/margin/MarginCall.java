@@ -16,6 +16,7 @@ public class MarginCall {
 
     private String ampId;
     private BusinessState businessState;
+    private String direction;
 
     private int[] cancelReasonCodes;
 
