@@ -59,16 +59,18 @@ public class MarginCall {
 
     private double agreedAmount;
 
-    private final Set<Pledge> pledges = new TreeSet<>();
+    private Pledge pledge;
 
-    public void addPledge(Pledge pledge) {
-        this.pledges.add(pledge);
-    }
+//    private final Set<Pledge> pledges = new TreeSet<>();
 
-    @Data
-    public static class PledgeFxRates {
+//    public void addPledge(Pledge pledge) {
+//        this.pledges.add(pledge);
+//    }
 
-    }
+//    @Data
+//    public static class PledgeFxRates {
+//
+//    }
 
     @Data
     public static class Counterparty {
