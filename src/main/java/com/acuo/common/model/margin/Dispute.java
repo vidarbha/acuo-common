@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Dispute {
 
-    private int[] disputeReasonCodes;
+    private int disputeReasonCodes;
     private double counterpartyMtM;
     private double counterpartyCollateralBalance;
     private double counterpartyIM;
