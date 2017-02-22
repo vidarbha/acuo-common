@@ -58,21 +58,25 @@ public class MarginCallTest {
 
     @Test
     public void testDisputeFull() {
+        Dispute dispute = new Dispute();
+        dispute.setDisputeReasonCodes(new int[] {9001});
+        marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setDisputeReasonCodes(new int[] {9001});
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(new int[] {9001});
     }
 
     @Test
     public void testDisputePartial() {
+        Dispute dispute = new Dispute();
+        dispute.setDisputeReasonCodes(new int[] {9001});
+        marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setDisputeReasonCodes(new int[] {9001});
         marginCall.setAgreedAmount(1);
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(new int[] {9001});
         assertThat(marginCall.getAgreedAmount()).isEqualTo(1);
 
     }

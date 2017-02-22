@@ -28,8 +28,6 @@ public class MarginCall {
 
     private double deliverAmount;
 
-    private int[] disputeReasonCodes;
-
     private double exposure;
     private double pendingCollateral;
     private double returnAmount;
@@ -59,10 +57,20 @@ public class MarginCall {
 
     private double agreedAmount;
 
+    private Dispute dispute;
+
     private final Set<Pledge> pledges = new TreeSet<>();
+
+    public Set<Pledge> getPledges()  {
+        return pledges;
+    }
 
     public void addPledge(Pledge pledge) {
         this.pledges.add(pledge);
+    }
+
+    public void removeAllPledges()  {
+        pledges.clear();
     }
 
     @Data
