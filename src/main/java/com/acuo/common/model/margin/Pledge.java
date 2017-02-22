@@ -25,6 +25,7 @@ public class Pledge implements Comparable<Pledge>{
     private double haircut;
     private String externalUsername;
     private int rejectReasonCode;
+    private int version;
 
     @Override
     public int compareTo(Pledge other) {
