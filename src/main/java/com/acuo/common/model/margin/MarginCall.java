@@ -18,7 +18,7 @@ public class MarginCall {
     private BusinessState businessState;
     private String direction;
 
-    private int[] cancelReasonCodes;
+    private Set<Integer> cancelReasonCodes;
 
     private double collateralValue;
     private Currency currency;
