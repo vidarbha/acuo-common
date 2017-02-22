@@ -61,8 +61,16 @@ public class MarginCall {
 
     private final Set<Pledge> pledges = new TreeSet<>();
 
+    public Set<Pledge> getPledges()  {
+        return pledges;
+    }
+
     public void addPledge(Pledge pledge) {
         this.pledges.add(pledge);
+    }
+
+    public void removeAllPledges()  {
+        pledges.clear();
     }
 
     @Data
