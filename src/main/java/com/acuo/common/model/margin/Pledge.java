@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Pledge implements Comparable<Pledge>{
 
     private String callAmpId;
+    private String pledgeAmpId;
     private String securityId;
     private SecurityIdType securityIdType;
     private String deliveryType;
