@@ -15,5 +15,9 @@ public class Dispute {
     private double counterpartyCollateralBalance;
     private double counterpartyIM;
     private String disputeComment;
-
+    private String state;
+    private Boolean parent;
+    private Boolean child;
+    private String parentAmpId;
+    private int parentVersion;
 }
