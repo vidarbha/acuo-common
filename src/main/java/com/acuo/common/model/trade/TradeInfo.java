@@ -15,6 +15,7 @@ public class TradeInfo {
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
     private String book;
+    private String portfolio;
     private TradeStatus tradeStatus;
     /*private Set<Attribute> attributes;
 
