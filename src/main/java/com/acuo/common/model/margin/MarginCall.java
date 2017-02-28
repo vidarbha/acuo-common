@@ -59,6 +59,14 @@ public class MarginCall {
 
     private Dispute dispute;
 
+    private Set<Recall> recalls = new TreeSet<>();
+
+    public Set<Recall> getRecalls() { return recalls; }
+
+    public void addRecall(Recall recall) { this.recalls.add(recall); }
+
+    public void removeAllRecalls() {recalls.clear(); }
+
     private final Set<Pledge> pledges = new TreeSet<>();
 
     public Set<Pledge> getPledges()  {
