@@ -1,9 +1,11 @@
 package com.acuo.common.model.margin;
 
 import com.opengamma.strata.basics.currency.Currency;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 public class Recall {
 
     private String callAmpId;
