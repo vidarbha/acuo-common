@@ -130,4 +130,19 @@ public class MarginCallTest {
         pledge.setCurrentMarketValue(million);
         return pledge;
     }
+
+    @Test
+    public void testRecall() {
+        marginCall.setAmpId("abc");
+    }
+
+    private Recall createRecall() {
+        Recall recall = new Recall();
+        recall.setSecurityId("CASH");
+        recall.setSecurityIdType(CASH);
+        recall.setSettlementDate(now);
+        recall.setCurrentMarketValue(million);
+        return recall;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import java.time.LocalDate;
 
 public class Recall {
+
     private String callAmpId;
     private String pledgeAmpId;
     private String securityId;
@@ -21,4 +22,5 @@ public class Recall {
     private String externalUsername;
     private int rejectReasonCode;
     private int version;
+
 }
