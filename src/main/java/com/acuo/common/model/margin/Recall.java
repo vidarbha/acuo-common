@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Recall {
 
     private String callAmpId;
-    private String pledgeAmpId;
+    private String recallAmpId;
     private String securityId;
     private Types.SecurityIdType securityIdType;
     private String deliveryType;
