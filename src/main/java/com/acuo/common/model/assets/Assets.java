@@ -11,6 +11,7 @@ import java.util.Currency;
 @Data
 public class Assets {
 
+    private AssetValuation assetValuation;
     private String assetId;
     private String idType;
     private String name;
@@ -20,8 +21,6 @@ public class Assets {
     private String ticker;
     private LocalDate issueDate;
     private LocalDate maturityDate;
-    private double price;
-    private double yield;
     private double oriYield;
     private String fitchRating;
     private double parValue;
