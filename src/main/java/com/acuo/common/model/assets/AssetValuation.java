@@ -17,5 +17,6 @@ public class AssetValuation {
     private String priceQuotationType;
     private Currency nominalCurrency;
     private Currency reportCurrency;
+    private double coupon;
 
 }
