@@ -1,9 +1,9 @@
 package com.acuo.common.model.assets;
 
+import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Currency;
 
 @Data
 public class AssetValuation {

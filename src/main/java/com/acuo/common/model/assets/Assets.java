@@ -3,7 +3,7 @@ package com.acuo.common.model.assets;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Currency;
+import com.opengamma.strata.basics.currency.Currency;
 
 /**
  * Created by lucie on 14/3/17.
