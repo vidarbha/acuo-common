@@ -5,9 +5,6 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.Currency;
 
-/**
- * Created by lucie on 15/3/17.
- */
 @Data
 public class AssetValuation {
 
@@ -15,6 +12,7 @@ public class AssetValuation {
     private double price;
     private LocalDate valuationDateTime;
     private String priceQuotationType;
+    private String source;
     private Currency nominalCurrency;
     private Currency reportCurrency;
     private double coupon;
