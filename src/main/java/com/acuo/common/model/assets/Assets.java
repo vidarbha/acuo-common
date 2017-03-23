@@ -21,7 +21,6 @@ public class Assets {
     private String ticker;
     private LocalDate issueDate;
     private LocalDate maturityDate;
-    private double oriYield;
     private String fitchRating;
     private double parValue;
     private double minUnit;
