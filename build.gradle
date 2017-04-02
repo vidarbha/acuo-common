@@ -28,7 +28,8 @@ dependencies {
             "org.jasypt:jasypt:1.9.2",
             "com.opengamma.strata:strata-basics:${versions.strata}",
             "com.opengamma.strata:strata-product:${versions.strata}",
-            "com.thetransactioncompany:cors-filter:2.5"
+            "com.thetransactioncompany:cors-filter:2.5",
+            "com.hazelcast:hazelcast:3.8"
     )
 
     testCompile(
