@@ -6,5 +6,6 @@ public interface EndPointConfig {
 
     int connectionTimeOut();
     TimeUnit connectionTimeOutUnit();
+    boolean useLocalSocksProxy();
 
 }

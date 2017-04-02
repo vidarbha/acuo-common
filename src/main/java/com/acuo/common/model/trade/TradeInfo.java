@@ -10,10 +10,12 @@ import java.util.Set;
 @Data
 public class TradeInfo {
     private String tradeId;
+    private String tradingAccountId;
     private LocalDate tradeDate;
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
     private String book;
+    private String portfolio;
     private TradeStatus tradeStatus;
     /*private Set<Attribute> attributes;
 

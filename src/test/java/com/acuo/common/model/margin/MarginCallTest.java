@@ -1,5 +1,6 @@
 package com.acuo.common.model.margin;
 
+import com.google.common.collect.ImmutableSet;
 import com.opengamma.strata.basics.currency.Currency;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,11 +28,13 @@ public class MarginCallTest {
     public void testCreate() {
 
         marginCall.setMarginAgreementShortName(agreement);
+        marginCall.setMarginAgreementAmpId(agreement);
         marginCall.setValuationDate(now);
         marginCall.setCurrency(Currency.USD);
         marginCall.setTotalCallAmount(million);
 
         assertThat(marginCall.getMarginAgreementShortName()).isEqualTo(agreement);
+        assertThat(marginCall.getMarginAgreementAmpId()).isEqualTo(agreement);
         assertThat(marginCall.getValuationDate()).isEqualTo(now);
         assertThat(marginCall.getCurrency()).isEqualTo(Currency.USD);
         assertThat(marginCall.getTotalCallAmount()).isEqualTo(million);
@@ -41,10 +44,10 @@ public class MarginCallTest {
     @Test
     public void testCancel() {
         marginCall.setAmpId("abc");
-        marginCall.setCancelReasonCodes(new int[] {9001});
+        marginCall.setCancelReasonCodes(ImmutableSet.of(9001));
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getCancelReasonCodes()).isEqualTo(new int[] {9001});
+        assertThat(marginCall.getCancelReasonCodes()).isEqualTo(ImmutableSet.of(9001));
     }
 
     @Test
@@ -56,21 +59,25 @@ public class MarginCallTest {
 
     @Test
     public void testDisputeFull() {
+        Dispute dispute = new Dispute();
+        dispute.setDisputeReasonCodes(ImmutableSet.of(9001));
+        marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setDisputeReasonCodes(new int[] {9001});
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(9001));
     }
 
     @Test
     public void testDisputePartial() {
+        Dispute dispute = new Dispute();
+        dispute.setDisputeReasonCodes(ImmutableSet.of(9001));
+        marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setDisputeReasonCodes(new int[] {9001});
         marginCall.setAgreedAmount(1);
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDisputeReasonCodes()).isEqualTo(new int[] {9001});
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(9001));
         assertThat(marginCall.getAgreedAmount()).isEqualTo(1);
 
     }

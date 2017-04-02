@@ -16,8 +16,9 @@ public class MarginCall {
 
     private String ampId;
     private BusinessState businessState;
+    private String direction;
 
-    private int[] cancelReasonCodes;
+    private Set<Integer> cancelReasonCodes;
 
     private double collateralValue;
     private Currency currency;
@@ -26,8 +27,6 @@ public class MarginCall {
     private boolean callDateCalculated;
 
     private double deliverAmount;
-
-    private int[] disputeReasonCodes;
 
     private double exposure;
     private double pendingCollateral;
@@ -58,10 +57,20 @@ public class MarginCall {
 
     private double agreedAmount;
 
+    private Dispute dispute;
+
     private final Set<Pledge> pledges = new TreeSet<>();
+
+    public Set<Pledge> getPledges()  {
+        return pledges;
+    }
 
     public void addPledge(Pledge pledge) {
         this.pledges.add(pledge);
+    }
+
+    public void removeAllPledges()  {
+        pledges.clear();
     }
 
     @Data

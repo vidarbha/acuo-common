@@ -1,8 +1,10 @@
 package com.acuo.common.statemachine;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
@@ -12,6 +14,7 @@ public interface State<DOMAINSTATETYPE extends State> extends StateGuards<DOMAIN
 
     default void afterTransition(DOMAINSTATETYPE from) {}
     default void beforeTransition(DOMAINSTATETYPE to) {}
+    default Function<Class<?>, List<Action>> actions() {return (c) -> Collections.emptyList(); }
 
     default <T extends DOMAINSTATETYPE> boolean isInState(NextState<T> constructor) {
         return constructor.type().isInstance(this);
@@ -28,13 +31,16 @@ public interface State<DOMAINSTATETYPE extends State> extends StateGuards<DOMAIN
         BASETYPE ignoreIfInvalid();
         DESIRED unchecked();
     }
+
     interface RequestTransitionTo<BASETYPE> {
         <DESIRED extends BASETYPE> OrElse<BASETYPE, DESIRED> to(NextState<DESIRED> constructor);
     }
+
     default <DESIRED extends DOMAINSTATETYPE> OrElse<DOMAINSTATETYPE, DESIRED> tryTransition(NextState<DESIRED> desired) {
         return new OrElse<DOMAINSTATETYPE, DESIRED>() {
             public <E extends Exception> DESIRED orElseThrow(Supplier<E> e) throws E {
                 if (canTransitionTo(desired)) {
+                    actions().apply(desired.type()).forEach(action -> action.perform((DOMAINSTATETYPE)State.this));
                     return applyGuards(desired.get());
                 }
 
@@ -77,5 +83,4 @@ public interface State<DOMAINSTATETYPE extends State> extends StateGuards<DOMAIN
             .map(type -> (Class<?>) type)
             .collect(toList());
     }
-
 }
