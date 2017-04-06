@@ -1,4 +1,4 @@
-package com.acuo.common.model.assets;
+package com.acuo.common.model.results;
 
 import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
