@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Data
 public class AssetValuation {
 
+    private String assetId;
     private double yield;
     private double price;
     private LocalDate valuationDateTime;
