@@ -8,10 +8,10 @@ public class ArithmeticUtils {
     private ArithmeticUtils() {
     }
 
-    private static Double addition(Double... values) {
+    public static Double addition(Double... values) {
+        if (values == null) return 0.0d;
         return Arrays.stream(values)
                      .filter(Objects::nonNull)
-                     .mapToDouble(Double::doubleValue)
-                     .sum();
+                     .reduce(0.0, Double::sum);
     }
 }
