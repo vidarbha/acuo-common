@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class AssetValuation {
 
     private String assetId;
+    private String idType;
     private double yield;
     private double price;
     private LocalDate valuationDateTime;
