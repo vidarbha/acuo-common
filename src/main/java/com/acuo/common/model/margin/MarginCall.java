@@ -57,6 +57,18 @@ public class MarginCall {
 
     private double agreedAmount;
 
+    private String side;
+    private String statementId;
+    private double totalCouponPayment;
+    private double upfrontFee;
+    private double premiumPayment;
+    private double CDSCreditEvent;
+    private double NDFCashSettlement;
+    private double clearingFee;
+    private double brokerFee;
+    private double initialBalanceCash;
+    private double initialBalanceNonCash;
+
     private Dispute dispute;
 
     private Set<Recall> recalls = new TreeSet<>();
