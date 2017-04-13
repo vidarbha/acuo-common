@@ -14,6 +14,7 @@ import static com.acuo.common.model.margin.Types.*;
 @Data
 public class MarginCall {
 
+    private String id;
     private String ampId;
     private BusinessState businessState;
     private String direction;
