@@ -8,7 +8,7 @@ public class ArithmeticUtilsTest {
 
     @Test
     public void testAdditionWithNull() {
-        Double result = ArithmeticUtils.addition(null);
+        Double result = ArithmeticUtils.addition((Double[]) null);
         assertThat(result).isEqualTo(0.0d);
 
         result = ArithmeticUtils.addition(null, null);

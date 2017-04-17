@@ -2,6 +2,7 @@ package com.acuo.common.typeref;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +23,9 @@ public class HashLiteralExample {
         assertEquals("was here", hash.get("bill"));
     }
 
-    public static <T> Map<String, T> hash(NamedValue<T>... keyValuePairs) {
+    private static <T> Map<String, T> hash(NamedValue<T>... keyValuePairs) {
         Map<String, T> map = new HashMap<>();
-        asList(keyValuePairs)
-            .stream()
+        Arrays.stream(keyValuePairs)
             .forEach(kvp ->
                 map.put(
                     kvp.name(),

@@ -60,24 +60,24 @@ public class MarginCallTest {
     @Test
     public void testDisputeFull() {
         Dispute dispute = new Dispute();
-        dispute.setDisputeReasonCodes(ImmutableSet.of(9001));
+        dispute.setDisputeReasonCodes(ImmutableSet.of(Types.DisputeReasonCode.AD));
         marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(9001));
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(Types.DisputeReasonCode.AD));
     }
 
     @Test
     public void testDisputePartial() {
         Dispute dispute = new Dispute();
-        dispute.setDisputeReasonCodes(ImmutableSet.of(9001));
+        dispute.setDisputeReasonCodes(ImmutableSet.of(Types.DisputeReasonCode.AD));
         marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
         marginCall.setAgreedAmount(1);
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(9001));
+        assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(Types.DisputeReasonCode.AD));
         assertThat(marginCall.getAgreedAmount()).isEqualTo(1);
 
     }
