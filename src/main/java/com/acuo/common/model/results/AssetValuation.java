@@ -11,7 +11,8 @@ public class AssetValuation {
     private String assetId;
     private String idType;
     private double yield;
-    private double price;
+    private double cleanMarketValue;
+    private double notional;
     private LocalDate valuationDateTime;
     private String priceQuotationType;
     private String source;
