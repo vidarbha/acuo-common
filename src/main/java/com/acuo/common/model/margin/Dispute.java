@@ -4,20 +4,24 @@ import lombok.Data;
 
 import java.util.Set;
 
-/**
- * Created by lucie on 22/2/17.
- */
+import static com.acuo.common.model.margin.Types.DisputeReasonCode;
+
 @Data
 public class Dispute {
 
-    private Set<Integer> disputeReasonCodes;
-    private double counterpartyMtM;
-    private double counterpartyCollateralBalance;
-    private double counterpartyIM;
-    private String disputeComment;
-    private String state;
-    private Boolean parent;
-    private Boolean child;
+    private String msId;
+    private Set<DisputeReasonCode> disputeReasonCodes;
+
+    private String comments;
+    private Double disputedAmount;
+    private Double agreedAmount;
+    private Double mtm;
+    private Double balance;
+    private Double im;
+
     private String parentAmpId;
     private int parentVersion;
+    private Boolean parent;
+    private Boolean child;
+    private String state;
 }
