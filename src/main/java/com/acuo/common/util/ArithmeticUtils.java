@@ -14,4 +14,11 @@ public class ArithmeticUtils {
                      .filter(Objects::nonNull)
                      .reduce(0.0, Double::sum);
     }
+
+    public static Double divide(Double dividend, Double divisor) {
+        if (dividend == null || divisor == null || divisor.equals(0.0d)) {
+            return Double.NaN;
+        }
+        return dividend / divisor;
+    }
 }
