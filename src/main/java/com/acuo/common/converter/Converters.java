@@ -131,8 +131,7 @@ public class Converters<T, U> implements Converter<T, U> {
     public final U from(T t) {
         Object result = t;
 
-        for (int i = 0; i < chain.length; i++)
-            result = chain[i].from(result);
+        for (Converter aChain : chain) result = aChain.from(result);
 
         return (U) result;
     }
