@@ -7,7 +7,7 @@ import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
 public interface Types {
 
     enum MarginType {
-        Initial, Variation;
+        Initial, Variation,InterestPayment,PAI,FeesAndComms,ProductCashFlow;
     }
 
     enum CallType {
