@@ -1,6 +1,9 @@
 package com.acuo.common.type;
 
 import com.acuo.common.util.ArgChecker;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.joda.convert.ToString;
 
 import java.io.Serializable;
@@ -32,99 +35,103 @@ import java.util.regex.Pattern;
  * <p>
  * The net result is that an API can be written with methods taking
  * {@code FooType} as a method parameter instead of {@code String}.
- * 
- * @param <T>  the implementation subclass of this class
+ *
+ * @param <T> the implementation subclass of this class
  */
 public abstract class TypedString<T extends TypedString<T>>
-    implements Comparable<T>, Serializable {
+        implements Comparable<T>, Serializable {
 
-  /** Serialization version. */
-  private static final long serialVersionUID = 1L;
+    /**
+     * Serialization version.
+     */
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * The name.
-   */
-  private final String name;
+    /**
+     * The name.
+     */
+    private final String name;
 
-  /**
-   * Creates an instance.
-   * 
-   * @param name  the name, not empty
-   */
-  protected TypedString(String name) {
-    this.name = ArgChecker.notEmpty(name, "name");
-  }
-
-  /**
-   * Creates an instance, validating the name against a regex.
-   * 
-   * @param name  the name, not empty
-   * @param pattern  the regex pattern for validating the name
-   * @param msg  the message to use to explain validation failure
-   */
-  protected TypedString(String name, Pattern pattern, String msg) {
-    ArgChecker.notEmpty(name, "name");
-    ArgChecker.notNull(pattern, "pattern");
-    ArgChecker.notEmpty(msg, "msg");
-    if (!pattern.matcher(name).matches()) {
-      throw new IllegalArgumentException(msg);
+    /**
+     * Creates an instance.
+     *
+     * @param name the name, not empty
+     */
+    protected TypedString(String name) {
+        this.name = ArgChecker.notEmpty(name, "name");
     }
-    this.name = name;
-  }
 
-  //-------------------------------------------------------------------------
-  /**
-   * Compares this type to another.
-   * <p>
-   * Instances are compared in alphabetical order based on the name.
-   * 
-   * @param other  the object to compare to
-   * @return the comparison
-   */
-  @Override
-  public final int compareTo(T other) {
-    return name.compareTo(other.toString());
-  }
-
-  /**
-   * Checks if this type equals another.
-   * <p>
-   * Instances are compared based on the name.
-   * 
-   * @param obj  the object to compare to, null returns false
-   * @return true if equal
-   */
-  @Override
-  public final boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
+    /**
+     * Creates an instance, validating the name against a regex.
+     *
+     * @param name    the name, not empty
+     * @param pattern the regex pattern for validating the name
+     * @param msg     the message to use to explain validation failure
+     */
+    protected TypedString(String name, Pattern pattern, String msg) {
+        ArgChecker.notEmpty(name, "name");
+        ArgChecker.notNull(pattern, "pattern");
+        ArgChecker.notEmpty(msg, "msg");
+        if (!pattern.matcher(name).matches()) {
+            throw new IllegalArgumentException(msg);
+        }
+        this.name = name;
     }
-    if (obj != null && obj.getClass() == getClass()) {
-      TypedString<?> other = (TypedString<?>) obj;
-      return name.equals(other.name);
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Compares this type to another.
+     * <p>
+     * Instances are compared in alphabetical order based on the name.
+     *
+     * @param other the object to compare to
+     * @return the comparison
+     */
+    @Override
+    public final int compareTo(T other) {
+        return name.compareTo(other.toString());
     }
-    return false;
-  }
 
-  /**
-   * Returns a suitable hash code.
-   * 
-   * @return a suitable hash code
-   */
-  @Override
-  public final int hashCode() {
-    return name.hashCode() ^ getClass().hashCode();
-  }
+    /**
+     * Checks if this type equals another.
+     * <p>
+     * Instances are compared based on the name.
+     *
+     * @param obj the object to compare to, null returns false
+     * @return true if equal
+     */
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj != null && obj.getClass() == getClass()) {
+            TypedString<?> other = (TypedString<?>) obj;
+            return name.equals(other.name);
+        }
+        return false;
+    }
 
-  /**
-   * Returns the name.
-   * 
-   * @return the string form, not empty
-   */
-	@Override
-	@ToString
-  public final String toString() {
-    return name;
-  }
+    /**
+     * Returns a suitable hash code.
+     *
+     * @return a suitable hash code
+     */
+    @Override
+    public final int hashCode() {
+        return name.hashCode() ^ getClass().hashCode();
+    }
+
+    /**
+     * Returns the name.
+     *
+     * @return the string form, not empty
+     */
+    @Override
+    @ToString
+    @JsonValue
+    public final String toString() {
+        return name;
+    }
 
 }

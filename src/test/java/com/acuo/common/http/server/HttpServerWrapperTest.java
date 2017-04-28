@@ -91,9 +91,9 @@ public final class HttpServerWrapperTest {
 		};
 		sslContext.init(null, new TrustManager[] { x509TrustManager }, null);
 
-		client = HttpClients.custom().setSslcontext(sslContext)
+		client = HttpClients.custom().setSSLContext(sslContext)
 				.setSSLSocketFactory(new SSLConnectionSocketFactory(sslContext,
-						SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER))
+						SSLConnectionSocketFactory.getDefaultHostnameVerifier()))
 				.build();
 	}
 

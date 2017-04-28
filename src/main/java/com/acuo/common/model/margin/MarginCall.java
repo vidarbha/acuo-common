@@ -14,6 +14,7 @@ import static com.acuo.common.model.margin.Types.*;
 @Data
 public class MarginCall {
 
+    private String id;
     private String ampId;
     private BusinessState businessState;
     private String direction;
@@ -56,6 +57,18 @@ public class MarginCall {
     private AgreementType marginAgreementType;
 
     private double agreedAmount;
+
+    private String side;
+    private String statementId;
+    private double totalCouponPayment;
+    private double upfrontFee;
+    private double premiumPayment;
+    private double CDSCreditEvent;
+    private double NDFCashSettlement;
+    private double clearingFee;
+    private double brokerFee;
+    private double initialBalanceCash;
+    private double initialBalanceNonCash;
 
     private Dispute dispute;
 
