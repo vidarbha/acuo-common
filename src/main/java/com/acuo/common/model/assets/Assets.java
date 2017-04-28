@@ -11,7 +11,6 @@ import com.opengamma.strata.basics.currency.Currency;
 @Data
 public class Assets {
 
-    private AssetValuation assetValuation;
     private String assetId;
     private String idType;
     private String name;
