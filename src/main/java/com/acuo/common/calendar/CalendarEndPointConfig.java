@@ -2,7 +2,6 @@ package com.acuo.common.calendar;
 
 import com.acuo.common.http.client.EndPointConfig;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.concurrent.TimeUnit;
 
