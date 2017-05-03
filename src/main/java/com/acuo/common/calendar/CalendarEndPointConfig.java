@@ -2,23 +2,45 @@ package com.acuo.common.calendar;
 
 import com.acuo.common.http.client.EndPointConfig;
 import lombok.Data;
-import lombok.Getter;
+import org.jasypt.encryption.pbe.PBEStringEncryptor;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.concurrent.TimeUnit;
+
+import static com.acuo.common.util.PropertiesHelper.*;
 
 
 @Data
 public class CalendarEndPointConfig implements EndPointConfig {
 
-    private final String scheme = "https";
-    private final String host = "api.thomsonreuters.com";
-    private final int port = 443;
-    private final String path = "tracs-calendars/IsWorkingDay,<local>;<date>/text";
-    private final String apikey = "***REMOVED***";
-    private final int connectionTimeOut = 60000;
-    private final TimeUnit connectionTimeOutUnit = TimeUnit.MILLISECONDS;
-    private final boolean useProxy = false;
+    private static final TimeUnit connectionTimeOutUnit = TimeUnit.MILLISECONDS;
 
+    private final String scheme;
+    private final String host;
+    private final int port;
+    private final String path;
+    private final String apikey;
+    private final int connectionTimeOut;
+    private final boolean useProxy;
+
+    @Inject
+    public CalendarEndPointConfig(@Named(ACUO_COMMON_CALENDAR_SCHEME) String scheme,
+                                  @Named(ACUO_COMMON_CALENDAR_HOST) String host,
+                                  @Named(ACUO_COMMON_CALENDAR_PORT) int port,
+                                  @Named(ACUO_COMMON_CALENDAR_PATH) String path,
+                                  @Named(ACUO_COMMON_CALENDAR_APIKEY) String apikey,
+                                  @Named(ACUO_COMMON_CALENDAR_CONNECTION_TIMEOUT) int connectionTimeOut,
+                                  @Named(ACUO_COMMON_CALENDAR_USE_PROXY) boolean useProxy,
+                                  PBEStringEncryptor encryptor) {
+        this.scheme = scheme;
+        this.host = host;
+        this.port = port;
+        this.path = path;
+        this.apikey = (encryptor == null) ? apikey : encryptor.decrypt(apikey);
+        this.connectionTimeOut = connectionTimeOut;
+        this.useProxy = useProxy;
+    }
     @Override
     public int connectionTimeOut() {
         return connectionTimeOut;
