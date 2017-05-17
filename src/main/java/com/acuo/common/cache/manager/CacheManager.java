@@ -15,16 +15,15 @@ import java.util.Properties;
 public class CacheManager
 {
 	private static Log          LOG      = LogFactory.getLog(CacheManager.class);
-	private static CacheManager INSTANCE = new CacheManager();
 
 	private final CacheFactoryRegistry<Object, Cacheable> cacheFactoryRegistry;
 	private final Cache<Object, Cacheable>                cache;
 	private final CacheCleanerUpper                       cleaner;
 
-	private CacheManager()
+	public CacheManager()
 	{
 		AbstractProperties properties = CacheProperties.newInstance();
-		cacheFactoryRegistry = new CacheFactoryRegistry<Object, Cacheable>(properties);
+		cacheFactoryRegistry = new CacheFactoryRegistry<>(properties);
 		Properties props = new Properties();
 		props.put(Cache.PARAM_TYPE, "unlimited");
 		props.put(Cache.PARAM_NAME, "Cacheable Unlimited");
@@ -41,11 +40,6 @@ public class CacheManager
 			LOG.error(e.getMessage(), e);
 			throw new RuntimeException(e.getMessage(), e);
 		}
-	}
-
-	public static CacheManager getInstance()
-	{
-		return INSTANCE;
 	}
 
 	/**
