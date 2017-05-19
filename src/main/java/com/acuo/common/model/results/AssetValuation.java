@@ -4,6 +4,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class AssetValuation {
@@ -13,7 +14,7 @@ public class AssetValuation {
     private double yield;
     private double cleanMarketValue;
     private double notional;
-    private LocalDate valuationDateTime;
+    private LocalDateTime valuationDateTime;
     private String priceQuotationType;
     private String source;
     private Currency nominalCurrency;
