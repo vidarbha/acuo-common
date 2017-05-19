@@ -11,6 +11,4 @@ import lombok.Data;
 public class TradeValuation {
     private String tradeId;
     private Double marketValue;
-    private String status;
-    private String errorMessage;
 }
