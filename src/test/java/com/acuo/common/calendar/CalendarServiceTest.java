@@ -1,7 +1,9 @@
 package com.acuo.common.calendar;
 
+import com.acuo.common.modules.ConfigurationTestModule;
+import com.acuo.common.security.EncryptionModule;
 import com.acuo.common.util.GuiceJUnitRunner;
-import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -13,9 +15,11 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceJUnitRunner.GuiceModules({
+        ConfigurationTestModule.class,
+        EncryptionModule.class,
         CalendarModule.class
 })
-@Slf4j
+@Ignore
 public class CalendarServiceTest {
 
     @Inject

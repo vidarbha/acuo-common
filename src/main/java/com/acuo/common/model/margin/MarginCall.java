@@ -38,6 +38,7 @@ public class MarginCall {
 
     private double totalCallAmount;
     private CallType callType;
+    private MarginType marginType;
 
     private LocalDate valuationDate;
 

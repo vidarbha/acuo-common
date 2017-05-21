@@ -10,12 +10,15 @@ import java.util.stream.Stream;
 public interface WithResteasyFixtures {
 
 	default Dispatcher createDispatcher(Class<?>... providers) {
-		ArgChecker.notNull(providers, "providers");
-		ArgChecker.notEmpty(providers, "providers");
-		Stream.of(providers).map(ArgChecker::notNullItem).count();
-		ResteasyProviderFactory factory = ResteasyProviderFactory.getInstance();
-		Stream.of(providers).forEach(p -> factory.registerProvider(p));
-		return create(factory);
+		synchronized (LockHolder.LOCK) {
+			ArgChecker.notNull(providers, "providers");
+			ArgChecker.notEmpty(providers, "providers");
+			Stream.of(providers).map(ArgChecker::notNullItem).count();
+			ResteasyProviderFactory factory = ResteasyProviderFactory.getInstance();
+			Stream.of(providers).forEach(p -> factory.registerProvider(p));
+			System.out.println("####################################### " + factory);
+			return create(factory);
+		}
 	}
 
 	static Dispatcher create(ResteasyProviderFactory factory) {
@@ -24,4 +27,8 @@ public interface WithResteasyFixtures {
 		RegisterBuiltin.register(dispatcher.getProviderFactory());
 		return dispatcher;
 	}
+}
+
+class LockHolder { // Package private class
+	public static Object LOCK = new Object();
 }

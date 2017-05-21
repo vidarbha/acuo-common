@@ -1,5 +1,6 @@
 package com.acuo.common.model.results;
 
+import com.acuo.common.model.margin.Types;
 import lombok.Data;
 
 @Data
@@ -9,6 +10,6 @@ public class MarginValuation {
     private Double account;
     private Double change;
     private Double margin;
-    private String marginType;
+    private Types.CallType marginType;
     private String portfolioId;
 }
