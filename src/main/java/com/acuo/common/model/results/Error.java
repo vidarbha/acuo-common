@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Error {
-    private String objectId;
+    private String assetId;
     private String errorType;
     private String errorMessage;
 }
