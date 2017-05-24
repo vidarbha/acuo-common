@@ -7,8 +7,8 @@ import lombok.Data;
  */
 @Data
 public class ImportError {
-    private String product;
-    private String errorMessage;
-    private String errorPath;
+    private String Sheet;
+    private String variable;
+    private String lineNumber;
 
 }
