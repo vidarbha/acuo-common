@@ -10,5 +10,6 @@ public class ImportError {
     private String Sheet;
     private String variable;
     private String lineNumber;
+    private String tradeId;
 
 }
