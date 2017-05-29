@@ -3,7 +3,7 @@ package com.acuo.common.model.results;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Currency;
 
 /**
@@ -19,8 +19,7 @@ public class CorporateAction {
     private String actionEventProcessing;
     private String actionEventIndicator;
     private String mandatoryVoluntary;
-    private LocalTime preparationTime;
-    private LocalDate preparationDate;
+    private LocalDateTime preparationDateTime;
     private String processingStatus;
     private String securityId;
     private LocalDate couponDate;
