@@ -62,7 +62,7 @@ public class Swap implements Product {
 
     @Data
     public static class SwapLegFixing {
-        private String floatingRateName;
+        private FloatingRateName floatingRateName;
         private Tenor tenor;
         private FixingRelativeTo fixingRelativeTo;
     }
