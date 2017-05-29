@@ -1,10 +1,10 @@
 package com.acuo.common.model.results;
 
+import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 /**
  * Created by lucie on 29/5/17.
