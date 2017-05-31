@@ -41,6 +41,7 @@ public class CalendarEndPointConfig implements EndPointConfig {
         this.connectionTimeOut = connectionTimeOut;
         this.useProxy = useProxy;
     }
+
     @Override
     public int connectionTimeOut() {
         return connectionTimeOut;
