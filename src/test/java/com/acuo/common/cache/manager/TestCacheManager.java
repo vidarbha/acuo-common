@@ -1,8 +1,8 @@
 package com.acuo.common.cache.manager;
 
 import org.apache.log4j.BasicConfigurator;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -18,19 +18,20 @@ public class TestCacheManager
 	 */
 	private String			s	= new String("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-	private CacheManager	cacheManager;
+	private static CacheManager	cacheManager;
 
-	@Before
-	public void setUp() throws Exception
+	@BeforeClass
+	public static void setUp() throws Exception
 	{
 		BasicConfigurator.configure();
-		cacheManager = CacheManager.getInstance();
+		cacheManager = new CacheManager();
 	}
 
-	@After
-	public void tearDown() throws Exception
+	@AfterClass
+	public static void tearDown() throws Exception
 	{
-		cacheManager.closeCaches();
+		if (cacheManager != null)
+			cacheManager.closeCaches();
 	}
 
 	@Test
