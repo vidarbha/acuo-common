@@ -1,7 +1,10 @@
-package com.acuo.common.model.results;
+// package com.acuo.common.model.results;
 
-/**
- * Created by lucie on 31/5/17.
- */
-public class ClarusError {
-}
+import lombok.Data;
+
+
+//@Data
+//public class ClarusError extends Error {
+
+//    private String
+//}
