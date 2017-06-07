@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MSError {
-    private String errorCode;
+    private Integer errorCode;
     private String errorDescription;
     private String errorMessage;
     private String statusCode;
