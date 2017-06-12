@@ -51,6 +51,7 @@ public class Swap implements Product {
         private AdjustableDate maturityDate;
         private AdjustableSchedule paymentSchedule;
         private AdjustableSchedule calculationSchedule;
+        private AdjustableSchedule resetSchedule;
         private RollConvention rollConvention;
 
         @Override

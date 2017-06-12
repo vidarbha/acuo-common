@@ -12,11 +12,13 @@ public class TradeInfo {
     private String tradeId;
     private String tradingAccountId;
     private LocalDate tradeDate;
+    private LocalDate maturityDate;
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
     private String book;
     private String portfolio;
     private TradeStatus tradeStatus;
+    private String derivativeType;
     /*private Set<Attribute> attributes;
 
     @Data
