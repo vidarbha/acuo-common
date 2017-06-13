@@ -9,18 +9,18 @@ public class SimulationHelper {
 
     private final Random random;
 
-    SimulationHelper() {
+    public SimulationHelper() {
         random = new Random();
     }
 
-    double getRandomAmount(Double value) {
+    public double getRandomAmount(Double value) {
         final double nextGaussian = random.nextGaussian();
         double noise = nextGaussian * Math.sqrt(0.2);
         double a = (0.2 * noise);
         return value * (1 + a);
     }
 
-    boolean getRandomBoolean() {
+    public boolean getRandomBoolean() {
         final boolean b = random.nextGaussian() < 0.99;
         log.info("random boolean {}", b);
         return b;
