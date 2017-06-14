@@ -6,6 +6,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -73,7 +74,7 @@ public class MarginCall {
 
     private Dispute dispute;
 
-    private Set<Recall> recalls = new TreeSet<>();
+    private Set<Recall> recalls = new HashSet<>();
 
     public Set<Recall> getRecalls() { return recalls; }
 

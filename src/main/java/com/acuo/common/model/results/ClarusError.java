@@ -2,9 +2,9 @@
 
 import lombok.Data;
 
+@Data
+public class ClarusError {
+    private String message;
+}
 
-//@Data
-//public class ClarusError extends Error {
-
-//    private String
-//}
+// For lack of a better error, we now extract each message.

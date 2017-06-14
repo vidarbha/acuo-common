@@ -16,7 +16,6 @@ public interface WithResteasyFixtures {
 			Stream.of(providers).map(ArgChecker::notNullItem).count();
 			ResteasyProviderFactory factory = ResteasyProviderFactory.getInstance();
 			Stream.of(providers).forEach(p -> factory.registerProvider(p));
-			System.out.println("####################################### " + factory);
 			return create(factory);
 		}
 	}
