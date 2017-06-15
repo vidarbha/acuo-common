@@ -43,6 +43,9 @@ public class MarginCall {
 
     private LocalDate valuationDate;
 
+    private LocalDate modifyDate;
+    private LocalDate expiryDate;
+
     private int version;
     private boolean child;
 
