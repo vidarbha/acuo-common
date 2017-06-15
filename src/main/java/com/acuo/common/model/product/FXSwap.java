@@ -1,10 +1,10 @@
 package com.acuo.common.model.product;
 
 import com.acuo.common.model.AdjustableDate;
+import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Currency;
 import java.util.Set;
 import java.util.TreeSet;
 
