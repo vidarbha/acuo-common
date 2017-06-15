@@ -39,5 +39,6 @@ public class FXSwap implements Product {
         private AdjustableDate settleDate;
         private double rate;
         private String spotSource;
-
     }
+
+}
