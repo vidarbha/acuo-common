@@ -39,6 +39,10 @@ public class FXSwap implements Product {
         private AdjustableDate settleDate;
         private double rate;
         private String spotSource;
+        @Override
+        public int compareTo(FXSwapLeg other) {
+            return Integer.compare(this.getId(), other.getId());
+        }
     }
 
 }
