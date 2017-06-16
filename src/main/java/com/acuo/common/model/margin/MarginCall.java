@@ -6,6 +6,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,8 +44,8 @@ public class MarginCall {
 
     private LocalDate valuationDate;
 
-    private LocalDate modifyDate;
-    private LocalDate expiryDate;
+    private LocalDateTime modifyDate;
+    private LocalDateTime expiryDate;
 
     private int version;
     private boolean child;
