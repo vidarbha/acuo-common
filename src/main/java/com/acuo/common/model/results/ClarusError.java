@@ -1,10 +1,14 @@
-// package com.acuo.common.model.results;
+package com.acuo.common.model.results;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class ClarusError {
+@EqualsAndHashCode(callSuper = true)
+public class ClarusError extends Error {
+
+    // For lack of a better error, we now extract each message.
     private String message;
 }
 
-// For lack of a better error, we now extract each message.
+
