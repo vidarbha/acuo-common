@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
+
 
 @Data
 public class ReutersError extends Error {
@@ -14,8 +14,3 @@ public class ReutersError extends Error {
     public void removeAllReutersMessages() {reutersMessages.clear(); }
 }
 
-@Data
-public class ReutersMessage {
-    private String errorType;
-    private String errorMessage;
-}
