@@ -1,15 +1,12 @@
 package com.acuo.common.model.results;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-/**
- * Created by lucie on 23/5/17.
- */
 @Data
-public class ImportError {
+@EqualsAndHashCode(callSuper = true)
+public class ImportError extends Error {
     private String Sheet;
     private String variable;
     private String lineNumber;
-    private String tradeId;
-
 }

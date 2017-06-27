@@ -1,7 +1,14 @@
 package com.acuo.common.model.results;
 
-/**
- * Created by lucie on 31/5/17.
- */
-public class ClarusError {
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ClarusError extends Error {
+
+    // For lack of a better error, we now extract each message.
+    private String message;
 }
+
+

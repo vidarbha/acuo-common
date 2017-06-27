@@ -9,7 +9,7 @@ public class MarginValuation {
     private String name;
     private Double account;
     private Double change;
-    private Double margin;
+    private Double total;
     private Types.CallType marginType;
     private String portfolioId;
 }

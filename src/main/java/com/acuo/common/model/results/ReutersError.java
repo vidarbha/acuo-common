@@ -1,7 +1,11 @@
 package com.acuo.common.model.results;
 
-/**
- * Created by lucie on 30/5/17.
- */
-public class ReutersError {
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ReutersError extends Error {
+    private String errorType;
+    private String errorMessage;
 }
