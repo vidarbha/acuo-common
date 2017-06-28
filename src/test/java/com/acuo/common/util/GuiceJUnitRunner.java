@@ -18,19 +18,24 @@ package com.acuo.common.util;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * A JUnit class runner for Guice based applications.
- * 
- * @author Fabio Strozzi
- * 
+ *
  */
 public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
+
 	private Injector injector;
+	private InstanceTestClassListener setupListener;
 
 	@Target(ElementType.TYPE)
 	@Retention(RetentionPolicy.RUNTIME)
@@ -48,7 +53,18 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 	public Object createTest() throws Exception {
 		Object obj = super.createTest();
 		injector.injectMembers(obj);
+		if (obj instanceof InstanceTestClassListener && setupListener == null) {
+			setupListener = (InstanceTestClassListener) obj;
+			setupListener.beforeClassSetup();
+		}
 		return obj;
+	}
+
+	@Override
+	public void run(RunNotifier notifier) {
+		super.run(notifier);
+		if (setupListener != null)
+			setupListener.afterClassSetup();
 	}
 
 	/**
@@ -74,9 +90,7 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 		for (int i = 0; i < classes.length; i++) {
 			try {
 				modules[i] = (Module) (classes[i]).newInstance();
-			} catch (InstantiationException e) {
-				throw new InitializationError(e);
-			} catch (IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				throw new InitializationError(e);
 			}
 		}
