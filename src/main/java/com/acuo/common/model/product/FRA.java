@@ -47,6 +47,8 @@ public class FRA implements Product {
         private String notionalxg;
         private AdjustableDate startDate;
         private AdjustableDate maturityDate;
+        private AdjustableDate fixingDate;
+        private AdjustableDate paymentDate;
         private RollConvention rollConvention;
         private boolean payAtStart;
 
