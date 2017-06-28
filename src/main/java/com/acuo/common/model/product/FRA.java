@@ -18,6 +18,8 @@ import java.util.TreeSet;
 @EqualsAndHashCode(callSuper = false)
 public class FRA implements Product {
 
+    private String discountMethod;
+
     private final Set<FRALeg> legs = new TreeSet<>();
 
     public Set<FRALeg> getLegs() {
