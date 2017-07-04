@@ -44,8 +44,8 @@ public class MarginCall {
 
     private LocalDate valuationDate;
 
-    private String modifyDate;
-    private String expiryDate;
+    private LocalDateTime modifyDate;
+    private LocalDateTime expiryDate;
 
     private int version;
     private boolean child;
