@@ -54,6 +54,8 @@ public class Swap implements Product {
         private AdjustableSchedule resetSchedule;
         private RollConvention rollConvention;
         private Boolean variableCurrency;
+        private Double futureNotional;
+        private String compoundingRule;
 
         @Override
         public int compareTo(SwapLeg other) {
