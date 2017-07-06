@@ -1,9 +1,7 @@
 package com.acuo.common.model.agreements;
 import lombok.Data;
-/**
- * Created by acer on 06/07/2017.
- */
+
 @Data
-public class Agreements {
+public class Agreement {
     private String agreementId;
 }
