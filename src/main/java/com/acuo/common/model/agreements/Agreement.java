@@ -3,5 +3,5 @@ import lombok.Data;
 
 @Data
 public class Agreement {
-    private String agreementId;
+    private String id;
 }
