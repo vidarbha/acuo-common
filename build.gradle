@@ -30,6 +30,7 @@ dependencies {
     )
 
     testCompile(
-            "org.apache.httpcomponents:httpclient:4.3.3"
+            "org.apache.httpcomponents:httpclient:4.3.3",
+            "org.slf4j:log4j-over-slf4j:${versions.slf4j}"
     )
 }
