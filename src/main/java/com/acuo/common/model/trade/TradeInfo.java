@@ -19,6 +19,7 @@ public class TradeInfo {
     private String portfolio;
     private TradeStatus tradeStatus;
     private String derivativeType;
+    private String discountMethod;
     /*private Set<Attribute> attributes;
 
     @Data

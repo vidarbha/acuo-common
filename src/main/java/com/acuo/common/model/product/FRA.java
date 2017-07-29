@@ -1,12 +1,10 @@
 package com.acuo.common.model.product;
 
 import com.acuo.common.model.AdjustableDate;
-import com.acuo.common.model.AdjustableSchedule;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.DayCount;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.basics.index.FloatingRateName;
-import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.basics.schedule.RollConvention;
 import com.opengamma.strata.product.common.PayReceive;
 import com.opengamma.strata.product.swap.FixingRelativeTo;
@@ -49,7 +47,10 @@ public class FRA implements Product {
         private String notionalxg;
         private AdjustableDate startDate;
         private AdjustableDate maturityDate;
+        private AdjustableDate fixingDate;
+        private AdjustableDate paymentDate;
         private RollConvention rollConvention;
+        private boolean payAtStart;
 
         @Override
         public int compareTo(FRALeg other) {
