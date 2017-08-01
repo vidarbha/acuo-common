@@ -1,6 +1,5 @@
 package com.acuo.common.model.results;
 
-import com.acuo.common.model.ids.AssetId;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 @Data
 public class AssetSettlementDate {
 
-    private AssetId assetId;
+    private String assetId;
     private LocalDate settlementDate;
 
 }
