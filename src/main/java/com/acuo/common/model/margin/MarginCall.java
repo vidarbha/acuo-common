@@ -112,7 +112,7 @@ public class MarginCall {
     }
 
     private String role;
-    private LocalTime notificationTime;
+    private String notificationTime; // Should be changed to a LocalTime at some point but not sure how to build a soc
     private double netRequiredAmount;
     private String comment;
 
