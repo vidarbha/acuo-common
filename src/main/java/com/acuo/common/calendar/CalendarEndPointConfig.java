@@ -2,6 +2,7 @@ package com.acuo.common.calendar;
 
 import com.acuo.common.http.client.EndPointConfig;
 import lombok.Data;
+import lombok.ToString;
 import org.jasypt.encryption.pbe.PBEStringEncryptor;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import static com.acuo.common.util.PropertiesHelper.*;
 
 
 @Data
+@ToString(exclude="apikey")
 public class CalendarEndPointConfig implements EndPointConfig {
 
     private static final TimeUnit connectionTimeOutUnit = TimeUnit.MILLISECONDS;
