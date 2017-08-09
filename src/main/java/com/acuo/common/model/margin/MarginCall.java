@@ -35,6 +35,7 @@ public class MarginCall {
     private double exposure;
     private double pendingCollateral;
     private double returnAmount;
+    private Boolean fullReturn;
 
     private double roundingAmount;
     private String roundingMethod;
