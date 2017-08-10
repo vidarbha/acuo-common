@@ -57,7 +57,7 @@ public class MarginCall {
     private LocalDateTime modifyDate;
     private LocalDateTime expiryDate;
 
-    private int version;
+    private Integer version;
     private boolean child;
 
     private double minimumTransferAmount;
