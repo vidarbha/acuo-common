@@ -23,6 +23,7 @@ public class MarginCall {
     private String direction;
 
     private Set<Integer> cancelReasonCodes;
+    private String cancelComments;
 
     private double collateralValue;
     private Currency currency;
