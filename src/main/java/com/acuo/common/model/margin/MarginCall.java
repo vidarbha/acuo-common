@@ -22,7 +22,7 @@ public class MarginCall {
     private BusinessState businessState;
     private String direction;
 
-    private Set<Integer> cancelReasonCodes;
+    private Set<DisputeReasonCode> cancelReasonCodes;
     private String cancelComments;
 
     private double collateralValue;
