@@ -4,6 +4,7 @@ package com.acuo.common.model.trade;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ public class TradeInfo {
     private String tradeId;
     private String tradingAccountId;
     private LocalDate tradeDate;
+    private LocalDateTime tradeTime;
     private LocalDate maturityDate;
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
