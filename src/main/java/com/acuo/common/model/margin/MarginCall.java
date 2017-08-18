@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,7 +22,8 @@ public class MarginCall {
     private BusinessState businessState;
     private String direction;
 
-    private Set<Integer> cancelReasonCodes;
+    private Set<DisputeReasonCode> cancelReasonCodes;
+    private String cancelComments;
 
     private double collateralValue;
     private Currency currency;
@@ -34,9 +36,18 @@ public class MarginCall {
     private double exposure;
     private double pendingCollateral;
     private double returnAmount;
+    private Boolean fullReturn;
 
     private double roundingAmount;
+    private String roundingMethod;
+    private double deliverRoundingAmount;
+    private String deliverRoundingMethod;
+    private double returnRoundingAmount;
+    private String returnRoundingMethod;
+
+
     private double threshold;
+    private String thresholdTreatment;
 
     private double totalCallAmount;
     private CallType callType;
@@ -47,10 +58,12 @@ public class MarginCall {
     private LocalDateTime modifyDate;
     private LocalDateTime expiryDate;
 
-    private int version;
+    private Integer version;
     private boolean child;
 
     private double minimumTransferAmount;
+    private double returnMinimumTransferAmount;
+    private double deliverMinimumTransferAmount;
 
     private LocalDate settlementDate;
     private String externalReference;
@@ -99,6 +112,11 @@ public class MarginCall {
     public void removeAllPledges()  {
         pledges.clear();
     }
+
+    private String role;
+    private String notificationTime; // Should be changed to a LocalTime at some point but not sure how to build a soc
+    private double netRequiredAmount;
+    private String comment;
 
     @Data
     public static class PledgeFxRates {

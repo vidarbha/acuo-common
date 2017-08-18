@@ -44,10 +44,10 @@ public class MarginCallTest {
     @Test
     public void testCancel() {
         marginCall.setAmpId("abc");
-        marginCall.setCancelReasonCodes(ImmutableSet.of(9001));
+        marginCall.setCancelReasonCodes(ImmutableSet.of(Types.DisputeReasonCode.AD));
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
-        assertThat(marginCall.getCancelReasonCodes()).isEqualTo(ImmutableSet.of(9001));
+        assertThat(marginCall.getCancelReasonCodes()).isEqualTo(ImmutableSet.of(Types.DisputeReasonCode.AD));
     }
 
     @Test
