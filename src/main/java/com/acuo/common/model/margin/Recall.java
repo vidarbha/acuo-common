@@ -24,5 +24,6 @@ public class Recall {
     private String externalUsername;
     private int rejectReasonCode;
     private int version;
+    private Boolean recallIsAccepted;
 
 }
