@@ -23,6 +23,7 @@ public class Recall {
     private double haircut;
     private String externalUsername;
     private int rejectReasonCode;
+    private String rejectComment;
     private int version;
     private Boolean recallIsAccepted;
 
