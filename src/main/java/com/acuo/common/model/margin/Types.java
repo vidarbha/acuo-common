@@ -7,27 +7,35 @@ import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
 public interface Types {
 
     enum MarginType {
-        Initial, Variation,InterestPayment,PAI,FeesAndComms,ProductCashFlow;
+        Initial, Variation,InterestPayment,PAI,FeesAndComms,ProductCashFlow
     }
 
     enum CallType {
-        Initial, Variation, Netted, Consolidated, Credit;
+        Initial, Variation, Netted, Consolidated, Credit
+    }
+
+    enum AssetType {
+        Cash, NonCash
+    }
+
+    enum BalanceStatus {
+        Settled, Pending
     }
 
     enum ImRole {
-        Secured, Pledgor;
+        Secured, Pledgor
     }
 
     enum AgreementType {
-        Group, CSA, Regulatory_CSA;
+        Group, CSA, Regulatory_CSA
     }
 
     enum DeliveryType {
-        Deliver, Return;
+        Deliver, Return
     }
 
     enum SecurityIdType {
-        CASH, CUSIP, ISIN, RIC, SEDOL;
+        CASH, CUSIP, ISIN, RIC, SEDOL
     }
 
     enum BusinessState {
@@ -46,7 +54,7 @@ public interface Types {
         Pledge_Amended,
         Pledge_Cancelled,
         Pledge_Rejected,
-        Rejected;
+        Rejected
     }
 
     enum ReasonCodeType {
@@ -59,7 +67,7 @@ public interface Types {
         Pledge,
         RecallItem,
         InterestStatement,
-        Other;
+        Other
     }
 
     enum ReasonCode {
@@ -136,6 +144,6 @@ public interface Types {
         BTL, // 'Below Threshold Limit'
         TWC, // 'Two Way Call'
         UBE, // 'UnKnown Business Error'
-        OTH; // 'Other'
+        OTH // 'Other'
     }
 }
