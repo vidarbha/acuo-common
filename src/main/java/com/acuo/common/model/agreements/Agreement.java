@@ -38,16 +38,14 @@ public class Agreement {
     private LocalDateTime requestedActiveDate;
     private boolean substitutionEnabled;
     private String timeZone;
+    private Double threshold;
+    private String valuationAgentAmpId;
+    private String soleCalculation;
+    private String initialCallsEnabled;
+    private boolean separateInitialCallsByCurrency;
     private boolean variationCallsEnabled;
-
-
-
-
-
-
-
-
-
+    private boolean separateVariationCallsByCurrency;
+    private boolean creditCallsEnabled;
 }
 
 
