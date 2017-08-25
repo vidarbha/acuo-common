@@ -13,5 +13,4 @@ public class LegalEntity {
     private String modifyUserAmpId;
     private String tradingPartyAmpId;
     private String tradingPartyName;
-    private boolean
 }
