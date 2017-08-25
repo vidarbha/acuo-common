@@ -1,6 +1,6 @@
 package com.acuo.common.model.agreements;
 
-import java.util.Currency;
+import com.opengamma.strata.basics.currency.Currency;
 
 public class InterestBenchmark {
     private String benchmarkName;
