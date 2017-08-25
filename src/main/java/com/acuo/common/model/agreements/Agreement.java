@@ -46,6 +46,8 @@ public class Agreement {
     private boolean variationCallsEnabled;
     private boolean separateVariationCallsByCurrency;
     private boolean creditCallsEnabled;
+    private InterestBenchmark interestBenchmark;
+    private Set<Types.CallType> nettingCallTypes;
 }
 
 
