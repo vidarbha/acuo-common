@@ -11,7 +11,7 @@ public class LegalEntity {
     private String createUserAmpId;
     private String emailList;
     private String label;
-    private String local;
+    private boolean local;
     private LocalDateTime modifyDate;
     private String modifyUserAmpId;
     private String tradingPartyAmpId;
