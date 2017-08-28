@@ -75,7 +75,7 @@ public class MarginCallTest {
         dispute.setDisputeReasonCodes(ImmutableSet.of(Types.DisputeReasonCode.AD));
         marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setAgreedAmount(1);
+        marginCall.setAgreedAmount(1d);
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
         assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(Types.DisputeReasonCode.AD));
