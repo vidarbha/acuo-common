@@ -145,4 +145,18 @@ public class MarginCallTest {
         return recall;
     }
 
+    @Test
+    public void testSubstitution() {
+        marginCall.setAmpId("abc");
+    }
+
+    private Substitution createSubstitution() {
+        Substitution substitution = new Substitution();
+        substitution.setSecurityId("CASH");
+        substitution.setSecurityIdType(CASH);
+        substitution.setSettlementDate(now);
+        substitution.setCurrentMarketValue(million);
+        return substitution;
+    }
 }
+
