@@ -11,7 +11,7 @@ import static com.acuo.common.model.margin.Types.SecurityIdType;
 @Data
 public class SubstitutionItem {
 
-    private String id;
+    private String ampId;
     private String substitutionAmpId;
     private LocalDate createDate;
     private LocalDate expireDate;
