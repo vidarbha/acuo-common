@@ -1,4 +1,4 @@
-package com.acuo.common.model.margin;
+package com.acuo.common.model.substitution;
 
 import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;

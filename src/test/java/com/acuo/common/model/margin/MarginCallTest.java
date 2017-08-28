@@ -1,5 +1,6 @@
 package com.acuo.common.model.margin;
 
+import com.acuo.common.model.substitution.Substitution;
 import com.google.common.collect.ImmutableSet;
 import com.opengamma.strata.basics.currency.Currency;
 import org.junit.Before;
