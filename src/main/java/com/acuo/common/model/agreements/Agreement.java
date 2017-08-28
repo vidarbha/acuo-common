@@ -40,8 +40,8 @@ public class Agreement {
     private String timeZone;
     private Double threshold;
     private String valuationAgentAmpId;
-    private String soleCalculation;
-    private String initialCallsEnabled;
+    private boolean soleCalculation;
+    private boolean initialCallsEnabled;
     private boolean separateInitialCallsByCurrency;
     private boolean variationCallsEnabled;
     private boolean separateVariationCallsByCurrency;
