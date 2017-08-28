@@ -1,7 +1,10 @@
 package com.acuo.common.model.agreements;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class LegalEntity {
     private String ampId;
     private LocalDateTime createDate;
