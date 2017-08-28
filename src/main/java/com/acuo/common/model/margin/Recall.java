@@ -23,7 +23,7 @@ public class Recall {
     private Double price;
     private Double haircut;
     private String externalUsername;
-    private int rejectReasonCode;
+    private Integer rejectReasonCode;
     private String rejectComment;
     private int version;
     private Boolean recallIsAccepted;
