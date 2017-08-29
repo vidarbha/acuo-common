@@ -6,10 +6,11 @@ import lombok.Data;
 @Data
 public class WhitelistInfo {
 
-    private boolean WhitelistAll;
-    private boolean WhitelistTradingPartyOnly;
-    private boolean WhitelistLegalEntityOnly;
-    private TradingParty tradingParty;
-    private LegalEntity legalEntity;
+    private boolean whitelistForAll;
+    private boolean whitelistForTradingPartyOnly;
+    private boolean whitelistForLegalEntityOnly;
+    private TradingParty cptyTradingParty;
+    private LegalEntity cptyLegalEntity;
+    private LegalEntity clientLegalEntity;
 
 }
