@@ -27,7 +27,7 @@ public interface Types {
     }
 
     enum AgreementType {
-        Group, CSA, Regulatory_CSA
+        Group, CSA, Regulatory_CSA, SCSA, MRA
     }
 
     enum DeliveryType {
