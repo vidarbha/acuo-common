@@ -11,7 +11,7 @@ public interface Types {
     }
 
     enum CallType {
-        Initial, Variation, Netted, Consolidated, Credit
+        Initial, Variation, Netted, Consolidated, Credit, SCSA, Silo
     }
 
     enum AssetType {

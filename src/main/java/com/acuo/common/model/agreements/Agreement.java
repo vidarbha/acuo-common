@@ -14,6 +14,7 @@ public class Agreement {
     private Currency accountBaseCurrency;
     private Currency accountOperatingCurrency;
     private LocalDate activeDate;
+    private BilateralDetails bilateralDetails;
     private String longName;
     private String agreementShortName;
     private String agreementType;
