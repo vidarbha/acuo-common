@@ -1,5 +1,6 @@
 package com.acuo.common.model.margin;
 
+import com.acuo.common.model.substitution.Substitution;
 import com.google.common.collect.ImmutableSet;
 import com.opengamma.strata.basics.currency.Currency;
 import org.junit.Before;
@@ -74,7 +75,7 @@ public class MarginCallTest {
         dispute.setDisputeReasonCodes(ImmutableSet.of(Types.DisputeReasonCode.AD));
         marginCall.setDispute(dispute);
         marginCall.setAmpId("abc");
-        marginCall.setAgreedAmount(1);
+        marginCall.setAgreedAmount(1d);
 
         assertThat(marginCall.getAmpId()).isEqualTo("abc");
         assertThat(marginCall.getDispute().getDisputeReasonCodes()).isEqualTo(ImmutableSet.of(Types.DisputeReasonCode.AD));
@@ -145,4 +146,18 @@ public class MarginCallTest {
         return recall;
     }
 
+    @Test
+    public void testSubstitution() {
+        marginCall.setAmpId("abc");
+    }
+
+    private Substitution createSubstitution() {
+        Substitution substitution = new Substitution();
+        substitution.setSecurityId("CASH");
+        substitution.setSecurityIdType(CASH);
+        substitution.setSettlementDate(now);
+        substitution.setCurrentMarketValue(million);
+        return substitution;
+    }
 }
+

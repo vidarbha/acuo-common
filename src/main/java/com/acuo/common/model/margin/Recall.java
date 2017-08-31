@@ -4,6 +4,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
+import static com.acuo.common.model.margin.Types.*;
 
 @Data
 public class Recall {
@@ -13,16 +14,18 @@ public class Recall {
     private String securityId;
     private Types.SecurityIdType securityIdType;
     private String deliveryType;
-    private double quantity;
+    private Double quantity;
     private Currency FXCurrency;
-    private double currentMarketValue;
-    private double adjustedCollateralValue;
+    private Double currentMarketValue;
+    private Double adjustedCollateralValue;
     private LocalDate settlementDate;
-    private double FXRate;
-    private double price;
-    private double haircut;
+    private Double FXRate;
+    private Double price;
+    private Double haircut;
     private String externalUsername;
-    private int rejectReasonCode;
+    private Integer rejectReasonCode;
+    private String rejectComment;
     private int version;
-
+    private Boolean recallIsAccepted;
+    private BusinessState businessState;
 }
