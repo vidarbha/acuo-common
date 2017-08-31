@@ -7,6 +7,10 @@ public class LocalDateUtils {
 
     private LocalDateUtils() {}
 
+    public static LocalDate valuationDate() {
+        return minus(LocalDate.now(), 1);
+    }
+
     public static LocalDate add(LocalDate date, int workdays) {
         if (workdays < 1) {
             return date;

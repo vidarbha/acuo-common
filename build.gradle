@@ -13,7 +13,6 @@ group = 'com.acuo.collateral'
 
 ext.versions += [
         eclipselink  : '2.6.3',
-        resteasy     : '3.0.20.Final',
         strata       : '1.1.2'
 ]
 
@@ -23,8 +22,6 @@ dependencies {
             "com.google.code.findbugs:jsr305:3.0.1",
             "org.eclipse.jetty:jetty-servlet:9.3.5.v20151012",
             "org.eclipse.persistence:eclipselink:${versions.eclipselink}",
-            "org.jboss.resteasy:resteasy-jaxrs:${versions.resteasy}",
-            "org.jboss.resteasy:resteasy-guice:${versions.resteasy}",
             "org.jasypt:jasypt:1.9.2",
             "com.opengamma.strata:strata-basics:${versions.strata}",
             "com.opengamma.strata:strata-product:${versions.strata}",

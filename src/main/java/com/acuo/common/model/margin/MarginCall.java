@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,36 +22,48 @@ public class MarginCall {
     private BusinessState businessState;
     private String direction;
 
-    private Set<Integer> cancelReasonCodes;
+    private Set<DisputeReasonCode> cancelReasonCodes;
+    private String cancelComments;
 
-    private double collateralValue;
+    private Double collateralValue;
     private Currency currency;
 
     private LocalDate callDate;
     private boolean callDateCalculated;
 
-    private double deliverAmount;
+    private Double deliverAmount;
 
-    private double exposure;
-    private double pendingCollateral;
-    private double returnAmount;
+    private Double exposure;
+    private Double pendingCollateral;
+    private Double returnAmount;
+    private Boolean fullReturn;
 
-    private double roundingAmount;
-    private double threshold;
+    private Double roundingAmount;
+    private String roundingMethod;
+    private Double deliverRoundingAmount;
+    private String deliverRoundingMethod;
+    private Double returnRoundingAmount;
+    private String returnRoundingMethod;
 
-    private double totalCallAmount;
+
+    private Double threshold;
+    private String thresholdTreatment;
+
+    private Double totalCallAmount;
     private CallType callType;
     private MarginType marginType;
 
     private LocalDate valuationDate;
 
-    private String modifyDate;
-    private String expiryDate;
+    private LocalDateTime modifyDate;
+    private LocalDateTime expiryDate;
 
-    private int version;
+    private Integer version;
     private boolean child;
 
-    private double minimumTransferAmount;
+    private Double minimumTransferAmount;
+    private Double returnMinimumTransferAmount;
+    private Double deliverMinimumTransferAmount;
 
     private LocalDate settlementDate;
     private String externalReference;
@@ -62,19 +75,19 @@ public class MarginCall {
     private String localCounterpartyLabel;
     private AgreementType marginAgreementType;
 
-    private double agreedAmount;
+    private Double agreedAmount;
 
     private String side;
     private String statementId;
-    private double totalCouponPayment;
-    private double upfrontFee;
-    private double premiumPayment;
-    private double CDSCreditEvent;
-    private double NDFCashSettlement;
-    private double clearingFee;
-    private double brokerFee;
-    private double initialBalanceCash;
-    private double initialBalanceNonCash;
+    private Double totalCouponPayment;
+    private Double upfrontFee;
+    private Double premiumPayment;
+    private Double CDSCreditEvent;
+    private Double NDFCashSettlement;
+    private Double clearingFee;
+    private Double brokerFee;
+    private Double initialBalanceCash;
+    private Double initialBalanceNonCash;
 
     private Dispute dispute;
 
@@ -99,6 +112,11 @@ public class MarginCall {
     public void removeAllPledges()  {
         pledges.clear();
     }
+
+    private String role;
+    private String notificationTime; // Should be changed to a LocalTime at some point but not sure how to build a soc
+    private Double netRequiredAmount;
+    private String comment;
 
     @Data
     public static class PledgeFxRates {
