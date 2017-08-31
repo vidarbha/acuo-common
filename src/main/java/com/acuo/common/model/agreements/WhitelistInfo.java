@@ -3,6 +3,8 @@ package com.acuo.common.model.agreements;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class WhitelistInfo {
 
@@ -12,5 +14,6 @@ public class WhitelistInfo {
     private TradingParty cptyTradingParty;
     private LegalEntity cptyLegalEntity;
     private LegalEntity clientLegalEntity;
+    private LocalDateTime modifyDate;
 
 }
