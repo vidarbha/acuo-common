@@ -57,6 +57,23 @@ public interface Types {
         Rejected
     }
 
+    enum AgreementBusinessState {
+        Active,
+        Cancelled,
+        Change_Accepted,
+        Change_Cancelled,
+        Change_Rejected,
+        Discontinuation_Accepted,
+        Discontinuation_Cancelled,
+        Discontinuation_Rejected,
+        Discontinued,
+        Pending_Assigned,
+        Pending_Change,
+        Pending_Discontinuation,
+        Pending_New,
+        Pending_Rejected
+    }
+
     enum ReasonCodeType {
         Generic,
         Security,
