@@ -17,7 +17,7 @@ public class Agreement {
     private BilateralDetails bilateralDetails;
     private String longName;
     private String agreementShortName;
-    private String agreementType;
+    private Set <Types.AgreementType> agreementType;
     private Integer agreementVersion;
     private boolean allowMultipleMarginCallsPerDay;
     private String ampId;
