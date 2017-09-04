@@ -21,7 +21,7 @@ public class Agreement {
     private Integer agreementVersion;
     private boolean allowMultipleMarginCallsPerDay;
     private String ampId;
-    private String businessState;
+    private Types.AgreementBusinessState businessState;
     private String createdBy;
     private String counterpartyAmpId;
     private String counterpartyLabel;
