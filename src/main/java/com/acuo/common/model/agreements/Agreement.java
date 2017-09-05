@@ -14,10 +14,10 @@ public class Agreement {
     private Currency accountBaseCurrency;
     private Currency accountOperatingCurrency;
     private LocalDate activeDate;
-    private BilateralDetails bilateralDetails;
+    private Set<BilateralDetails> bilateralDetails;
     private String longName;
     private String agreementShortName;
-    private Set <Types.AgreementType> agreementType;
+    private Types.AgreementType agreementType;
     private Integer agreementVersion;
     private boolean allowMultipleMarginCallsPerDay;
     private String ampId;
