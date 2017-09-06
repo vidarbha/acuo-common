@@ -26,6 +26,7 @@ public class Agreement {
     private String counterpartyAmpId;
     private String counterpartyLabel;
     private LocalDateTime createDate;
+    private LocalDateTime discontinueDate;
     private String createUserAmpId;
     private String direction;
     private String externalUsername;
