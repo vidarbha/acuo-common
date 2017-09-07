@@ -38,6 +38,7 @@ public class Agreement {
     private LocalDateTime modifyDate;
     private String modifyUserAmpId;
     private LocalDateTime requestedActiveDate;
+    private LocalDateTime requestedDiscontinueDate;
     private boolean substitutionEnabled;
     private String timeZone;
     private Double threshold;
