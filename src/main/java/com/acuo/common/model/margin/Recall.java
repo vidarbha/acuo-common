@@ -4,6 +4,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import lombok.Data;
 
 import java.time.LocalDate;
+import static com.acuo.common.model.margin.Types.*;
 
 @Data
 public class Recall {
@@ -23,6 +24,8 @@ public class Recall {
     private double haircut;
     private String externalUsername;
     private int rejectReasonCode;
+    private String rejectComment;
     private int version;
-
+    private Boolean recallIsAccepted;
+    private BusinessState businessState;
 }
