@@ -4,6 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.joda.convert.StringConvert;
+import org.mockito.ArgumentMatcher;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -103,6 +104,13 @@ public class TestHelper {
 			public void describeTo(Description description) {
 				description.appendText("The argument value doesn't match the regexp ").appendValue(regex);
 			}
+		};
+	}
+
+	public static ArgumentMatcher<String> matchesArgRegex(String query) {
+		return argument -> {
+			Pattern exp = Pattern.compile(query, Pattern.DOTALL);
+			return exp.matcher(argument).find();
 		};
 	}
 }
