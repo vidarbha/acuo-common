@@ -11,8 +11,14 @@ import java.util.Set;
 @Data
 public class Agreement {
     private String id;
+    private Integer trigger;
+    private String marginType;
+    private String eligibleCurrency;
+    private String terminateCurrency;
+    private String settlementCurrency;
+    private String majorCurrency;
+    private String baseCurrency;
     private Currency accountBaseCurrency;
-    private Currency accountOperatingCurrency;
     private LocalDate activeDate;
     private Set<BilateralDetails> bilateralDetails;
     private String longName;
@@ -45,6 +51,8 @@ public class Agreement {
     private String valuationAgentAmpId;
     private boolean soleCalculation;
     private boolean initialCallsEnabled;
+    private String initialCallType;
+    private String requestInitialCallType;
     private boolean separateInitialCallsByCurrency;
     private boolean variationCallsEnabled;
     private boolean separateVariationCallsByCurrency;

@@ -30,6 +30,10 @@ public interface Types {
         Secured, Pledgor
     }
 
+    enum Role {
+        Secured, Pledgor
+    }
+
     enum AgreementType {
         Group, CSA, Regulatory_CSA, SCSA, MRA
     }
@@ -78,6 +82,10 @@ public interface Types {
         Pending_Rejected
     }
 
+    enum ExposureTreatment {
+        Gross,
+        Net
+    }
     enum ReasonCodeType {
         Generic,
         Security,
