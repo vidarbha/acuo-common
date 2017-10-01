@@ -1,5 +1,9 @@
 package com.acuo.common.model.margin;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static com.acuo.common.model.margin.Types.AssetType.*;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.*;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.MarginCall;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
@@ -20,6 +24,32 @@ public interface Types {
 
     enum AssetType {
         Cash, NonCash
+    }
+
+    enum AssetSubType {
+
+        CASH(Cash),
+        TBILL(NonCash),
+        NOTE(NonCash),
+        BOND(NonCash),
+        BILL(NonCash),
+        EQUITY(NonCash);
+
+        private AssetType parentType;
+
+        AssetSubType(AssetType parentType){
+            this.parentType = parentType;
+        }
+
+        public AssetType getParentType(){
+            return parentType;
+        }
+
+        public static AssetSubType[] of(AssetType parentType) {
+            return Arrays.stream(values())
+                    .filter(assetSubType -> assetSubType.parentType == parentType)
+                    .toArray(AssetSubType[]::new);
+        }
     }
 
     enum BalanceStatus {
