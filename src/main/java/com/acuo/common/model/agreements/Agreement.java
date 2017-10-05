@@ -21,7 +21,9 @@ public class Agreement {
     private Currency accountBaseCurrency;
     private LocalDate activeDate;
     private Set<BilateralDetails> bilateralDetails;
+    private Set<DefaultValues> defaultValues;
     private String longName;
+    private String acceptedBy;
     private String agreementShortName;
     private Types.AgreementType agreementType;
     private Integer agreementVersion;
@@ -29,11 +31,11 @@ public class Agreement {
     private String ampId;
     private Types.AgreementBusinessState businessState;
     private String createdBy;
+    private String createUserAmpId;
     private String counterpartyAmpId;
     private String counterpartyLabel;
     private LocalDateTime createDate;
     private LocalDateTime discontinueDate;
-    private String createUserAmpId;
     private String direction;
     private String externalUsername;
     private boolean interestStatementEnabled;
