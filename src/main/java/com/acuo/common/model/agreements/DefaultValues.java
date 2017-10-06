@@ -15,7 +15,7 @@ public class DefaultValues {
     private boolean autoAgreeWithinTolerance;
     private boolean autoFullDisputeForNoAction;
     private boolean autoPartialDisputeMismatched;
-    private boolean autoPledgeTolerancePercentage;
+    private double autoPledgeTolerancePercentage;
     private Currency currency;
     private Double deliverMinimumTransferAmount;
     private Double deliverRoundingAmount;
