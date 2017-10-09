@@ -22,6 +22,8 @@ public class Agreement {
     private LocalDate activeDate;
     private Set<BilateralDetails> bilateralDetails;
     private Set<DefaultValues> defaultValues;
+    private Set<StpConfigurations> stpConfigurations;
+    private Set<LocalDetails> localDetails;
     private String longName;
     private String acceptedBy;
     private String agreementShortName;
