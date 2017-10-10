@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Data
@@ -22,4 +23,10 @@ public class BilateralDetails {
     private Double marginTermDeliverRoundingAmount;
     private Double marginTermReturnMinimumTransferAmount;
     private Double marginTermReturnRoundingAmount;
+    private String marginTermDeliverRoundingMethod;
+    private String marginTermReturnRoundingMethod;
+    private Double marginTermThresholdAmount;
+    private String marginTermThresholdTreatment;
+    private String marginTermNotificationTime;
+    private String marginTermNotificationTimeZone;
 }
