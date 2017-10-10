@@ -29,6 +29,6 @@ public class BilateralDetails {
     private String marginTermThresholdTreatment;
     private String marginTermNotificationTime;
     private String marginTermNotificationTimeZone;
-    private String marginTermStartDate;
-    private String marginTermEndDate;
+    private LocalDateTime marginTermStartDate;
+    private LocalDateTime marginTermEndDate;
 }
