@@ -10,5 +10,7 @@ public class StpConfigurations {
     private boolean callIssuanceManual;
     private String organizationAmpId;
     private String stpAction;
-    private String stpOption;
+    private String stpOptionCallType;
+    private String stpOptionType;
+    private String stpOptionCurrency;
 }
