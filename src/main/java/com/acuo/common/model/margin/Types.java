@@ -1,9 +1,9 @@
 package com.acuo.common.model.margin;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
-import static com.acuo.common.model.margin.Types.AssetType.*;
+import static com.acuo.common.model.margin.Types.AssetType.Cash;
+import static com.acuo.common.model.margin.Types.AssetType.NonCash;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.*;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.MarginCall;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
@@ -65,7 +65,7 @@ public interface Types {
     }
 
     enum AgreementType {
-        Group, CSA, Regulatory_CSA, SCSA, MRA
+        Group, CSA, Regulatory_CSA, SCSA, MRA, CLEARED
     }
 
     enum DeliveryType {
