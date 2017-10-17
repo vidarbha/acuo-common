@@ -3,6 +3,8 @@ package com.acuo.common.util;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static java.time.DayOfWeek.SATURDAY;
+
 public class LocalDateUtils {
 
     private LocalDateUtils() {}
@@ -20,7 +22,7 @@ public class LocalDateUtils {
         int addedDays = 0;
         while (addedDays < workdays) {
             result = result.plusDays(1);
-            if (!(result.getDayOfWeek() == DayOfWeek.SATURDAY ||
+            if (!(result.getDayOfWeek() == SATURDAY ||
                     result.getDayOfWeek() == DayOfWeek.SUNDAY)) {
                 ++addedDays;
             }
@@ -38,11 +40,23 @@ public class LocalDateUtils {
         int removedDays = 0;
         while (removedDays < workdays) {
             result = result.minusDays(1);
-            if (!(result.getDayOfWeek() == DayOfWeek.SATURDAY ||
+            if (!(result.getDayOfWeek() == SATURDAY ||
                     result.getDayOfWeek() == DayOfWeek.SUNDAY)) {
                 ++removedDays;
             }
         }
         return result;
+    }
+
+    public static LocalDate adjustForWeekend(LocalDate date) {
+        ArgChecker.notNull(date, "date");
+        switch(date.getDayOfWeek()) {
+            case SATURDAY:
+                return date.plusDays(2);
+            case SUNDAY:
+                return date.plusDays(1);
+            default:
+                return date;
+        }
     }
 }
