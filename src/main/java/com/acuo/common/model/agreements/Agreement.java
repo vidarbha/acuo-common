@@ -63,6 +63,10 @@ public class Agreement {
     private boolean creditCallsEnabled;
     private Set<InterestBenchmark> interestBenchmark;
     private Set<Types.NettingCallType> nettingCallTypes;
+
+    private double MTA1;
+    private double MTA2;
+    private String thresholdTreatment;
 }
 
 
