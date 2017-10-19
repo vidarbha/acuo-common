@@ -35,7 +35,7 @@ public class Assets {
     private String issuerGroupId;
     private String issuerCountryCode;
     private String issuerSector;
-    private boolean issuerIsMemeberState;
+    private boolean issuerIsMemberState;
     private String moodyRating;
     private String snpRating;
     private String ratingMethod;
