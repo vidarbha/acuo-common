@@ -14,6 +14,7 @@ public class TradeInfo {
     private String tradingAccountId;
     private LocalDate tradeDate;
     private LocalDateTime tradeTime;
+    private LocalDate effectiveDate;
     private LocalDate maturityDate;
     private String clearedTradeId;
     private LocalDate clearedTradeDate;
