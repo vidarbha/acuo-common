@@ -1,7 +1,7 @@
 package com.acuo.common.app;
 
-import com.acuo.common.type.TypedString;
 import com.acuo.common.util.ArgChecker;
+import com.opengamma.strata.collect.TypedString;
 import org.joda.convert.FromString;
 
 import java.util.HashMap;
