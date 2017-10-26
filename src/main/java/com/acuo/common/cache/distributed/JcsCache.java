@@ -15,16 +15,14 @@
  */
 package com.acuo.common.cache.distributed;
 
+import com.acuo.common.cache.base.CacheAcquireException;
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.acuo.common.cache.base.CacheAcquireException;
 
 /**
  * JCS (Java Caching System) implementation of Castor JDO Cache.
@@ -41,12 +39,9 @@ import com.acuo.common.cache.base.CacheAcquireException;
  * @version $Revision: 9041 $ $Date: 2011-08-16 11:51:17 +0200 (Di, 16 Aug 2011) $
  * @since 1.0
  */
+@Slf4j
 public final class JcsCache<K, V> extends AbstractDistributedCache<K, V> {
     //--------------------------------------------------------------------------
-
-    /** The <a href="http://jakarta.apache.org/commons/logging/">Jakarta Commons
-     *  Logging </a> instance used for all logging. */
-    private static final Log LOG = LogFactory.getLog(JcsCache.class);
 
     /** The type of the cache. */
     public static final String TYPE = "jcs";
@@ -117,7 +112,7 @@ public final class JcsCache<K, V> extends AbstractDistributedCache<K, V> {
             _clearMethod = cls.getMethod("clear", (Class[]) null);
         } catch (Exception e) {
             String msg = "Error creating JCS cache: " + e.getMessage();
-            LOG.error(msg, e);
+            log.error(msg, e);
             throw new CacheAcquireException(msg, e);
         }
     }
@@ -250,7 +245,7 @@ public final class JcsCache<K, V> extends AbstractDistributedCache<K, V> {
             return method.invoke(_cache, arguments);
         } catch (Exception e) {
             String msg = "Failed to call method on JCS instance: " + e.getMessage();
-            LOG.error(msg, e);
+            log.error(msg, e);
             throw new IllegalStateException(e.getMessage());
         }
     }

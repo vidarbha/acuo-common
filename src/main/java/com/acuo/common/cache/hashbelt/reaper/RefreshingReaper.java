@@ -15,12 +15,10 @@
  */
 package com.acuo.common.cache.hashbelt.reaper;
 
-import java.util.Iterator;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.acuo.common.cache.hashbelt.container.Container;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Iterator;
 
 /**
  * Calls a refresh method on each object in the container; it reinserts any
@@ -38,11 +36,9 @@ import com.acuo.common.cache.hashbelt.container.Container;
  * @version $Revision: 9040 $ $Date: 2011-08-16 08:26:59 +0200 (Di, 16 Aug 2011) $
  * @since 1.0
  */
+@Slf4j
 public abstract class RefreshingReaper<K, V> extends AbstractReaper<K, V> {
-    /** The <a href="http://jakarta.apache.org/commons/logging/">Jakarta Commons
-     *  Logging </a> instance used for all logging. */
-    private static final Log LOG = LogFactory.getLog(RefreshingReaper.class);
-
+    
     /**
      * {@inheritDoc}
      */
@@ -56,7 +52,7 @@ public abstract class RefreshingReaper<K, V> extends AbstractReaper<K, V> {
             try {
                 refreshed = refresh(value);
             } catch (Throwable t) {
-                LOG.error("Caught exception while processing refresh on a cache value; "
+                log.error("Caught exception while processing refresh on a cache value; "
                         + "dropping cache value", t);
                 if (t instanceof VirtualMachineError) {
                     throw (VirtualMachineError) t;

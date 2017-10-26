@@ -2,17 +2,16 @@ package com.acuo.common.marshal;
 
 import com.acuo.common.util.ArgChecker;
 import com.google.inject.TypeLiteral;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Support for {@link Marshaller} implementations.
  *
  * @since 1.0
  */
+@Slf4j
 public abstract class MarshallerSupport implements Marshaller {
 
-	private static final Logger log = LoggerFactory.getLogger(MarshallerSupport.class);
 
 	@Override
 	public String marshal(final Object body) throws Exception {

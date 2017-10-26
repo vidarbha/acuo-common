@@ -1,13 +1,11 @@
 package com.acuo.common.cache.manager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.concurrent.TimeUnit.*;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 /**
  * A Generic Cache Object wrapper. Implements the Cacheable interface uses a TimeToLive strategy for
@@ -16,9 +14,9 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * @author Jonathan Lurie
  * @version 1.0
  */
+@Slf4j
 public class CachedObject implements Cacheable
 {
-	private static Log LOG = LogFactory.getLog(CachedObject.class);
 
 	/* This variable will be used to determine if the object is expired. */
 	private java.util.Date dateofExpiration = null;
@@ -89,12 +87,12 @@ public class CachedObject implements Cacheable
 			// date of expiration is compared.
 			if (dateofExpiration.before(new java.util.Date()))
 			{
-				LOG.debug("CachedResultSet.isExpired:  Expired from Cache! EXPIRE TIME: " + dateofExpiration.toString() + " CURRENT TIME: " + (new java.util.Date()).toString());
+				log.debug("CachedResultSet.isExpired:  Expired from Cache! EXPIRE TIME: " + dateofExpiration.toString() + " CURRENT TIME: " + (new java.util.Date()).toString());
 				return true;
 			}
 			else
 			{
-				LOG.debug("CachedResultSet.isExpired:  Expired not from Cache!");
+				log.debug("CachedResultSet.isExpired:  Expired not from Cache!");
 				return false;
 			}
 		}

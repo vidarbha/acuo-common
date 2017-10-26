@@ -9,5 +9,5 @@ import javax.annotation.Nonnull;
 public interface HttpServerWrapperFactory {
 
     @Nonnull
-    public HttpServerWrapper getHttpServerWrapper(@Nonnull HttpServerWrapperConfig config);
+    HttpServerWrapper getHttpServerWrapper(@Nonnull HttpServerWrapperConfig config);
 }

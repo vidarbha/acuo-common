@@ -4,11 +4,8 @@
 
 package com.acuo.common.http.server;
 
-import org.eclipse.jetty.server.handler.ContextHandler;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.inject.Provider;
 import javax.servlet.ServletContextListener;
 import java.util.List;
@@ -21,7 +18,6 @@ import static com.google.common.collect.Maps.newHashMap;
 /**
  * Config info for {@link HttpServerWrapper}.
  */
-@NotThreadSafe
 public final class HttpServerWrapperConfig {
 
 	private final List<HttpServerConnectorConfig> connectorConfigs = newArrayList();
@@ -95,7 +91,6 @@ public final class HttpServerWrapperConfig {
 	 *
 	 * @param maxFormContentSize
 	 *            content size in bytes, -1 to use Jetty default
-	 * @see ContextHandler#setMaxFormContentSize(int)
 	 */
 	public void setMaxFormContentSize(int maxFormContentSize) {
 		this.maxFormContentSize = maxFormContentSize;
