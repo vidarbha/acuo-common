@@ -21,4 +21,9 @@ public class OkHttpCall implements Call {
     public String send() {
         return client.send(this);
     }
+
+    @Override
+    public Response execute() {
+        return client.execute(this);
+    }
 }

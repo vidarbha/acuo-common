@@ -12,4 +12,5 @@ public interface Call {
 
     String send();
 
+    Response execute();
 }

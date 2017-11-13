@@ -11,4 +11,6 @@ public interface ClientEndPoint<T> {
     Call call(Request request, Predicate<String> predicate);
 
     String send(Call call);
+
+    Response execute(Call call);
 }

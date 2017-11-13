@@ -65,6 +65,16 @@ public class OkHttpClient<T extends EndPointConfig> implements ClientEndPoint<T>
         }
     }
 
+    @Override
+    public com.acuo.common.http.client.Response execute(Call call) {
+        try {
+            Response response = httpClient.newCall(call.getRequest()).execute();
+            return new DefaultResponse(response);
+        } catch (IOException e) {
+            return new DefaultResponse(e);
+        }
+    }
+
     protected String execute(Request request) {
         try {
             Response response = httpClient.newCall(request).execute();
