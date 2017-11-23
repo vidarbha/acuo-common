@@ -20,6 +20,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.mycila.guice.ext.closeable.CloseableInjector;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
@@ -39,6 +40,7 @@ import static java.util.stream.Collectors.toList;
  * A JUnit class runner for Guice based applications.
  *
  */
+@Slf4j
 public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 
 	private Injector injector;
@@ -94,9 +96,9 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 			try {
 				injector.getInstance(CloseableInjector.class).close();
 			} catch (ConfigurationException e) {
-				throw new IllegalStateException("You forgot to either add GuiceRule(..., AnnotationsModule.class), "
-						+ "or in your Module use an install(new AnnotationsModule()) with "
-						+ AnnotationsModule.class.getName(), e);
+				log.warn("You forgot to either add GuiceRule(..., AnnotationsModule.class), "
+						+ "or in your Module use an install(new AnnotationsModule()) with {}, msg {}"
+						, AnnotationsModule.class.getName(), e.getMessage());
 			}
 		}
 	}

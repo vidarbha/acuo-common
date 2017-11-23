@@ -1,21 +1,22 @@
 package com.acuo.common.security;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.acuo.common.app.AppId;
 import com.acuo.common.app.Configuration;
 import com.acuo.common.app.SecurityKey;
 import com.acuo.common.util.GuiceJUnitRunner;
 import com.google.inject.AbstractModule;
-import com.google.inject.name.Names;
 import org.jasypt.encryption.pbe.PBEStringEncryptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(GuiceJUnitRunner.class)
-@GuiceJUnitRunner.GuiceModules({ EncryptionModuleTest.SystemPropertyModule.class, EncryptionModule.class })
+@GuiceJUnitRunner.GuiceModules({
+        EncryptionModuleTest.SystemPropertyModule.class,
+        EncryptionModule.class })
 public class EncryptionModuleTest {
 
     public static class SystemPropertyModule extends AbstractModule {
