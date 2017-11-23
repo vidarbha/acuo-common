@@ -29,7 +29,6 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -115,9 +114,7 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 		GuiceModules annotation = klass.getAnnotation(GuiceModules.class);
 		if (annotation == null)
 			throw new InitializationError("Missing @GuiceModules annotation for unit test '" + klass.getName() + "'");
-		ArrayList<Class<?>> classes = new ArrayList<>(Arrays.asList(annotation.value()));
-		classes.add(AnnotationsModule.class);
-		return classes.stream().map(aClass -> {
+		return Arrays.stream(annotation.value()).map(aClass -> {
 			try {
 				return (Module) (aClass).newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {

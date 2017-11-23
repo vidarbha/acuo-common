@@ -10,7 +10,7 @@ import com.mycila.guice.ext.jsr250.Jsr250Module;
  *
  * @author Michael Vorburger.ch
  */
-class AnnotationsModule extends AbstractModule {
+public class AnnotationsModule extends AbstractModule {
 
     @Override
     protected void configure() {
