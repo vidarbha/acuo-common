@@ -1,5 +1,6 @@
 package com.acuo.common.closeable;
 
+import com.acuo.common.util.AnnotationsModule;
 import com.acuo.common.util.GuiceJUnitRunner;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -15,7 +16,10 @@ import javax.inject.Singleton;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(GuiceJUnitRunner.class)
-@GuiceJUnitRunner.GuiceModules({CloseableServiceTest.DummyModule.class})
+@GuiceJUnitRunner.GuiceModules({
+        CloseableServiceTest.DummyModule.class,
+        AnnotationsModule.class
+})
 public class CloseableServiceTest {
 
     @Inject
