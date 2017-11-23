@@ -38,7 +38,9 @@ dependencies {
             "com.google.inject.extensions:guice-multibindings:${versions.guice}",
             "com.google.inject.extensions:guice-servlet:${versions.guice}",
             "com.google.inject.extensions:guice-assistedinject:${versions.guice}",
-            "com.smokejumperit.guice:core:${versions.smokejumperit}"
+            "com.smokejumperit.guice:core:${versions.smokejumperit}",
+            "com.mycila.guice.extensions:mycila-guice-jsr250:4.0.rc1",
+            "com.mycila.guice.extensions:mycila-guice-closeable:4.0.rc1"
     )
 
     implementation(

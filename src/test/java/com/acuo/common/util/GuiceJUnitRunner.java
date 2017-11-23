@@ -15,9 +15,11 @@
  */
 package com.acuo.common.util;
 
+import com.google.inject.ConfigurationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.mycila.guice.ext.closeable.CloseableInjector;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
@@ -27,6 +29,12 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * A JUnit class runner for Guice based applications.
@@ -65,6 +73,7 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 		super.run(notifier);
 		if (setupListener != null)
 			setupListener.afterClassSetup();
+		tearDownInjector();
 	}
 
 	/**
@@ -76,25 +85,21 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 	 */
 	public GuiceJUnitRunner(Class<?> klass) throws InitializationError {
 		super(klass);
-		Class<?>[] classes = getModulesFor(klass);
-		injector = createInjectorFor(classes);
+		final List<Module> modules = getModulesFor(klass);
+		injector = Guice.createInjector(modules);
 	}
 
-	/**
-	 * @param classes
-	 * @return
-	 * @throws InitializationError
-	 */
-	private Injector createInjectorFor(Class<?>[] classes) throws InitializationError {
-		Module[] modules = new Module[classes.length];
-		for (int i = 0; i < classes.length; i++) {
+	protected void tearDownInjector() {
+		if (injector != null) {
+			// http://code.mycila.com/guice/#3-jsr-250
 			try {
-				modules[i] = (Module) (classes[i]).newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				throw new InitializationError(e);
+				injector.getInstance(CloseableInjector.class).close();
+			} catch (ConfigurationException e) {
+				throw new IllegalStateException("You forgot to either add GuiceRule(..., AnnotationsModule.class), "
+						+ "or in your Module use an install(new AnnotationsModule()) with "
+						+ AnnotationsModule.class.getName(), e);
 			}
 		}
-		return Guice.createInjector(modules);
 	}
 
 	/**
@@ -106,11 +111,21 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 	 *         injector for the given test.
 	 * @throws InitializationError
 	 */
-	private Class<?>[] getModulesFor(Class<?> klass) throws InitializationError {
+	private List<Module> getModulesFor(Class<?> klass) throws InitializationError {
 		GuiceModules annotation = klass.getAnnotation(GuiceModules.class);
 		if (annotation == null)
 			throw new InitializationError("Missing @GuiceModules annotation for unit test '" + klass.getName() + "'");
-		return annotation.value();
+		ArrayList<Class<?>> classes = new ArrayList<>(Arrays.asList(annotation.value()));
+		classes.add(AnnotationsModule.class);
+		return classes.stream().map(aClass -> {
+			try {
+				return (Module) (aClass).newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				return null;
+			}
+		})
+		.filter(Objects::nonNull)
+		.collect(toList());
 	}
 
 }
