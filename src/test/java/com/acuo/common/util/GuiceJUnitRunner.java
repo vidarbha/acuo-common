@@ -44,6 +44,7 @@ import static java.util.stream.Collectors.toList;
 public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 
 	private Injector injector;
+	private CloseableInjector closeableInjector;
 	private InstanceTestClassListener setupListener;
 
 	@Target(ElementType.TYPE)
@@ -53,11 +54,6 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 		Class<?>[] value();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.junit.runners.BlockJUnit4ClassRunner#createTest()
-	 */
 	@Override
 	public Object createTest() throws Exception {
 		Object obj = super.createTest();
@@ -88,18 +84,19 @@ public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 		super(klass);
 		final List<Module> modules = getModulesFor(klass);
 		injector = Guice.createInjector(modules);
+		try {
+			// http://code.mycila.com/guice/#3-jsr-250
+			this.closeableInjector = injector.getInstance(CloseableInjector.class);
+		} catch (ConfigurationException e) {
+			log.warn("You forgot to either add GuiceRule(..., AnnotationsModule.class), "
+							+ "or in your Module use an install(new AnnotationsModule()) with {}, msg {}"
+					, AnnotationsModule.class.getName(), e.getMessage());
+		}
 	}
 
 	protected void tearDownInjector() {
-		if (injector != null) {
-			// http://code.mycila.com/guice/#3-jsr-250
-			try {
-				injector.getInstance(CloseableInjector.class).close();
-			} catch (ConfigurationException e) {
-				log.warn("You forgot to either add GuiceRule(..., AnnotationsModule.class), "
-						+ "or in your Module use an install(new AnnotationsModule()) with {}, msg {}"
-						, AnnotationsModule.class.getName(), e.getMessage());
-			}
+		if (closeableInjector != null) {
+			closeableInjector.close();
 		}
 	}
 
