@@ -20,69 +20,65 @@ import static com.google.common.collect.Maps.newHashMap;
  */
 public final class HttpServerWrapperConfig {
 
-	private final List<HttpServerConnectorConfig> connectorConfigs = newArrayList();
-
-	private int maxFormContentSize = -1;
-
-	@Nullable
-	private String accessLogConfigFileInClasspath = "/" + this.getClass().getPackage().getName().replace('.', '/')
-			+ "/pl-default-logback-access.xml";
-	@Nullable
-	private String accessLogConfigFileInFilesystem = null;
-
 	private String contextPath = null;
-
-	private final Map<String, String> initParamters = newHashMap();
-
+	private String apiPath = null;
+	private int maxFormContentSize = -1;
 	private boolean logbackAccessQuiet = true;
-
+	private boolean supportWebSocket = false;
+	private final Map<String, String> initParamters = newHashMap();
+	private final List<HttpServerConnectorConfig> connectorConfigs = newArrayList();
 	private final List<HttpResourceHandlerConfig> httpResourceHandlerConfigs = newArrayList();
-
 	private final List<ListenerRegistration> servletContextListeners = newArrayList();
 
 	@Nullable
-	public String getAccessLogConfigFileInClasspath() {
-		return accessLogConfigFileInClasspath;
-	}
-
-	/**
-	 * This is checked after the value set in
-	 * {@link HttpServerWrapperConfig#setAccessLogConfigFileInFilesystem(String)}
-	 * . The default value points to a bundled config file that prints combined
-	 * access log to the console's stdout.
-	 *
-	 * Setting this nulls the accessLogConfigFileInFilesystem.
-	 *
-	 * @param accessLogConfigFileInClasspath
-	 *            Classpath path to logback-access config file.
-	 */
-	public void setAccessLogConfigFileInClasspath(@Nullable String accessLogConfigFileInClasspath) {
-		this.accessLogConfigFileInFilesystem = null;
-		this.accessLogConfigFileInClasspath = accessLogConfigFileInClasspath;
-	}
+	private String accessLogConfigFileInClasspath = "/" + getClass().getPackage().getName().replace('.', '/')
+			+ "/pl-default-logback-access.xml";
 
 	@Nullable
-	public String getAccessLogConfigFileInFilesystem() {
-		return accessLogConfigFileInFilesystem;
+	private String accessLogConfigFileInFilesystem = null;
+
+	@Nonnull
+	public HttpServerWrapperConfig withContextPath(String contextPath) {
+		setContextPath(contextPath);
+		return this;
 	}
 
-	/**
-	 * If this is not set, the value set in
-	 * {@link HttpServerWrapperConfig#setAccessLogConfigFileInClasspath(String)}
-	 * is used.
-	 *
-	 * Setting this nulls the accessLogConfigFileInClasspath.
-	 *
-	 * @param accessLogConfigFileInFilesystem
-	 *            Filesystem path to logback-access config file.
-	 */
-	public void setAccessLogConfigFileInFilesystem(@Nullable String accessLogConfigFileInFilesystem) {
-		this.accessLogConfigFileInClasspath = null;
-		this.accessLogConfigFileInFilesystem = accessLogConfigFileInFilesystem;
+	public String getContextPath() {
+		return contextPath;
+	}
+
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
+	}
+
+	@Nonnull
+	public HttpServerWrapperConfig withApiPath(String apiPath) {
+		setApiPath(apiPath);
+		return this;
+	}
+
+	public String getApiPath() {
+		return apiPath;
+	}
+
+	public void setApiPath(String apiPath) {
+		this.apiPath = apiPath;
 	}
 
 	public int getMaxFormContentSize() {
 		return maxFormContentSize;
+	}
+
+	/**
+	 * @param maxFormContentSize
+	 *            max form content size
+	 * @return this
+	 * @see HttpServerWrapperConfig#setMaxFormContentSize(int)
+	 */
+	@Nonnull
+	public HttpServerWrapperConfig withMaxFormContentSize(int maxFormContentSize) {
+		setMaxFormContentSize(maxFormContentSize);
+		return this;
 	}
 
 	/**
@@ -96,20 +92,69 @@ public final class HttpServerWrapperConfig {
 		this.maxFormContentSize = maxFormContentSize;
 	}
 
-	public String getContextPath() {
-		return contextPath;
+	public boolean isLogbackAccessQuiet() {
+		return logbackAccessQuiet;
 	}
 
-	public void setContextPath(String contextPath) {
-		this.contextPath = contextPath;
+	/**
+	 * @param logbackAccessQuiet
+	 *            logback access 'quiet' mode setting
+	 * @return this
+	 * @see HttpServerWrapperConfig#setLogbackAccessQuiet(boolean)
+	 */
+	@Nonnull
+	public HttpServerWrapperConfig withLogbackAccessQuiet(boolean logbackAccessQuiet) {
+		setLogbackAccessQuiet(logbackAccessQuiet);
+		return this;
+	}
+
+	/**
+	 * Sets the Logback Access request log handler's quiet flag.
+	 *
+	 * @param logbackAccessQuiet
+	 *            true to muffle Logback status messages on startup, false to
+	 *            allow them.
+	 */
+	public void setLogbackAccessQuiet(boolean logbackAccessQuiet) {
+		this.logbackAccessQuiet = logbackAccessQuiet;
+	}
+
+	public HttpServerWrapperConfig withWebSocketSupport() {
+		setWebSocketSupport(true);
+		return this;
+	}
+
+	public void setWebSocketSupport(boolean webSocketSupport) {
+		this.supportWebSocket = webSocketSupport;
+	}
+
+	public boolean isWebSocketSupport() {
+		return supportWebSocket;
+	}
+
+	public Map<String, String> getInitParemeters() {
+		return initParamters;
 	}
 
 	public void addInitParameter(String key, String value) {
 		initParamters.put(key, value);
 	}
 
-	public Map<String, String> getInitParemeters() {
-		return initParamters;
+	@Nonnull
+	public List<HttpServerConnectorConfig> getHttpServerConnectorConfigs() {
+		return connectorConfigs;
+	}
+
+	/**
+	 * @param config
+	 *            connector config
+	 * @return this
+	 * @see HttpServerWrapperConfig#addHttpServerConnectorConfig(HttpServerConnectorConfig)
+	 */
+	@Nonnull
+	public HttpServerWrapperConfig withHttpServerConnectorConfig(@Nonnull HttpServerConnectorConfig config) {
+		addHttpServerConnectorConfig(config);
+		return this;
 	}
 
 	/**
@@ -122,6 +167,23 @@ public final class HttpServerWrapperConfig {
 		connectorConfigs.add(checkNotNull(connectorConfig));
 	}
 
+	@Nonnull
+	public List<HttpResourceHandlerConfig> getHttpResourceHandlerConfigs() {
+		return httpResourceHandlerConfigs;
+	}
+
+	/**
+	 * @param httpResourceHandlerConfig
+	 *            resource handler config
+	 * @return this
+	 * @see HttpServerWrapperConfig#addResourceHandlerConfig(HttpResourceHandlerConfig)
+	 */
+	public HttpServerWrapperConfig withResourceHandlerConfig(
+			@Nonnull HttpResourceHandlerConfig httpResourceHandlerConfig) {
+		addResourceHandlerConfig(httpResourceHandlerConfig);
+		return this;
+	}
+
 	/**
 	 * Add a HttpResourceHandlerConfig for serving static resources.
 	 *
@@ -130,6 +192,11 @@ public final class HttpServerWrapperConfig {
 	 */
 	public void addResourceHandlerConfig(@Nonnull HttpResourceHandlerConfig httpResourceHandlerConfig) {
 		httpResourceHandlerConfigs.add(httpResourceHandlerConfig);
+	}
+
+	@Nonnull
+	List<ListenerRegistration> getServletContextListeners() {
+		return servletContextListeners;
 	}
 
 	/**
@@ -154,36 +221,9 @@ public final class HttpServerWrapperConfig {
 		servletContextListeners.add(ListenerRegistration.forListenerProvider(listenerProvider));
 	}
 
-	@Nonnull
-	public List<HttpServerConnectorConfig> getHttpServerConnectorConfigs() {
-		return connectorConfigs;
-	}
-
-	public boolean isLogbackAccessQuiet() {
-		return logbackAccessQuiet;
-	}
-
-	/**
-	 * Sets the Logback Access request log handler's quiet flag.
-	 *
-	 * @param logbackAccessQuiet
-	 *            true to muffle Logback status messages on startup, false to
-	 *            allow them.
-	 */
-	public void setLogbackAccessQuiet(boolean logbackAccessQuiet) {
-		this.logbackAccessQuiet = logbackAccessQuiet;
-	}
-
-	/**
-	 * @param config
-	 *            connector config
-	 * @return this
-	 * @see HttpServerWrapperConfig#addHttpServerConnectorConfig(HttpServerConnectorConfig)
-	 */
-	@Nonnull
-	public HttpServerWrapperConfig withHttpServerConnectorConfig(@Nonnull HttpServerConnectorConfig config) {
-		addHttpServerConnectorConfig(config);
-		return this;
+	@Nullable
+	public String getAccessLogConfigFileInClasspath() {
+		return accessLogConfigFileInClasspath;
 	}
 
 	/**
@@ -196,6 +236,27 @@ public final class HttpServerWrapperConfig {
 	public HttpServerWrapperConfig withAccessLogConfigFileInClasspath(@Nullable String accessLogConfigFileInClasspath) {
 		setAccessLogConfigFileInClasspath(accessLogConfigFileInClasspath);
 		return this;
+	}
+
+	/**
+	 * This is checked after the value set in
+	 * {@link HttpServerWrapperConfig#setAccessLogConfigFileInFilesystem(String)}
+	 * . The default value points to a bundled config file that prints combined
+	 * access log to the console's stdout.
+	 *
+	 * Setting this nulls the accessLogConfigFileInFilesystem.
+	 *
+	 * @param accessLogConfigFileInClasspath
+	 *            Classpath path to logback-access config file.
+	 */
+	public void setAccessLogConfigFileInClasspath(@Nullable String accessLogConfigFileInClasspath) {
+		this.accessLogConfigFileInFilesystem = null;
+		this.accessLogConfigFileInClasspath = accessLogConfigFileInClasspath;
+	}
+
+	@Nullable
+	public String getAccessLogConfigFileInFilesystem() {
+		return accessLogConfigFileInFilesystem;
 	}
 
 	/**
@@ -212,48 +273,17 @@ public final class HttpServerWrapperConfig {
 	}
 
 	/**
-	 * @param maxFormContentSize
-	 *            max form content size
-	 * @return this
-	 * @see HttpServerWrapperConfig#setMaxFormContentSize(int)
+	 * If this is not set, the value set in
+	 * {@link HttpServerWrapperConfig#setAccessLogConfigFileInClasspath(String)}
+	 * is used.
+	 *
+	 * Setting this nulls the accessLogConfigFileInClasspath.
+	 *
+	 * @param accessLogConfigFileInFilesystem
+	 *            Filesystem path to logback-access config file.
 	 */
-	@Nonnull
-	public HttpServerWrapperConfig withMaxFormContentSize(int maxFormContentSize) {
-		setMaxFormContentSize(maxFormContentSize);
-		return this;
-	}
-
-	/**
-	 * @param logbackAccessQuiet
-	 *            logback access 'quiet' mode setting
-	 * @return this
-	 * @see HttpServerWrapperConfig#setLogbackAccessQuiet(boolean)
-	 */
-	@Nonnull
-	public HttpServerWrapperConfig withLogbackAccessQuiet(boolean logbackAccessQuiet) {
-		setLogbackAccessQuiet(logbackAccessQuiet);
-		return this;
-	}
-
-	/**
-	 * @param httpResourceHandlerConfig
-	 *            resource handler config
-	 * @return this
-	 * @see HttpServerWrapperConfig#addResourceHandlerConfig(HttpResourceHandlerConfig)
-	 */
-	public HttpServerWrapperConfig withResourceHandlerConfig(
-			@Nonnull HttpResourceHandlerConfig httpResourceHandlerConfig) {
-		addResourceHandlerConfig(httpResourceHandlerConfig);
-		return this;
-	}
-
-	@Nonnull
-	public List<HttpResourceHandlerConfig> getHttpResourceHandlerConfigs() {
-		return httpResourceHandlerConfigs;
-	}
-
-	@Nonnull
-	List<ListenerRegistration> getServletContextListeners() {
-		return servletContextListeners;
+	public void setAccessLogConfigFileInFilesystem(@Nullable String accessLogConfigFileInFilesystem) {
+		this.accessLogConfigFileInClasspath = null;
+		this.accessLogConfigFileInFilesystem = accessLogConfigFileInFilesystem;
 	}
 }

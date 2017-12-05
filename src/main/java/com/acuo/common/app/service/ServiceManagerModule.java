@@ -1,4 +1,4 @@
-package com.acuo.common.app;
+package com.acuo.common.app.service;
 
 import com.google.common.util.concurrent.Service;
 import com.google.common.util.concurrent.ServiceManager;

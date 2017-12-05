@@ -1,11 +1,14 @@
 package com.acuo.common.app;
 
+import com.acuo.common.app.main.ResteasyConfig;
+import com.acuo.common.app.service.ServiceManagerHealthCheck;
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapper;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 import com.acuo.common.http.server.HttpServerWrapperFactory;
 import com.acuo.common.metrics.HealthCheckServletContextListener;
 import com.acuo.common.metrics.MetricsServletContextListener;
+import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.util.concurrent.AbstractService;
 import com.google.common.util.concurrent.Service;
 import com.google.common.util.concurrent.ServiceManager;
@@ -14,7 +17,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;
-import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.servlet.ServletContextListener;
@@ -35,8 +37,7 @@ public abstract class ResteasyMain extends AbstractService {
 		LogManager.getLogManager().reset();
 		SLF4JBridgeHandler.install();
 
-		BinderProviderCapture<? extends ServletContextListener> listenerProvider = new BinderProviderCapture<>(
-				GuiceResteasyBootstrapServletContextListener.class);
+		BinderProviderCapture<? extends ServletContextListener> listenerProvider = new BinderProviderCapture<>(GuiceResteasyWebSocketContextListener.class);
 
 		Injector injector = Guice.createInjector(new ServiceModule(listenerProvider, providers(), modules(), config()));
 

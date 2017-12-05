@@ -230,6 +230,8 @@ public final class HttpServerWrapperTest {
 				.withWelcomeFiles(Lists.newArrayList("alt-index.txt"));
 
 		return new HttpServerWrapperConfig().withAccessLogConfigFileInClasspath("/logback-access-test.xml")
+				.withContextPath("/")
+				.withApiPath("")
 				.withHttpServerConnectorConfig(httpsConfig)
 				.withHttpServerConnectorConfig(HttpServerConnectorConfig.forHttp("localhost", HTTP_PORT))
 				.withResourceHandlerConfig(httpResourceHandlerConfig1)

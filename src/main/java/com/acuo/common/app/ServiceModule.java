@@ -1,12 +1,13 @@
 package com.acuo.common.app;
 
+import com.acuo.common.app.main.ResteasyConfig;
+import com.acuo.common.app.service.ServiceManagerModule;
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapperModule;
 import com.acuo.common.metrics.MetricsModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
-import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
 
 import java.util.Collection;
 
@@ -30,22 +31,14 @@ class ServiceModule extends AbstractModule {
         binder().requireExplicitBindings();
 
         providers.stream().forEach(this::bind);
-
-        install(new HttpServerWrapperModule());
-
-        modules.stream().forEach(this::install);
-
-        bind(GuiceResteasyBootstrapServletContextListener.class);
-
         bind(ResteasyConfig.class).to(config).in(Singleton.class);
 
+        modules.forEach(this::install);
+        install(new HttpServerWrapperModule());
         install(new MetricsModule());
         install(new ResteasyServletModule());
+        install(new ServiceManagerModule());
 
         listenerProvider.saveProvider(binder());
-
-        install(new ServiceManagerModule());
     }
-
-
 }

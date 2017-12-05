@@ -1,4 +1,4 @@
-package com.acuo.common.app;
+package com.acuo.common.app.service;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.google.common.util.concurrent.Service;

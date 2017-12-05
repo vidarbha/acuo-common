@@ -5,6 +5,8 @@
 package com.acuo.common.http.server;
 
 import ch.qos.logback.access.jetty.RequestLogImpl;
+import com.acuo.common.app.guice.EventListenerScanner;
+import com.acuo.common.app.guice.HandlerScanner;
 import com.google.common.collect.Lists;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.servlet.GuiceFilter;
@@ -20,6 +22,7 @@ import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,15 +44,46 @@ public class HttpServerWrapper {
 
 	private final HttpServerWrapperConfig httpServerWrapperConfig;
 	private final GuiceFilter filter;
+	private final EventListenerScanner eventListenerScanner;
+	private final HandlerScanner handlerScanner;
 	private final Server server = new Server();
 
 	@Inject
-	HttpServerWrapper(@Assisted HttpServerWrapperConfig httpServerWrapperConfig, GuiceFilter filter) {
+	HttpServerWrapper(@Assisted HttpServerWrapperConfig httpServerWrapperConfig,
+					  GuiceFilter filter,
+					  EventListenerScanner eventListenerScanner,
+					  HandlerScanner handlerScanner) {
 		this.httpServerWrapperConfig = httpServerWrapperConfig;
 		this.filter = filter;
+		this.eventListenerScanner = eventListenerScanner;
+		this.handlerScanner = handlerScanner;
 	}
 
 	public void start() throws Exception {
+
+
+		String contextRoot = httpServerWrapperConfig.getContextPath() != null ?
+				httpServerWrapperConfig.getContextPath() : "/";
+
+		String applicationPath = httpServerWrapperConfig.getApiPath() != null ?
+				httpServerWrapperConfig.getApiPath() : "/api";
+
+		ServletContextHandler servletHandler = new ServletContextHandler(server, contextRoot);
+
+		// add guice servlet filter
+		FilterHolder filterHolder = new FilterHolder(filter);
+		servletHandler.addFilter(filterHolder, applicationPath + "/*", EnumSet.allOf(DispatcherType.class));
+
+		// Setup the DefaultServlet at "/".
+		final ServletHolder defaultServlet = new ServletHolder(new DefaultServlet());
+		servletHandler.addServlet(defaultServlet, contextRoot);
+
+		servletHandler.setMaxFormContentSize(httpServerWrapperConfig.getMaxFormContentSize());
+
+		Map<String, String> initParemeters = httpServerWrapperConfig.getInitParemeters();
+		for (String key : initParemeters.keySet()) {
+			servletHandler.setInitParameter(key, initParemeters.get(key));
+		}
 
 		HandlerCollection handlerCollection = new HandlerCollection();
 
@@ -87,30 +121,23 @@ public class HttpServerWrapper {
 			handlerCollection.addHandler(contextHandlerCollection);
 		}
 
-		ServletContextHandler servletHandler = new ServletContextHandler();
-		servletHandler.setContextPath(
-				httpServerWrapperConfig.getContextPath() != null ? httpServerWrapperConfig.getContextPath() : "/");
+		handlerCollection.addHandler(servletHandler);
 
-		addDefaultServlet(servletHandler, "./src/main/webapp");
-
-		servletHandler.setMaxFormContentSize(httpServerWrapperConfig.getMaxFormContentSize());
-
-		Map<String, String> initParemeters = httpServerWrapperConfig.getInitParemeters();
-		for (String key : initParemeters.keySet()) {
-			servletHandler.setInitParameter(key, initParemeters.get(key));
-		}
-
-		// add guice servlet filter
-		FilterHolder filterHolder = new FilterHolder(filter);
-		servletHandler.addFilter(filterHolder, "/*", EnumSet.allOf(DispatcherType.class));
+		handlerScanner.accept(handlerCollection::addHandler);
 
 		for (ListenerRegistration listener : httpServerWrapperConfig.getServletContextListeners()) {
 			listener.apply(servletHandler);
 		}
 
-		handlerCollection.addHandler(servletHandler);
+		eventListenerScanner.accept(servletHandler::addEventListener);
+
 
 		server.setHandler(handlerCollection);
+
+		// add websocket support if configured
+		if (httpServerWrapperConfig.isWebSocketSupport()) {
+			WebSocketServerContainerInitializer.configureContext(servletHandler);
+		}
 
 		for (HttpServerConnectorConfig connectorConfig : httpServerWrapperConfig.getHttpServerConnectorConfigs()) {
 			if (connectorConfig.isTls()) {
