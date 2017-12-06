@@ -1,6 +1,5 @@
 package com.acuo.common.app;
 
-import com.acuo.common.app.main.ResteasyConfig;
 import com.acuo.common.app.service.ServiceManagerModule;
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapperModule;

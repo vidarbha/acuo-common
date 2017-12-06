@@ -1,10 +1,10 @@
 package com.acuo.common.app.main;
 
+import com.acuo.common.app.jetty.BinderProviderCapture;
+import com.acuo.common.app.jetty.JettyServerWrapper;
+import com.acuo.common.app.jetty.JettyServerWrapperConfig;
+import com.acuo.common.app.jetty.JettyServerWrapperFactory;
 import com.acuo.common.app.service.ServiceManagerHealthCheck;
-import com.acuo.common.http.server.BinderProviderCapture;
-import com.acuo.common.http.server.HttpServerWrapper;
-import com.acuo.common.http.server.HttpServerWrapperConfig;
-import com.acuo.common.http.server.HttpServerWrapperFactory;
 import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.util.concurrent.AbstractService;
 import com.google.common.util.concurrent.Service;
@@ -27,7 +27,7 @@ import java.util.logging.LogManager;
 public abstract class Main extends AbstractService {
 
     private final ServiceManager serviceManager;
-    private final HttpServerWrapper httpServerWrapper;
+    private final JettyServerWrapper httpServerWrapper;
 
     protected Main() {
         LogManager.getLogManager().reset();
@@ -35,14 +35,11 @@ public abstract class Main extends AbstractService {
 
         BinderProviderCapture<? extends ServletContextListener> listenerProvider = new BinderProviderCapture<>(GuiceResteasyWebSocketContextListener.class);
 
-        Injector injector = Guice.createInjector(new MainModule(config(), modules(), providers(), listenerProvider));
-
-        ResteasyConfig instance = injector.getInstance(ResteasyConfig.class);
-        HttpServerWrapperConfig config = instance.getConfig();
-//        config.addServletContextListener(injector.getInstance(HealthCheckServletContextListener.class));
-//        config.addServletContextListener(injector.getInstance(MetricsServletContextListener.class));
-//        config.addServletContextListener(injector.getInstance(SwaggerServletContextListener.class));
+        JettyServerWrapperConfig config = config();
         config.addServletContextListenerProvider(listenerProvider);
+
+        Injector injector = Guice.createInjector(new MainModule(config, modules(), providers(), listenerProvider));
+
 
         serviceManager = injector.getInstance(ServiceManager.class);
         final ServiceManager.Listener listener = new ServiceManager.Listener() {
@@ -65,10 +62,10 @@ public abstract class Main extends AbstractService {
         ServiceManagerHealthCheck serviceManagerHealthCheck = injector.getInstance(ServiceManagerHealthCheck.class);
         serviceManager.addListener(serviceManagerHealthCheck.serviceManagerListener());
 
-        httpServerWrapper = injector.getInstance(HttpServerWrapperFactory.class).getHttpServerWrapper(config);
+        httpServerWrapper = injector.getInstance(JettyServerWrapperFactory.class).getHttpServerWrapper(config);
     }
 
-    public abstract ResteasyConfig config();
+    public abstract JettyServerWrapperConfig config();
 
     protected Collection<Module> modules() {
         return Collections.emptyList();

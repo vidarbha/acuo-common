@@ -1,6 +1,5 @@
 package com.acuo.common.app;
 
-import com.acuo.common.app.main.ResteasyConfig;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.Service;
