@@ -1,11 +1,8 @@
 package com.acuo.common.app.main;
 
-import com.acuo.common.app.jetty.BinderProviderCapture;
 import com.acuo.common.app.jetty.JettyServerWrapper;
 import com.acuo.common.app.jetty.JettyServerWrapperConfig;
-import com.acuo.common.app.jetty.JettyServerWrapperFactory;
 import com.acuo.common.app.service.ServiceManagerHealthCheck;
-import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.util.concurrent.AbstractService;
 import com.google.common.util.concurrent.Service;
 import com.google.common.util.concurrent.ServiceManager;
@@ -15,7 +12,7 @@ import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import javax.servlet.ServletContextListener;
+import javax.inject.Provider;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,13 +30,7 @@ public abstract class Main extends AbstractService {
         LogManager.getLogManager().reset();
         SLF4JBridgeHandler.install();
 
-        BinderProviderCapture<? extends ServletContextListener> listenerProvider = new BinderProviderCapture<>(GuiceResteasyWebSocketContextListener.class);
-
-        JettyServerWrapperConfig config = config();
-        config.addServletContextListenerProvider(listenerProvider);
-
-        Injector injector = Guice.createInjector(new MainModule(config, modules(), providers(), listenerProvider));
-
+        Injector injector = Guice.createInjector(new MainModule(config(), modules(), providers()));
 
         serviceManager = injector.getInstance(ServiceManager.class);
         final ServiceManager.Listener listener = new ServiceManager.Listener() {
@@ -62,10 +53,10 @@ public abstract class Main extends AbstractService {
         ServiceManagerHealthCheck serviceManagerHealthCheck = injector.getInstance(ServiceManagerHealthCheck.class);
         serviceManager.addListener(serviceManagerHealthCheck.serviceManagerListener());
 
-        httpServerWrapper = injector.getInstance(JettyServerWrapperFactory.class).getHttpServerWrapper(config);
+        httpServerWrapper = injector.getInstance(JettyServerWrapper.class);
     }
 
-    public abstract JettyServerWrapperConfig config();
+    public abstract Class<? extends Provider<JettyServerWrapperConfig>> config();
 
     protected Collection<Module> modules() {
         return Collections.emptyList();

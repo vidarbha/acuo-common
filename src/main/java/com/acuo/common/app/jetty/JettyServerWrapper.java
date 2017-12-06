@@ -8,7 +8,6 @@ import ch.qos.logback.access.jetty.RequestLogImpl;
 import com.acuo.common.app.guice.EventListenerScanner;
 import com.acuo.common.app.guice.HandlerScanner;
 import com.google.common.collect.Lists;
-import com.google.inject.assistedinject.Assisted;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -42,18 +41,18 @@ public class JettyServerWrapper {
 
 	private static final Logger logger = LoggerFactory.getLogger(JettyServerWrapper.class);
 
-	private final JettyServerWrapperConfig httpServerWrapperConfig;
+	private final JettyServerWrapperConfig jettyServerWrapperConfig;
 	private final GuiceFilter filter;
 	private final EventListenerScanner eventListenerScanner;
 	private final HandlerScanner handlerScanner;
 	private final Server server = new Server();
 
 	@Inject
-	JettyServerWrapper(@Assisted JettyServerWrapperConfig httpServerWrapperConfig,
+	JettyServerWrapper(JettyServerWrapperConfig jettyServerWrapperConfig,
 					   GuiceFilter filter,
 					   EventListenerScanner eventListenerScanner,
 					   HandlerScanner handlerScanner) {
-		this.httpServerWrapperConfig = httpServerWrapperConfig;
+		this.jettyServerWrapperConfig = jettyServerWrapperConfig;
 		this.filter = filter;
 		this.eventListenerScanner = eventListenerScanner;
 		this.handlerScanner = handlerScanner;
@@ -61,12 +60,11 @@ public class JettyServerWrapper {
 
 	public void start() throws Exception {
 
+		String contextRoot = jettyServerWrapperConfig.getContextPath() != null ?
+				jettyServerWrapperConfig.getContextPath() : "/";
 
-		String contextRoot = httpServerWrapperConfig.getContextPath() != null ?
-				httpServerWrapperConfig.getContextPath() : "/";
-
-		String applicationPath = httpServerWrapperConfig.getApiPath() != null ?
-				httpServerWrapperConfig.getApiPath() : "/api";
+		String applicationPath = jettyServerWrapperConfig.getApiPath() != null ?
+				jettyServerWrapperConfig.getApiPath() : "/api";
 
 		ServletContextHandler servletHandler = new ServletContextHandler(server, contextRoot);
 
@@ -78,9 +76,9 @@ public class JettyServerWrapper {
 		final ServletHolder defaultServlet = new ServletHolder(new DefaultServlet());
 		servletHandler.addServlet(defaultServlet, contextRoot);
 
-		servletHandler.setMaxFormContentSize(httpServerWrapperConfig.getMaxFormContentSize());
+		servletHandler.setMaxFormContentSize(jettyServerWrapperConfig.getMaxFormContentSize());
 
-		Map<String, String> initParemeters = httpServerWrapperConfig.getInitParemeters();
+		Map<String, String> initParemeters = jettyServerWrapperConfig.getInitParemeters();
 		for (String key : initParemeters.keySet()) {
 			servletHandler.setInitParameter(key, initParemeters.get(key));
 		}
@@ -90,28 +88,28 @@ public class JettyServerWrapper {
 		// add logback-access request log
 		RequestLogHandler logHandler = new RequestLogHandler();
 		RequestLogImpl logbackRequestLog = new RequestLogImpl();
-		logbackRequestLog.setQuiet(httpServerWrapperConfig.isLogbackAccessQuiet());
-		if (httpServerWrapperConfig.getAccessLogConfigFileInFilesystem() != null) {
+		logbackRequestLog.setQuiet(jettyServerWrapperConfig.isLogbackAccessQuiet());
+		if (jettyServerWrapperConfig.getAccessLogConfigFileInFilesystem() != null) {
 			logger.debug("Loading logback access config from fs path "
-					+ httpServerWrapperConfig.getAccessLogConfigFileInFilesystem());
-			logbackRequestLog.setFileName(httpServerWrapperConfig.getAccessLogConfigFileInFilesystem());
+					+ jettyServerWrapperConfig.getAccessLogConfigFileInFilesystem());
+			logbackRequestLog.setFileName(jettyServerWrapperConfig.getAccessLogConfigFileInFilesystem());
 			logHandler.setRequestLog(logbackRequestLog);
 			handlerCollection.addHandler(logHandler);
-		} else if (httpServerWrapperConfig.getAccessLogConfigFileInClasspath() != null) {
+		} else if (jettyServerWrapperConfig.getAccessLogConfigFileInClasspath() != null) {
 			logger.debug("Loading logback access config from classpath path "
-					+ httpServerWrapperConfig.getAccessLogConfigFileInClasspath());
-			logbackRequestLog.setResource(httpServerWrapperConfig.getAccessLogConfigFileInClasspath());
+					+ jettyServerWrapperConfig.getAccessLogConfigFileInClasspath());
+			logbackRequestLog.setResource(jettyServerWrapperConfig.getAccessLogConfigFileInClasspath());
 			logHandler.setRequestLog(logbackRequestLog);
 			handlerCollection.addHandler(logHandler);
 		} else {
 			logger.info("No access logging configured.");
 		}
 
-		if (!httpServerWrapperConfig.getHandlerConfig().isEmpty()) {
+		if (!jettyServerWrapperConfig.getHandlerConfig().isEmpty()) {
 			ContextHandlerCollection contextHandlerCollection = new ContextHandlerCollection();
 
 			List<ContextHandler> contextHandlers = Lists.newArrayList();
-			for (JettyResourceHandlerConfig handlerConfig : httpServerWrapperConfig
+			for (JettyResourceHandlerConfig handlerConfig : jettyServerWrapperConfig
 					.getHandlerConfig()) {
 				contextHandlers.add(handlerConfig.buildHandler());
 			}
@@ -124,22 +122,16 @@ public class JettyServerWrapper {
 		handlerCollection.addHandler(servletHandler);
 
 		handlerScanner.accept(handlerCollection::addHandler);
-
-		for (ListenerRegistration listener : httpServerWrapperConfig.getServletContextListeners()) {
-			listener.apply(servletHandler);
-		}
-
 		eventListenerScanner.accept(servletHandler::addEventListener);
-
 
 		server.setHandler(handlerCollection);
 
 		// add websocket support if configured
-		if (httpServerWrapperConfig.isWebSocketSupport()) {
+		if (jettyServerWrapperConfig.isWebSocketSupport()) {
 			WebSocketServerContainerInitializer.configureContext(servletHandler);
 		}
 
-		for (JettyServerConnectorConfig connectorConfig : httpServerWrapperConfig.getHttpServerConnectorConfigs()) {
+		for (JettyServerConnectorConfig connectorConfig : jettyServerWrapperConfig.getHttpServerConnectorConfigs()) {
 			if (connectorConfig.isTls()) {
 				SslContextFactory sslContextFactory = new SslContextFactory();
 				sslContextFactory.setKeyStore(connectorConfig.getTlsKeystore());
@@ -176,20 +168,5 @@ public class JettyServerWrapper {
 	 */
 	public Server getServer() {
 		return server;
-	}
-
-	/**
-	 * @return the config for this wrapper
-	 */
-	public JettyServerWrapperConfig getHttpServerWrapperConfig() {
-		return httpServerWrapperConfig;
-	}
-
-	private void addDefaultServlet(ServletContextHandler servletHandler, String resourceBase) {
-		// Add Default Servlet (must be named "default")
-		ServletHolder holderDefault = new ServletHolder("default", DefaultServlet.class);
-		holderDefault.setInitParameter("resourceBase", resourceBase);
-		holderDefault.setInitParameter("dirAllowed", "true");
-		servletHandler.addServlet(holderDefault, "/");
 	}
 }

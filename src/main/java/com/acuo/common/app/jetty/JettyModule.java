@@ -3,13 +3,15 @@ package com.acuo.common.app.jetty;
 import com.acuo.common.app.guice.EventListenerScanner;
 import com.acuo.common.app.guice.HandlerScanner;
 import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.servlet.GuiceFilter;
+
+import javax.inject.Inject;
 
 public class JettyModule extends AbstractModule {
 
     private final JettyServerWrapperConfig config;
 
+    @Inject
     public JettyModule(JettyServerWrapperConfig config) {
         this.config = config;
     }
@@ -20,9 +22,6 @@ public class JettyModule extends AbstractModule {
         bind(EventListenerScanner.class);
         bind(HandlerScanner.class);
         bind(JettyServerWrapperConfig.class).toInstance(config);
-
-        install(new FactoryModuleBuilder()
-                .implement(JettyServerWrapper.class, JettyServerWrapper.class)
-                .build(JettyServerWrapperFactory.class));
+        bind(JettyServerWrapper.class);
     }
 }

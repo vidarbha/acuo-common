@@ -1,8 +1,9 @@
 package com.acuo.common.app.api;
 
-import com.acuo.common.app.main.ServerConfig;
+import com.acuo.common.app.jetty.JettyServerWrapperConfig;
 import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.collect.ImmutableMap;
+import com.google.inject.Inject;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.servlet.ServletModule;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
@@ -12,9 +13,10 @@ import java.util.Map;
 
 public class ApiModule extends ServletModule {
 
-    private final ServerConfig config;
+    private final JettyServerWrapperConfig config;
 
-    public ApiModule(ServerConfig config) {
+    @Inject
+    public ApiModule(JettyServerWrapperConfig config) {
         this.config = config;
     }
 
