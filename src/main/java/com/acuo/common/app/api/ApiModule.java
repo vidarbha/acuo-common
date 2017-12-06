@@ -1,6 +1,6 @@
 package com.acuo.common.app.api;
 
-import com.acuo.common.app.main.ResteasyConfig;
+import com.acuo.common.app.main.ServerConfig;
 import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.multibindings.Multibinder;
@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class ApiModule extends ServletModule {
 
-    private final ResteasyConfig config;
+    private final ServerConfig config;
 
-    public ApiModule(ResteasyConfig config) {
+    public ApiModule(ServerConfig config) {
         this.config = config;
     }
 
@@ -28,10 +28,10 @@ public class ApiModule extends ServletModule {
 
         bind(HttpServletDispatcher.class).asEagerSingleton();
 
-        String baseUrl = config.getConfig().getApiPath() != null ? config.getConfig().getApiPath() : "/*";
+        String baseUrl = config.getApiPath() != null ? config.getApiPath() : "/*";
         final Map<String, String> initParams = ImmutableMap.of("resteasy.servlet.mapping.prefix", baseUrl);
         String servingPath = baseUrl + (baseUrl.endsWith("/*") ? "" : "/*");
-        serve(servingPath).with(HttpServletDispatcher.class);
+        serve(servingPath).with(HttpServletDispatcher.class, initParams);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.acuo.common.app.swagger;
 
-import com.acuo.common.app.main.ResteasyConfig;
-import com.acuo.common.http.server.HttpResourceHandlerConfig;
+import com.acuo.common.app.jetty.JettyResourceHandlerConfig;
+import com.acuo.common.app.main.ServerConfig;
 import com.google.common.collect.Lists;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.servlet.ServletModule;
@@ -14,9 +14,9 @@ import javax.servlet.ServletContextListener;
 
 public class SwaggerModule extends ServletModule {
 
-    private final ResteasyConfig config;
+    private final ServerConfig config;
 
-    public SwaggerModule(ResteasyConfig config) {
+    public SwaggerModule(ServerConfig config) {
         this.config = config;
     }
 
@@ -32,15 +32,15 @@ public class SwaggerModule extends ServletModule {
         bind(ApiListingResource.class);
         bind(SwaggerSerializers.class);
 
-        HttpResourceHandlerConfig rhConfig = new HttpResourceHandlerConfig()
+        JettyResourceHandlerConfig rhConfig = new JettyResourceHandlerConfig()
                 .withBaseResource(Resource.newClassPathResource("/swagger-ui"))
                 .withWelcomeFiles(Lists.newArrayList("index.html"))
                 .withEtags(true)
                 .withContextPath("/swagger-ui");
 
-        config.getConfig().addResourceHandlerConfig(rhConfig);
+        config.addResourceHandlerConfig(rhConfig);
 
-        String baseUrl = config.getConfig().getApiPath() != null ? config.getConfig().getApiPath() : "/*";
+        String baseUrl = config.getApiPath() != null ? config.getApiPath() : "/*";
         String servingPath = baseUrl + (baseUrl.endsWith("/*") ? "" : "/*");
         filter(servingPath).through(ApiOriginFilter.class);
     }

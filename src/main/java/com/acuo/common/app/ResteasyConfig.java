@@ -1,4 +1,4 @@
-package com.acuo.common.app.main;
+package com.acuo.common.app;
 
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 
