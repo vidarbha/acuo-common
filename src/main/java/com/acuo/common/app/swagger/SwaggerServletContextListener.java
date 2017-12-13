@@ -25,9 +25,8 @@ import javax.servlet.ServletContextListener;
         beanConfig.setHost("localhost:9090");
         beanConfig.setBasePath("/acuo/api");
 
-        beanConfig.setTitle("RESTEasy, Embedded Jetty, Swagger and Guice");
-        beanConfig.setDescription("Money transfer application.");
-
+        beanConfig.setTitle("ACUO Rest API");
+        beanConfig.setDescription("ACUO Rest API Service documentation");
 
         beanConfig.setResourcePackage("com.acuo.valuation.web.resource");
         beanConfig.setScan(true);
