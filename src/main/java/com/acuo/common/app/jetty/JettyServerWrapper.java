@@ -70,7 +70,7 @@ public class JettyServerWrapper {
 
 		// add guice servlet filter
 		FilterHolder filterHolder = new FilterHolder(filter);
-		servletHandler.addFilter(filterHolder, applicationPath + "/*", EnumSet.allOf(DispatcherType.class));
+		servletHandler.addFilter(filterHolder, "/*", EnumSet.allOf(DispatcherType.class));
 
 		// Setup the DefaultServlet at "/".
 		final ServletHolder defaultServlet = new ServletHolder(new DefaultServlet());

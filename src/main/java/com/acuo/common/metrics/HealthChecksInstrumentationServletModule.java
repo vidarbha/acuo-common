@@ -26,11 +26,11 @@ public class HealthChecksInstrumentationServletModule extends ServletModule {
 		bind(PingServlet.class).asEagerSingleton();
 		bind(ThreadDumpServlet.class).asEagerSingleton();
 
-		serveRegex("(.)*/admin").with(AdminServlet.class);
-		serveRegex("(.)*/admin/metrics").with(MetricsServlet.class);
-		serveRegex("(.)*/admin/ping").with(PingServlet.class);
-		serveRegex("(.)*/admin/threads").with(ThreadDumpServlet.class);
-		serveRegex("(.)*/admin/healthcheck").with(HealthCheckServlet.class);
+		serve("/admin").with(AdminServlet.class);
+		serve("/admin/metrics").with(MetricsServlet.class);
+		serve("/admin/ping").with(PingServlet.class);
+		serve("/admin/threads").with(ThreadDumpServlet.class);
+		serve("/admin/healthcheck").with(HealthCheckServlet.class);
 
 		// Ensure that the binding exists, even if it is empty.
 		Multibinder.newSetBinder(binder(), HealthCheck.class);
