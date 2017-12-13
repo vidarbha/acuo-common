@@ -11,11 +11,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Set;
 
-public class HelthChecksInstrumentationServletModule extends ServletModule {
+public class HealthChecksInstrumentationServletModule extends ServletModule {
 
 	private final HealthCheckRegistry healthCheckRegistry;
 
-	public HelthChecksInstrumentationServletModule(HealthCheckRegistry healthCheckRegistry){
+	public HealthChecksInstrumentationServletModule(HealthCheckRegistry healthCheckRegistry){
 		this.healthCheckRegistry = healthCheckRegistry;
 	}
 	
@@ -26,11 +26,11 @@ public class HelthChecksInstrumentationServletModule extends ServletModule {
 		bind(PingServlet.class).asEagerSingleton();
 		bind(ThreadDumpServlet.class).asEagerSingleton();
 
-		serve("/admin").with(AdminServlet.class);
-		serve("/admin/metrics").with(MetricsServlet.class);
-		serve("/admin/ping").with(PingServlet.class);
-		serve("/admin/threads").with(ThreadDumpServlet.class);
-		serve("/admin/healthcheck").with(HealthCheckServlet.class);
+		serveRegex("(.)*/admin").with(AdminServlet.class);
+		serveRegex("(.)*/admin/metrics").with(MetricsServlet.class);
+		serveRegex("(.)*/admin/ping").with(PingServlet.class);
+		serveRegex("(.)*/admin/threads").with(ThreadDumpServlet.class);
+		serveRegex("(.)*/admin/healthcheck").with(HealthCheckServlet.class);
 
 		// Ensure that the binding exists, even if it is empty.
 		Multibinder.newSetBinder(binder(), HealthCheck.class);

@@ -1,19 +1,20 @@
 package com.acuo.common.metrics;
 
-import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
-import com.codahale.metrics.*;
+import com.codahale.metrics.JmxReporter;
+import com.codahale.metrics.Metric;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.MetricSet;
+import com.codahale.metrics.Slf4jReporter;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.jvm.BufferPoolMetricSet;
 import com.codahale.metrics.jvm.GarbageCollectorMetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
 import com.palominolabs.metrics.guice.MetricsInstrumentationModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContextListener;
 import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -49,12 +50,8 @@ public class MetricsModule extends AbstractModule {
 		bind(MetricsServletContextListener.class);
 		bind(HealthCheckServletContextListener.class);
 
-		Multibinder<ServletContextListener> multibinder = Multibinder.newSetBinder(binder(), ServletContextListener.class);
-		multibinder.addBinding().to(MetricsServletContextListener.class);
-		multibinder.addBinding().to(HealthCheckServletContextListener.class);
-
 		install(new MetricsInstrumentationModule(mr));
-		install(new HelthChecksInstrumentationServletModule(hr));
+		install(new HealthChecksInstrumentationServletModule(hr));
 
 		final Slf4jReporter reporter = Slf4jReporter.forRegistry(mr)
 				.outputTo(LoggerFactory.getLogger("com.acuo.metrics"))

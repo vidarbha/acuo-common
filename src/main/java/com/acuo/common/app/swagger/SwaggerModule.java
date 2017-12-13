@@ -3,7 +3,6 @@ package com.acuo.common.app.swagger;
 import com.acuo.common.app.jetty.JettyResourceHandlerConfig;
 import com.acuo.common.app.jetty.JettyServerWrapperConfig;
 import com.google.common.collect.Lists;
-import com.google.inject.multibindings.Multibinder;
 import com.google.inject.servlet.ServletModule;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
@@ -11,7 +10,6 @@ import org.eclipse.jetty.util.resource.Resource;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.servlet.ServletContextListener;
 
 public class SwaggerModule extends ServletModule {
 
@@ -26,10 +24,6 @@ public class SwaggerModule extends ServletModule {
     protected void configureServlets() {
 
         bind(SwaggerServletContextListener.class);
-
-        Multibinder<ServletContextListener> multibinder = Multibinder.newSetBinder(binder(), ServletContextListener.class);
-        multibinder.addBinding().to(SwaggerServletContextListener.class);
-
         bind(ApiOriginFilter.class).in(Singleton.class);
         bind(ApiListingResource.class);
         bind(SwaggerSerializers.class);

@@ -4,11 +4,9 @@ import com.acuo.common.app.jetty.JettyServerWrapperConfig;
 import com.acuo.common.websocket.GuiceResteasyWebSocketContextListener;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
-import com.google.inject.multibindings.Multibinder;
 import com.google.inject.servlet.ServletModule;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 
-import javax.servlet.ServletContextListener;
 import java.util.Map;
 
 public class ApiModule extends ServletModule {
@@ -24,10 +22,6 @@ public class ApiModule extends ServletModule {
     protected void configureServlets() {
 
         bind(GuiceResteasyWebSocketContextListener.class);
-
-        Multibinder<ServletContextListener> multibinder = Multibinder.newSetBinder(binder(), ServletContextListener.class);
-        multibinder.addBinding().to(GuiceResteasyWebSocketContextListener.class);
-
         bind(HttpServletDispatcher.class).asEagerSingleton();
 
         String baseUrl = config.getApiPath() != null ? config.getApiPath() : "/*";
