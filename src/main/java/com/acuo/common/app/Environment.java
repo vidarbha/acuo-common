@@ -24,7 +24,6 @@ public class Environment extends TypedString<Environment> {
 		super(name);
 	}
 
-	@FromString
 	private static Environment of(String name) {
 		ArgChecker.notNull(name, "name");
 		return getOrCreate(name);
@@ -44,10 +43,6 @@ public class Environment extends TypedString<Environment> {
 	@FromString
 	public static Environment lookup(String name) {
 		ArgChecker.notNull(name, "name");
-		Environment environment = lookup.get(name);
-		if (environment != null)
-			return environment;
-		else
-			throw new IllegalArgumentException("Environment named [" + name + "] doesn't exist");
+		return getOrCreate(name);
 	}
 }
