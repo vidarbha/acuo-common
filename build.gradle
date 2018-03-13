@@ -12,7 +12,7 @@ apply from: "https://raw.githubusercontent.com/anaxo-io/gradle-plugins/master/ja
 group = 'com.acuo.collateral'
 
 ext.versions += [
-        model        : '0.1.0-SNAPSHOT'
+        model        : '0.1.0'
 ]
 
 dependencies {
