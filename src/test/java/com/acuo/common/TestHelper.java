@@ -6,7 +6,11 @@ import org.hamcrest.TypeSafeMatcher;
 import org.joda.convert.StringConvert;
 import org.mockito.ArgumentMatcher;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -103,13 +107,10 @@ public class TestHelper {
 		};
 	}
 
-	public static ArgumentMatcher<String> matchesArgRegex(final String regex) {
-		return new ArgumentMatcher<String>() {
-			@Override
-			public boolean matches(final Object item) {
-				Pattern exp = Pattern.compile(regex, Pattern.DOTALL);
-				return exp.matcher((String) item).find();
-			}
+	public static ArgumentMatcher<String> matchesArgRegex(String query) {
+		return argument -> {
+			Pattern exp = Pattern.compile(query, Pattern.DOTALL);
+			return exp.matcher(argument).find();
 		};
 	}
 }

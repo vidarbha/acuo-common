@@ -2,11 +2,11 @@ package com.acuo.common.model.product;
 
 import com.acuo.common.model.AdjustableDate;
 import com.acuo.common.model.AdjustableSchedule;
+import com.acuo.common.model.CompoundingSchedule;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.DayCount;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.basics.index.FloatingRateName;
-import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.basics.schedule.RollConvention;
 import com.opengamma.strata.product.common.PayReceive;
 import com.opengamma.strata.product.swap.FixingRelativeTo;
@@ -53,6 +53,9 @@ public class Swap implements Product {
         private AdjustableSchedule calculationSchedule;
         private AdjustableSchedule resetSchedule;
         private RollConvention rollConvention;
+        private Boolean variableCurrency;
+        private Double futureNotional;
+        private CompoundingSchedule compoundingSchedule;
 
         @Override
         public int compareTo(SwapLeg other) {

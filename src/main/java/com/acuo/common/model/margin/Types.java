@@ -1,5 +1,9 @@
 package com.acuo.common.model.margin;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static com.acuo.common.model.margin.Types.AssetType.*;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.*;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.MarginCall;
 import static com.acuo.common.model.margin.Types.ReasonCodeType.Pledge;
@@ -11,11 +15,41 @@ public interface Types {
     }
 
     enum CallType {
-        Initial, Variation, Netted, Consolidated, Credit
+        Initial, Variation, Netted, Consolidated, Credit, Silo
+    }
+
+    enum NettingCallType {
+        Initial, Variation, Credit, All
     }
 
     enum AssetType {
         Cash, NonCash
+    }
+
+    enum AssetSubType {
+
+        CASH(Cash),
+        TBILL(NonCash),
+        NOTE(NonCash),
+        BOND(NonCash),
+        BILL(NonCash),
+        EQUITY(NonCash);
+
+        private AssetType parentType;
+
+        AssetSubType(AssetType parentType){
+            this.parentType = parentType;
+        }
+
+        public AssetType getParentType(){
+            return parentType;
+        }
+
+        public static AssetSubType[] of(AssetType parentType) {
+            return Arrays.stream(values())
+                    .filter(assetSubType -> assetSubType.parentType == parentType)
+                    .toArray(AssetSubType[]::new);
+        }
     }
 
     enum BalanceStatus {
@@ -26,8 +60,12 @@ public interface Types {
         Secured, Pledgor
     }
 
+    enum Role {
+        Secured, Pledgor
+    }
+
     enum AgreementType {
-        Group, CSA, Regulatory_CSA
+        Group, CSA, Regulatory_CSA, SCSA, MRA
     }
 
     enum DeliveryType {
@@ -57,6 +95,27 @@ public interface Types {
         Rejected
     }
 
+    enum AgreementBusinessState {
+        Active,
+        Cancelled,
+        Change_Accepted,
+        Change_Cancelled,
+        Change_Rejected,
+        Discontinuation_Accepted,
+        Discontinuation_Cancelled,
+        Discontinuation_Rejected,
+        Discontinued,
+        Pending_Assigned,
+        Pending_Change,
+        Pending_Discontinuation,
+        Pending_New,
+        Pending_Rejected
+    }
+
+    enum ExposureTreatment {
+        Gross,
+        Net
+    }
     enum ReasonCodeType {
         Generic,
         Security,

@@ -1,7 +1,6 @@
 package com.acuo.common.model.trade;
 
 import com.acuo.common.model.product.Product;
-import com.acuo.common.model.trade.Trade;
 
 /**
  * A trade that is directly based on a product.
@@ -20,6 +19,8 @@ public interface ProductTrade
    * 
    * @return the product
    */
-  public abstract Product getProduct();
+  Product getProduct();
+
+  ProductType getType();
 
 }
