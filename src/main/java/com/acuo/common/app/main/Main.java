@@ -1,5 +1,7 @@
 package com.acuo.common.app.main;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.util.StatusPrinter;
 import com.acuo.common.app.jetty.JettyServerWrapper;
 import com.acuo.common.app.jetty.JettyServerWrapperConfig;
 import com.acuo.common.app.service.ServiceManagerHealthCheck;
@@ -10,6 +12,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.inject.Provider;
@@ -29,6 +32,9 @@ public abstract class Main extends AbstractService {
     protected Main() {
         LogManager.getLogManager().reset();
         SLF4JBridgeHandler.install();
+
+        // print logback internal config
+        StatusPrinter.print((LoggerContext) LoggerFactory.getILoggerFactory());
 
         Injector injector = Guice.createInjector(new MainModule(config(), modules(), providers()));
 
