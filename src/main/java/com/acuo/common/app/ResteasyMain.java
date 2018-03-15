@@ -1,5 +1,7 @@
 package com.acuo.common.app;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.util.StatusPrinter;
 import com.acuo.common.app.service.ServiceManagerHealthCheck;
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapper;
@@ -16,6 +18,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.servlet.ServletContextListener;
@@ -35,6 +38,9 @@ public abstract class ResteasyMain extends AbstractService {
 	public ResteasyMain() {
 		LogManager.getLogManager().reset();
 		SLF4JBridgeHandler.install();
+
+		// print logback internal config
+		StatusPrinter.print((LoggerContext) LoggerFactory.getILoggerFactory());
 
 		BinderProviderCapture<? extends ServletContextListener> listenerProvider = new BinderProviderCapture<>(GuiceResteasyWebSocketContextListener.class);
 
