@@ -10,6 +10,12 @@ public class ValueFormatter {
 
     }
 
+    public static String format(Double value, String format) {
+        if (value == null)
+            value = 0.0d;
+        return String.format(format, value);
+    }
+
     public static String format(Double value) {
         if (value == null)
             value = 0.0d;
